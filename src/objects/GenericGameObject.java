@@ -1,4 +1,6 @@
-package conveyorio;
+package objects;
+
+import properties.Viewable;
 
 public abstract class GenericGameObject extends Viewable{
 	/*

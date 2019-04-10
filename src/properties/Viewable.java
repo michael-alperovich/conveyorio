@@ -1,4 +1,4 @@
-package conveyorio;
+package properties;
 
 public abstract class Viewable {
 	public int dimx = 0;

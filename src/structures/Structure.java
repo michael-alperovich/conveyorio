@@ -1,4 +1,7 @@
-package conveyorio;
+package structures;
+
+import objects.GenericGameObject;
+import properties.Viewable;
 
 public abstract class Structure extends Viewable{
 	/*

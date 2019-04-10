@@ -24,7 +24,3 @@ hs_err_pid*
 /bin/
 
 #eclipse and idea files
-.idea
-.classpath
-.project
-conveyorio.iml

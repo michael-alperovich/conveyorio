@@ -1,4 +1,6 @@
-package conveyorio;
+package properties;
+
+import structures.Structure;
 
 public abstract class Placeable extends Viewable{
 	
