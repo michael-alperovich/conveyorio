@@ -8,7 +8,4 @@ public abstract class Viewable {
 		dimx = x;
 		dimy = y;
 	}
-	
-	
-	abstract void updateGraphics() ;
 }

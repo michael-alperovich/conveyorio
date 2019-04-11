@@ -12,7 +12,7 @@ public abstract class Structure extends Viewable{
 	 */
 	private int x,y,xlen,ylen;
 	
-	public Structure(int xplace, int yplace,int dimX, int dimY,int objectTypeID) {
+	public Structure(int xplace, int yplace,int dimX, int dimY) {
 		super(dimX,dimY);
 		x = xplace;
 		y = yplace;

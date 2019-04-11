@@ -5,6 +5,8 @@ import structures.Structure;
 /*
  * Rendering Chunk, Can Render noGraphic or Graphics.
  */
+
+
 public class World {
 	public World() {
 		
