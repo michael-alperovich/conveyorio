@@ -16,17 +16,17 @@ import javax.swing.JPanel;
 
 import assets.ConveyorAssets;
 
-public class GameWindow {
+public class ConveyorAnimationGui {
 
    public Frame mainFrame;
-   public GameCanvas canv;
+   public AnimatedCanvas canv;
    public int x,y;
-   public GameWindow() {
+   public ConveyorAnimationGui() {
 	   x = 500;
 	   y = 500;
 	   prepareWindow();
    }
-   public GameWindow(int xsize, int ysize) throws Exception{
+   public ConveyorAnimationGui(int xsize, int ysize) throws Exception{
 	   if (xsize % 50 != 0 || ysize % 50 != 0) {
 		   System.out.println("non 50 div edges. exiting");
 		   throw new Exception("Game Window Size: "+xsize+ " "+ysize+" are not both multiples of 50. (mod 50 : "+(xsize % 50)+ " "+(ysize % 50)+")");
@@ -49,7 +49,7 @@ public class GameWindow {
    }
    public void boot() {boot(false);}
    public void boot(boolean fpstracking) {
-	   canv = new GameCanvas('N',fpstracking,x,y);
+	   canv = new AnimatedCanvas('N',fpstracking,x,y);
 	   mainFrame.addKeyListener(canv);
 	   canv.requestFocusInWindow();
 	   mainFrame.add(canv);
@@ -57,13 +57,13 @@ public class GameWindow {
 
    }
 }
-class GameCanvas extends JPanel implements KeyListener{
+class AnimatedCanvas extends JPanel implements KeyListener{
 	private static final long serialVersionUID = 1L;
 	public char direction;
 	public int cFrames = 0;
 	public boolean debugfps;
 	public int xmax, ymax;
-	public GameCanvas(char dir,boolean trackFPS,int maxX, int maxY) {
+	public AnimatedCanvas(char dir,boolean trackFPS,int maxX, int maxY) {
 		direction = dir;
 		debugfps = trackFPS;
 		xmax = maxX;

@@ -18,9 +18,9 @@ public class Main {
 			System.out.println("Enter in a phase number");
 			System.out.println(ConveyorAssets.east[sc.nextInt() % 50]);
 			break;
-		case "gui":
-			System.out.println("running gui");
-			openGame();
+		case "animate":
+			System.out.println("running animation gui");
+			openAnimation();
 			break;
 		case "trackfps":
 
@@ -28,7 +28,7 @@ public class Main {
 			break;
 		default:
 			System.out.println("defaulting to opengame");
-			openGame();
+			openAnimation();
 			break;
 		}
 		
@@ -44,12 +44,12 @@ public class Main {
 			@Override
 			public void run(){
 				// TODO Auto-generated method stub
-				GameWindow g;
+				ConveyorAnimationGui g;
 				System.out.println("Enter in dimensions of window (must be multiples 50)");
 				int xmax = sc.nextInt();
 				int ymax = sc.nextInt();
 				try {
-					g = new GameWindow(xmax	,ymax);
+					g = new ConveyorAnimationGui(xmax	,ymax);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -80,9 +80,9 @@ public class Main {
 		t.start();
 	}
 
-	public static void openGame() throws Exception {
-		System.out.println("<---------------booting gui---------->");
-		GameWindow g = new GameWindow(500,500);
+	public static void openAnimation() throws Exception {
+		System.out.println("<---------------opening conveyor animation---------->");
+		ConveyorAnimationGui g = new ConveyorAnimationGui(500,500);
 		g.boot();
 	}
 	
