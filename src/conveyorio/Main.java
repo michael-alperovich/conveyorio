@@ -3,7 +3,9 @@ package conveyorio;
 import java.io.IOException;
 import java.util.Scanner;
 
+import assets.CoalAssets;
 import assets.ConveyorAssets;
+import objects.Coal;
 
 public class Main {
 	/*
@@ -28,12 +30,18 @@ public class Main {
 			break;
 		default:
 			System.out.println("defaulting to opengame");
-			openAnimation();
+			openGame();
 			break;
 		}
 		
 		
 		
+	}
+
+	private static void openGame() throws Exception {
+		System.out.println("<---------------opening game animation---------->");
+		GameWindow g = new GameWindow(500,500);
+		g.boot();
 	}
 
 	private static void openTrackFPS(){
@@ -96,6 +104,14 @@ public class Main {
 			System.out.println("[-] Conveyor Assets Failed to Load Assets");
 			e.printStackTrace();
 			
+		}
+		try {
+			CoalAssets.loadAssets();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("[-] Coal Assets Failed to Load Assets");
+			e.printStackTrace();
+
 		}
 		return Responses.OK;
 	}

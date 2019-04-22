@@ -2,6 +2,8 @@ package objects;
 
 import properties.Viewable;
 
+import java.awt.image.BufferedImage;
+
 public abstract class GenericGameObject extends Viewable{
 	/*
 	 * Generic Object that can interface with the game
@@ -30,7 +32,7 @@ public abstract class GenericGameObject extends Viewable{
 		currentx = -1;
 		currenty = -1;
 	}
-	abstract void getIcon(); /* TODO make this return a drawable object */
+	abstract BufferedImage getIcon();
 	
 	
 	public void updatePosition(int newx, int newy) {

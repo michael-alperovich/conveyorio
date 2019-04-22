@@ -1,33 +1,26 @@
 package conveyorio;
 
-import java.awt.Color;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Label;
-import java.awt.Panel;
+import assets.CoalAssets;
+import assets.ConveyorAssets;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JPanel;
-
-import assets.CoalAssets;
-import assets.ConveyorAssets;
-
-public class ConveyorAnimationGui {
+public class GameWindow {
 
    public Frame mainFrame;
-   public AnimatedCanvas canv;
+   public GameCavans canv;
    public int x,y;
-   public ConveyorAnimationGui() {
+   public GameWindow() {
 	   x = 500;
 	   y = 500;
 	   prepareWindow();
    }
-   public ConveyorAnimationGui(int xsize, int ysize) throws Exception{
+   public GameWindow(int xsize, int ysize) throws Exception{
 	   if (xsize % 50 != 0 || ysize % 50 != 0) {
 		   System.out.println("non 50 div edges. exiting");
 		   throw new Exception("Game Window Size: "+xsize+ " "+ysize+" are not both multiples of 50. (mod 50 : "+(xsize % 50)+ " "+(ysize % 50)+")");
@@ -50,7 +43,7 @@ public class ConveyorAnimationGui {
    }
    public void boot() {boot(false);}
    public void boot(boolean fpstracking) {
-	   canv = new AnimatedCanvas('N',fpstracking,x,y);
+	   canv = new GameCavans('N',fpstracking,x,y);
 	   mainFrame.addKeyListener(canv);
 	   canv.requestFocusInWindow();
 	   mainFrame.add(canv);
@@ -58,13 +51,14 @@ public class ConveyorAnimationGui {
 
    }
 }
-class AnimatedCanvas extends JPanel implements KeyListener{
+
+class GameCavans extends JPanel implements KeyListener{
 	private static final long serialVersionUID = 1L;
 	public char direction;
 	public int cFrames = 0;
 	public boolean debugfps;
 	public int xmax, ymax;
-	public AnimatedCanvas(char dir,boolean trackFPS,int maxX, int maxY) {
+	public GameCavans(char dir,boolean trackFPS,int maxX, int maxY) {
 		direction = dir;
 		debugfps = trackFPS;
 		xmax = maxX;
@@ -81,17 +75,7 @@ class AnimatedCanvas extends JPanel implements KeyListener{
         }
 
         super.paintComponent(g);
-   		g2 = (Graphics2D) g;
-   		
-		long time = System.currentTimeMillis();
-		int cSecondPeriod = (int) (time % 1000);
-		cSecondPeriod /= 20;
-		for(int x = 0; x < xmax;x+= 50) {
-			for(int y = 0; y < ymax;y += 50) {
-				g.drawImage(ConveyorAssets.east[cSecondPeriod], x , y, this);
-			}
-		}
-		g.drawImage(CoalAssets.coal[0], (int)((time % 10000) * 0.05) % xmax  , 50, this);
+   		g.drawRect(2 * xmax / 8, 6 * ymax / 8, xmax / 2, ymax / 8);
 		this.repaint();
 	}
 	@Override
