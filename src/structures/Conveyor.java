@@ -1,6 +1,7 @@
 package structures;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import objects.GenericGameObject;
@@ -23,11 +24,6 @@ public class Conveyor extends Structure {
     @Override
     void onUpdate(Graphics g, int px, int py) {
 
-    }
-
-    @Override
-    void onUpdate() {
-    	// handling stuff off screen.
     }
 
     @Override
@@ -76,8 +72,9 @@ public class Conveyor extends Structure {
     }
 
 	@Override
-	boolean canRecieve(int x, int y) {
-		// TODO Auto-generated method stub
+	boolean canReceive(int x, int y) {
+		int[] coordinates = toLocal(x, y);
+
 		return false;
 	}
 
