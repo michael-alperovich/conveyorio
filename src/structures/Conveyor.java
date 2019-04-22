@@ -21,7 +21,7 @@ public class Conveyor extends Structure {
     }
     
     @Override
-    void onUpdate(Graphics g) {
+    void onUpdate(Graphics g, int px, int py) {
 
     }
 
@@ -63,6 +63,7 @@ public class Conveyor extends Structure {
     			return new int[] {0,0};
     	}
     }
+    
     @Override
     void onGet(int localX, int localY, GenericGameObject g) {
     	// convert it into cordinates we understand; (takes into account direction, assume that north is -y, south is +y, east is +x, west is -x)

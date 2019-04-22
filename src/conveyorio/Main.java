@@ -2,7 +2,6 @@ package conveyorio;
 
 import java.io.IOException;
 import java.util.Scanner;
-
 import assets.CoalAssets;
 import assets.ConveyorAssets;
 import objects.Coal;

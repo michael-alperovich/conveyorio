@@ -14,8 +14,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 
-import assets.CoalAssets;
-import assets.ConveyorAssets;
+import assets.*;
 
 public class ConveyorAnimationGui {
 
