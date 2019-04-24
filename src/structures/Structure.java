@@ -22,7 +22,7 @@ public abstract class Structure extends Viewable{
 		ylen = dimY;
 	}
 	
-	abstract void onUpdate();
+	public abstract void onUpdate(Graphics g, int px, int py);
 
 	
 	abstract void onDelete();
