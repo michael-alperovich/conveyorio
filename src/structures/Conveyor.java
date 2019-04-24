@@ -3,8 +3,9 @@ package structures;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import assets.ConveyorAssets;
+import conveyorio.Point;
 import objects.GenericGameObject;
-
 public class Conveyor extends Structure {
 
     private DIRECTIONS direction;
@@ -13,22 +14,18 @@ public class Conveyor extends Structure {
     public LinkedList<GenericGameObject> rightObjects;
     public int speed;
     
-    public Conveyor(int x, int y, DIRECTIONS d) {
-        super(x, y, 2, 2);
+    public Conveyor(Point loc, DIRECTIONS d) {
+        super(loc, 2, 2);
         direction = d;
         // gain concious of where you are going.
         
     }
     
     @Override
-    void onUpdate(Graphics g, int px, int py) {
-
+	public void onUpdate(Graphics g, Point p, long systemTime) { 	
     }
 
-    @Override
-    void onUpdate() {
-    	// handling stuff off screen.
-    }
+   
 
     @Override
     void onPlace() {
@@ -40,29 +37,29 @@ public class Conveyor extends Structure {
 
     }
 
-    public int[] toLocal(int localX, int localY)  {
-    	int dx = localX-x;
-    	int dy = localY-y;
-    	switch(direction) {
-    		case NORTH:
-    			return new int[] {dx,dy};
-    		case EAST:
-    			return new int[] {dy,dx};
-    		case SOUTH:
-    			return new int[] {-dx,-dy};
-    		case WEST:
-    			return new int[] {-dy,-dx};
-    		default:
-    			System.out.println("[-] error bad direction: "+direction+" sleeping 10 seconds");
+    public int[] toLocal(int globalX, int globalY)  {
+		int dx = globalX-(location.getX());
+		int dy = globalY-location.getY();
+		switch(direction) {
+			case NORTH:
+				return new int[] {dx,dy};
+			case EAST:
+				return new int[] {-dy,globalX-(location.getX() + xlen)};
+			case SOUTH:
+				return new int[] {-(globalX-(location.getX() + xlen) ),(globalY-(location.getY() + ylen))};
+			case WEST:
+				return new int[] {(globalY-(location.getY() - ylen)),-dx};
+			default:
+				System.out.println("[-] error bad direction: "+direction+" sleeping 10 seconds");
 				try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-    			return new int[] {0,0};
-    	}
-    }
+		}
+		return new int[] {0,0};
+	}
     
     @Override
     void onGet(int localX, int localY, GenericGameObject g) {
@@ -77,6 +74,7 @@ public class Conveyor extends Structure {
 
 	@Override
 	boolean canRecieve(int x, int y) {
+		
 		// TODO Auto-generated method stub
 		return false;
 	}

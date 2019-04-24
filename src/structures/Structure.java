@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import objects.GenericGameObject;
 import properties.Viewable;
+import conveyorio.*;
 
 public abstract class Structure extends Viewable{
 	/*
@@ -12,18 +13,16 @@ public abstract class Structure extends Viewable{
 	 * Structure interface defines x, y, xlen, ylen.
 	 * 
 	 */
-	public int x,y,xlen,ylen;
-	
-	public Structure(int xplace, int yplace,int dimX, int dimY) {
+	public int xlen,ylen;
+	public Point location;
+	public Structure(Point loc,int dimX, int dimY) {
 		super(dimX,dimY);
-		x = xplace;
-		y = yplace;
+		location = loc;
 		xlen = dimX;
 		ylen = dimY;
 	}
 	
-	abstract void onUpdate(Graphics g, int px, int py);
-	abstract void onUpdate();
+	public abstract void onUpdate(Graphics g,Point p, long systemTime);
 	
 	abstract void onPlace();
 	
