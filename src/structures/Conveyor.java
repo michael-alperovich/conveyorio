@@ -1,7 +1,5 @@
 package structures;
 
-import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import objects.GenericGameObject;
@@ -9,26 +7,51 @@ import objects.GenericGameObject;
 public class Conveyor extends Structure {
 
     private DIRECTIONS direction;
-    public Conveyor parent, child;
-    public LinkedList<GenericGameObject> leftObjects;
-    public LinkedList<GenericGameObject> rightObjects;
+    public Conveyor previous, next;
+    public LinkedList<GenericGameObject> objects;
+    private int[] updateVector;
     public int speed;
+    public final int LENGTH = 50;
     
     public Conveyor(int x, int y, DIRECTIONS d) {
         super(x, y, 2, 2);
         direction = d;
-        // gain concious of where you are going.
+        switch (direction){
+			case NORTH:
+				updateVector = new int[]{0, 1};
+			case EAST:
+				updateVector = new int[]{1, 0};
+			case SOUTH:
+				updateVector = new int[]{0, -1};
+			case WEST:
+				updateVector = new int[]{-1, 0};
+			default:
+				System.out.println("[-] error bad direction: "+direction+" sleeping 10 seconds");
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		// TODO search for previous and next conveyor
         
     }
     
     @Override
-    void onUpdate(Graphics g, int px, int py) {
+    void onUpdate() {
+		// update object positions
+		for (GenericGameObject object: objects) {
+			// if object intersects the next conveyor
 
-    }
+			object.updatePosition(object.getCurrentx() + updateVector[0] * speed,
+					object.getCurrenty() + updateVector[1] * speed);
 
-    @Override
-    void onPlace() {
-
+			// remove the object if the object is outside the conveyor
+			if (toLocal(object.getCurrentx(), object.getCurrenty())[0] > LENGTH) {
+				objects.remove(object);
+			}
+		}
     }
 
     @Override
@@ -61,26 +84,20 @@ public class Conveyor extends Structure {
     }
     
     @Override
-    void onGet(int localX, int localY, GenericGameObject g) {
-    	// convert it into cordinates we understand; (takes into account direction, assume that north is -y, south is +y, east is +x, west is -x)
-    	
-    }
-
-    @Override
-    void onTake(int localX, int localY, GenericGameObject g) {
-
+    void onTake(GenericGameObject object) {
+		objects.add(object);
     }
 
 	@Override
-	boolean canReceive(int x, int y) {
-		int[] coordinates = toLocal(x, y);
-
-		return false;
-	}
-
-	@Override
-	boolean canTake(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
+	boolean canReceive(GenericGameObject object) {
+		int[] coordinates = toLocal(object.getCurrentx(), object.getCurrenty());
+		for (GenericGameObject storedObject:objects) {
+			// check for objects intersection
+			if (!(toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[0] > coordinates[0] + object.dimx ||
+					toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[0] + storedObject.dimx < coordinates[0])) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
