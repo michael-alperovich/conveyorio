@@ -1,6 +1,7 @@
 package structures;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import assets.ConveyorAssets;
@@ -25,8 +26,11 @@ public class Conveyor extends Structure {
 	public void onUpdate(Graphics g, Point p, long systemTime) { 	
     }
 
+<<<<<<< HEAD
    
 
+=======
+>>>>>>> 363735ef838c93463219dea331ed92016e815149
     @Override
     void onPlace() {
 
@@ -73,9 +77,9 @@ public class Conveyor extends Structure {
     }
 
 	@Override
-	boolean canRecieve(int x, int y) {
-		
-		// TODO Auto-generated method stub
+	boolean canReceive(int x, int y) {
+		int[] coordinates = toLocal(x, y);
+
 		return false;
 	}
 
