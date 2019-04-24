@@ -26,11 +26,7 @@ public class Conveyor extends Structure {
 	public void onUpdate(Graphics g, Point p, long systemTime) { 	
     }
 
-<<<<<<< HEAD
-   
 
-=======
->>>>>>> 363735ef838c93463219dea331ed92016e815149
     @Override
     void onPlace() {
 
