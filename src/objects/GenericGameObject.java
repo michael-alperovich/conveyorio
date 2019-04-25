@@ -44,6 +44,13 @@ public abstract class GenericGameObject extends Viewable{
 		objectID = -1;
 	}
 
+	public int getCurrentx() {
+		return currentx;
+	}
+
+	public int getCurrenty() {
+		return currenty;
+	}
 }
 // 25 42 --> 17 seconds.
 // 21 seconds

@@ -22,13 +22,10 @@ public abstract class Structure extends Viewable{
 		ylen = dimY;
 	}
 	
-	public abstract void onUpdate(Graphics g,Point p, long systemTime);
+	abstract void onUpdate();
 
-	abstract void onPlace();
 	
 	abstract void onDelete();
-	abstract boolean canReceive(int x, int y);
-	abstract boolean canTake(int x, int y);
-	abstract void onGet(int localX, int localY, GenericGameObject g);
-	abstract void onTake(int localX, int localY, GenericGameObject g);
+	abstract boolean canReceive(GenericGameObject object);
+	abstract void onTake(GenericGameObject g);
 }
