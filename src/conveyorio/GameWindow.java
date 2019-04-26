@@ -70,7 +70,7 @@ class GameCavans extends JPanel implements KeyListener{
 		Conveyor c2 = new Conveyor(new Point(0,50), DIRECTIONS.NORTH);
 		World.addTile(c2);
 		Coal c = new Coal();
-		c.updatePosition(0, 0);
+		c.updatePosition(0, 50);
 		c2.onTake(c);
 		xmax = maxX;
 		ymax = maxY;
