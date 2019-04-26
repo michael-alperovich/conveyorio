@@ -65,19 +65,15 @@ class GameCavans extends JPanel implements KeyListener{
 		World.setView(new Point(0,0));
 		direction = dir;
 		debugfps = trackFPS;
-		Conveyor c1 = new Conveyor(new Point(0,0), DIRECTIONS.NORTH);
-		World.addTile(c1);
-		Conveyor c2 = new Conveyor(new Point(0,50), DIRECTIONS.NORTH);
-		World.addTile(c2);
-		Conveyor c3 = new Conveyor(new Point(0,100), DIRECTIONS.NORTH);
-		World.addTile(c3);
-		Conveyor c4 = new Conveyor(new Point(0,150), DIRECTIONS.NORTH);
-		World.addTile(c4);
-		Conveyor c5 = new Conveyor(new Point(0,200), DIRECTIONS.NORTH);
-		World.addTile(c5);
-		Coal c = new Coal();
-		c.updatePosition(0, 225);
-		c5.onTake(c);
+		for (int i = 0; i < 9; i++) {
+			Conveyor c = new Conveyor(new Point(0, 50 * i), DIRECTIONS.NORTH);
+			if (i == 8) {
+				Coal coal = new Coal();
+				Conveyor c1 = new Conveyor(new Point(50, 50 * i), DIRECTIONS.WEST);
+				coal.updatePosition(75, 50 * i + 25);
+				c1.onTake(coal);
+			}
+		}
 		xmax = maxX;
 		ymax = maxY;
 		//System.out.println("opened with "+xmax+" "+ymax);

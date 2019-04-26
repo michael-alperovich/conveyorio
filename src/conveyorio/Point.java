@@ -21,6 +21,12 @@ public class Point {
 	public int hashCode() {
 		return (x * 31 + y) % (int)(10E9 + 7);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof Point && this.x == ((Point) o).getX() && this.y == ((Point) o).getY();
+
+	}
 	
 	public Point add(Point otherPoint) {
 		

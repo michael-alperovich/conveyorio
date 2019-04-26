@@ -4,7 +4,7 @@
     <list default="true" id="2f2ce23a-e1cb-41c2-b702-442be699e093" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/conveyorio/GameWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/conveyorio/GameWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects/GenericGameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects/GenericGameObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/conveyorio/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/conveyorio/Point.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/structures/Conveyor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/structures/Conveyor.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -19,20 +19,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/conveyorio/GameWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="78" column="31" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+            <state relative-caret-position="201">
+              <caret line="72" column="36" lean-forward="true" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/structures/Conveyor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="97" selection-start-line="97" selection-end-line="97" />
+            <state relative-caret-position="311">
+              <caret line="158" column="20" selection-start-line="158" selection-start-column="20" selection-end-line="158" selection-end-column="20" />
+              <folding>
+                <element signature="e#7395#7396#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -40,9 +43,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/conveyorio/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="49" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="330">
+              <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
               <folding>
+                <element signature="e#1256#1257#0" expanded="true" />
                 <element signature="e#1307#1308#0" expanded="true" />
               </folding>
             </state>
@@ -52,17 +56,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/conveyorio/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
+            <state relative-caret-position="480">
               <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/conveyorio/ConveyorAnimationGui.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="92" column="40" lean-forward="true" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -70,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/structures/Structure.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            <state relative-caret-position="240">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
         </entry>
@@ -79,9 +74,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/conveyorio/Point.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="135">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
               <folding>
+                <element signature="e#244#245#0" expanded="true" />
                 <element signature="e#288#289#0" expanded="true" />
               </folding>
             </state>
@@ -91,7 +87,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/objects/Coal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="90">
               <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -106,11 +102,13 @@
         <entry file="file://$PROJECT_DIR$/src/objects/GenericGameObject.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
-              <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#976#977#0" expanded="true" />
                 <element signature="e#996#997#0" expanded="true" />
                 <element signature="e#1047#1048#0" expanded="true" />
+                <element signature="e#1076#1077#0" expanded="true" />
                 <element signature="e#1098#1099#0" expanded="true" />
               </folding>
             </state>
@@ -121,7 +119,7 @@
         <entry file="file://$PROJECT_DIR$/src/properties/Viewable.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -144,6 +142,12 @@
       <find>toLocal</find>
       <find>(0, 0)</find>
       <find>toLocal(object.getCurrentx(), object.getCurrenty())[0]</find>
+      <find>conveyorSources</find>
+      <find>cSecondPeriod</find>
+      <find>world</find>
+      <find>println</find>
+      <find>cse</find>
+      <find>sou</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -167,9 +171,10 @@
         <option value="$PROJECT_DIR$/src/conveyorio/Main.java" />
         <option value="$PROJECT_DIR$/src/conveyorio/World.java" />
         <option value="$PROJECT_DIR$/src/structures/Structure.java" />
-        <option value="$PROJECT_DIR$/src/structures/Conveyor.java" />
         <option value="$PROJECT_DIR$/src/objects/GenericGameObject.java" />
+        <option value="$PROJECT_DIR$/src/conveyorio/Point.java" />
         <option value="$PROJECT_DIR$/src/conveyorio/GameWindow.java" />
+        <option value="$PROJECT_DIR$/src/structures/Conveyor.java" />
       </list>
     </option>
   </component>
@@ -182,6 +187,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -199,42 +205,6 @@
               <item name="conveyorio" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
               <item name="Designs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="conveyorio" type="b2602c69:ProjectViewProjectNode" />
-              <item name="conveyorio" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="tiles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="conveyorio" type="b2602c69:ProjectViewProjectNode" />
-              <item name="conveyorio" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="tiles" type="462c0819:PsiDirectoryNode" />
-              <item name="coal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="conveyorio" type="b2602c69:ProjectViewProjectNode" />
-              <item name="conveyorio" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="tiles" type="462c0819:PsiDirectoryNode" />
-              <item name="conveyor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="conveyorio" type="b2602c69:ProjectViewProjectNode" />
-              <item name="conveyorio" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="tiles" type="462c0819:PsiDirectoryNode" />
-              <item name="conveyor" type="462c0819:PsiDirectoryNode" />
-              <item name="east" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="conveyorio" type="b2602c69:ProjectViewProjectNode" />
-              <item name="conveyorio" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="tiles" type="462c0819:PsiDirectoryNode" />
-              <item name="conveyor" type="462c0819:PsiDirectoryNode" />
-              <item name="north" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="conveyorio" type="b2602c69:ProjectViewProjectNode" />
@@ -285,7 +255,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -369,7 +338,8 @@
       <workItem from="1556150052428" duration="282000" />
       <workItem from="1556192758781" duration="676000" />
       <workItem from="1556283004888" duration="2880000" />
-      <workItem from="1556287719000" duration="755000" />
+      <workItem from="1556287719000" duration="977000" />
+      <workItem from="1556292417645" duration="4068000" />
     </task>
     <task id="LOCAL-00001" summary="Created conveyor assets">
       <created>1554901043710</created>
@@ -431,12 +401,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20597000" />
+    <option name="totallyTimeSpent" value="24887000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29756796" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3018598" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -445,8 +416,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32891566" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32891566" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -517,22 +488,64 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
+          <condition expression="this.direction == DIRECTIONS.WEST" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/structures/Conveyor.java</url>
-          <line>97</line>
+          <line>103</line>
           <properties />
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="toLocal(object.getCurrentx(), object.getCurrenty())[1]" language="JAVA" />
-        <watch expression="toLocal(object.getCurrentx(), object.getCurrenty())[1] + object.dimx" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>this.direction == DIRECTIONS.WEST</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>object.getCurrenty() == 0</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>o</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
     <expressions id="watch">
+      <expression>
+        <expression-string>toLocal(object.getCurrentx(), object.getCurrenty())[1]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>toLocal(object.getCurrentx(), object.getCurrenty())</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>targetPoint.hashCode()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>world.getOrDefault(targetPoint,null);</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>World</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>toLocal(object.getCurrentx(), object.getCurrenty())[1] + object.dimx</expression-string>
         <language-id>JAVA</language-id>
@@ -540,11 +553,6 @@
       </expression>
       <expression>
         <expression-string>toLocal(object.getCurrentx(), object.getCurrenty())[1] + object.dimx &gt;= 0</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>toLocal(object.getCurrentx(), object.getCurrenty())[1]</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -623,47 +631,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/conveyorio/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/structures/Structure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/properties/Viewable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/conveyorio/Point.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#288#289#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/conveyorio/ConveyorAnimationGui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="92" column="40" lean-forward="true" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/objects/Coal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="90">
           <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -673,31 +643,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/properties/Viewable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structures/Structure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/conveyorio/Point.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#244#245#0" expanded="true" />
+            <element signature="e#288#289#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/objects/GenericGameObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#976#977#0" expanded="true" />
             <element signature="e#996#997#0" expanded="true" />
             <element signature="e#1047#1048#0" expanded="true" />
+            <element signature="e#1076#1077#0" expanded="true" />
             <element signature="e#1098#1099#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/structures/Conveyor.java">
+    <entry file="file://$PROJECT_DIR$/src/conveyorio/ConveyorAnimationGui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="97" selection-start-line="97" selection-end-line="97" />
+        <state relative-caret-position="534">
+          <caret line="92" column="40" lean-forward="true" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/conveyorio/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/conveyorio/World.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        <state relative-caret-position="330">
+          <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
           <folding>
+            <element signature="e#1256#1257#0" expanded="true" />
             <element signature="e#1307#1308#0" expanded="true" />
           </folding>
         </state>
@@ -705,8 +710,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/conveyorio/GameWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="78" column="31" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+        <state relative-caret-position="201">
+          <caret line="72" column="36" lean-forward="true" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/structures/Conveyor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="158" column="20" selection-start-line="158" selection-start-column="20" selection-end-line="158" selection-end-column="20" />
+          <folding>
+            <element signature="e#7395#7396#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

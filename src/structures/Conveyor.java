@@ -1,6 +1,5 @@
 package structures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
@@ -17,13 +16,13 @@ public class Conveyor extends Structure {
     public Conveyor previous, next;
     public List<GenericGameObject> objects;
     private int[] updateVector;
-    private int speed;
+    private int updateDelay;
     public final int LENGTH = 50;
 
     public Conveyor(Point loc, DIRECTIONS d) {
         super(loc, 50, 50);
         direction = d;
-        speed = 1;
+        updateDelay = 5;
         switch (direction) {
             case NORTH:
                 updateVector = new int[]{0, -1};
@@ -56,14 +55,20 @@ public class Conveyor extends Structure {
         previous = (Conveyor) World.getTileAt(new Point(targetx, targety));
         if (next == null || next.direction != this.direction) {
             World.registerSink(this);
-
         }
         if (previous != null && previous.direction == this.direction) {
             World.deregisterSink(previous);
-            previous.next = this;
         } else {
             previous = null;
         }
+        if (next != null) {
+            next.previous = this;
+        }
+        if (previous != null) {
+            previous.next = this;
+        }
+
+        World.addTile(this);
     }
 
     @Override
@@ -93,7 +98,8 @@ public class Conveyor extends Structure {
         }
 
         //g.drawImage(img, x, y, width, height, observer)
-        for (GenericGameObject object : objects) {
+        for (int i =  0; i < objects.size(); i++) {
+            GenericGameObject object = objects.get(i);
             // if object is about to be outside the current conveyor
             if (toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0) {
                 boolean canMove = true;
@@ -109,11 +115,13 @@ public class Conveyor extends Structure {
                     canMove = false;
                 }
                 if (canMove) {
-                    object.updatePosition(object.getCurrentx() + updateVector[0] * speed,
-                            object.getCurrenty() + updateVector[1] * speed);
+                    if (time % updateDelay == 0) {
+                        object.updatePosition(object.getCurrentx() + updateVector[0],
+                                object.getCurrenty() + updateVector[1]);
+                    }
                 }
                 // remove the object if the object is outside the conveyor
-                if (toLocal(object.getCurrentx(), object.getCurrenty())[1] - object.dimx > LENGTH) {
+                if (toLocal(object.getCurrentx(), object.getCurrenty())[1] - object.dimx >= 0) {
                     objects.remove(object);
                 }
             }
@@ -126,12 +134,14 @@ public class Conveyor extends Structure {
                         return;
                     }
                 }
-                object.updatePosition(object.getCurrentx() + updateVector[0] * speed,
-                        object.getCurrenty() + updateVector[1] * speed);
+                if (time % updateDelay == 0) {
+                    object.updatePosition(object.getCurrentx() + updateVector[0],
+                            object.getCurrenty() + updateVector[1]);
+                }
             }
             // TODO render object
-            System.out.println(toLocal(object.getCurrentx(), object.getCurrenty())[1]);
-            System.out.println(object.getCurrentx() + " " + object.getCurrenty());
+            //System.out.println(toLocal(object.getCurrentx(), object.getCurrenty())[1]);
+            //System.out.println(object.getCurrentx() + " " + object.getCurrenty());
             g.drawImage(object.getIcon(), object.getCurrentx(), object.getCurrenty(), ref);
         }
         if (previous != null) {
@@ -161,7 +171,7 @@ public class Conveyor extends Structure {
             case SOUTH:
                 return new int[]{-(globalX - (location.getX() + xlen)), (globalY - (location.getY() + ylen))};
             case WEST:
-                return new int[]{(globalY - (location.getY() - ylen)), -dx};
+                return new int[]{(globalY - (location.getY() - ylen)), dx};
             default:
                 System.out.println("[-] error bad direction: " + direction + " sleeping 10 seconds");
                 try {
