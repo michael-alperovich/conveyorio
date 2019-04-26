@@ -28,7 +28,7 @@ public abstract class GenericGameObject extends Viewable{
 		objectID = newiD;
 	}
 	public GenericGameObject(int objectTypeID) { // default constructor
-		super(1,1); // they are 1 icon so we pass in a viewable dimension of 1,1.
+		super(25,25); // they are 1 icon so we pass in a viewable dimension of 1,1.
 		currentx = -1;
 		currenty = -1;
 	}
