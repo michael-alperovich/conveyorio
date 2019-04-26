@@ -2,6 +2,8 @@ package conveyorio;
 
 import assets.CoalAssets;
 import assets.ConveyorAssets;
+import objects.Coal;
+import structures.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,7 @@ public class GameWindow {
    public Frame mainFrame;
    public GameCavans canv;
    public int x,y;
+   
    public GameWindow() {
 	   x = 500;
 	   y = 500;
@@ -43,11 +46,11 @@ public class GameWindow {
    }
    public void boot() {boot(false);}
    public void boot(boolean fpstracking) {
-	   canv = new GameCavans('N',fpstracking,x,y);
-	   mainFrame.addKeyListener(canv);
-	   canv.requestFocusInWindow();
-	   mainFrame.add(canv);
+	   System.out.println("loading");
+	   canv = new GameCavans('N',fpstracking,400,400);
+	   mainFrame.add(canv, BorderLayout.NORTH);
 	   mainFrame.setVisible(true);  
+	   canv.setVisible(true);
 
    }
 }
@@ -59,24 +62,34 @@ class GameCavans extends JPanel implements KeyListener{
 	public boolean debugfps;
 	public int xmax, ymax;
 	public GameCavans(char dir,boolean trackFPS,int maxX, int maxY) {
+		World.setView(new Point(0,0));
 		direction = dir;
 		debugfps = trackFPS;
+		Conveyor c1 = new Conveyor(new Point(0,0), DIRECTIONS.NORTH);
+		World.addTile(c1);
+		Conveyor c2 = new Conveyor(new Point(0,50), DIRECTIONS.NORTH);
+		World.addTile(c2);
+		Coal c = new Coal();
+		c.updatePosition(0, 0);
+		c2.onTake(c);
 		xmax = maxX;
 		ymax = maxY;
 		//System.out.println("opened with "+xmax+" "+ymax);
         setSize(xmax, ymax);
-		setBackground(Color.WHITE);
+		//setBackground(Color.WHITE);
 	}
 	@Override
     public void paintComponent (Graphics g) {
-		Graphics2D g2;
-        if(debugfps) {
+        super.paintComponent(g);
+
+		Graphics2D g2 = (Graphics2D)g;
+		if(debugfps) {
         	cFrames++;
         }
-
-        super.paintComponent(g);
-   		g.drawRect(2 * xmax / 8, 6 * ymax / 8, xmax / 2, ymax / 8);
-		this.repaint();
+		g.drawImage(ConveyorAssets.east[0], 200, 200, this);
+        World.UpdateObjects(g, this);
+		
+        this.repaint();
 	}
 	@Override
 	public void keyPressed(KeyEvent arg0) {

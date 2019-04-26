@@ -87,7 +87,7 @@ class AnimatedCanvas extends JPanel implements KeyListener{
 		cSecondPeriod /= 20;
 		for(int x = 0; x < xmax;x+= 50) {
 			for(int y = 0; y < ymax;y += 50) {
-				g.drawImage(ConveyorAssets.east[cSecondPeriod], x , y, this);
+				g.drawImage(ConveyorAssets.north[cSecondPeriod], x , y, this);
 			}
 		}
 		g.drawImage(CoalAssets.coal[0], (int)((time % 10000) * 0.05) % xmax  , 50, this);

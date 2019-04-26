@@ -1,11 +1,14 @@
 package structures;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
+import assets.ConveyorAssets;
 import conveyorio.Point;
+import conveyorio.World;
 import objects.GenericGameObject;
 
 public class Conveyor extends Structure {
@@ -18,17 +21,22 @@ public class Conveyor extends Structure {
     public final int LENGTH = 50;
 
     public Conveyor(Point loc, DIRECTIONS d) {
-        super(loc, 2, 2);
+        super(loc, 50, 50);
         direction = d;
+        speed = 1;
         switch (direction) {
             case NORTH:
-                updateVector = new int[]{0, 1};
+                updateVector = new int[]{0, -1};
+                break;
             case EAST:
                 updateVector = new int[]{1, 0};
+                break;
             case SOUTH:
-                updateVector = new int[]{0, -1};
+                updateVector = new int[]{0, 1};
+                break;
             case WEST:
                 updateVector = new int[]{-1, 0};
+                break;
             default:
                 System.out.println("[-] error bad direction: " + direction + " sleeping 10 seconds");
                 try {
@@ -40,12 +48,52 @@ public class Conveyor extends Structure {
         }
         objects = new ArrayList<>();
         // TODO search for previous and next conveyor
-
+        int targetx = location.getX() + 50 * updateVector[0];
+        int targety = location.getY() + 50 * updateVector[1];
+        next = (Conveyor) World.getTileAt(new Point(targetx,targety));
+        targetx = location.getX() - 50 * updateVector[0];
+        targety = location.getY() - 50 * updateVector[1];
+        previous = (Conveyor) World.getTileAt(new Point(targetx,targety));
+        if (next == null || next.direction != this.direction) {
+        	World.registerSink(this);
+        	
+        }
+        if (previous != null && previous.direction == this.direction) {
+        	World.deregisterSink(previous);
+        	previous.next = this;
+        }
+        else {
+        	previous = null;
+        }
     }
 
     @Override
-    public void onUpdate(Graphics g, int px, int py) {
+    public void onUpdate(Graphics g, int px, int py, ImageObserver ref) {
         // update object positions
+    	//System.out.println("getting updated: "+direction);
+    	//System.out.println(this.location.getX() + " "+this.location.getY() + " "+dimy + " "+dimx);
+    	long time = System.currentTimeMillis();
+		int cSecondPeriod = (int) (time % 1000);
+		cSecondPeriod /= 20;
+		switch(direction) {
+			case NORTH:
+				g.drawImage(ConveyorAssets.north[cSecondPeriod], this.location.getX(), this.location.getY(),50,50, ref);
+				break;
+			case EAST:
+				g.drawImage(ConveyorAssets.east[cSecondPeriod], this.location.getX(), this.location.getY(),  ref);
+				break;
+			case WEST:
+				g.drawImage(ConveyorAssets.west[cSecondPeriod], this.location.getX(), this.location.getY(), ref);
+				break;
+			case SOUTH:
+				g.drawImage(ConveyorAssets.south[cSecondPeriod], this.location.getX(), this.location.getY(), ref);
+				break;
+			default:
+				System.out.println("missed direction no render");
+				break;
+		}
+		
+    	//g.drawImage(img, x, y, width, height, observer)
         for (GenericGameObject object : objects) {
             // if object is about to be outside the current conveyor
             if (toLocal(object.getCurrentx(), object.getCurrenty())[0] > LENGTH) {
@@ -85,6 +133,11 @@ public class Conveyor extends Structure {
                         object.getCurrenty() + updateVector[1] * speed);
             }
             // TODO render object
+            System.out.println("isrender: "+objects);
+            g.drawImage(object.getIcon(), object.getCurrentx(),object.getCurrenty() ,ref );
+        }
+        if (previous != null) {
+        	previous.onUpdate(g, px, py, ref);
         }
     }
 
@@ -92,8 +145,12 @@ public class Conveyor extends Structure {
     void onDelete() {
 
     }
-
     private int[] toLocal(int globalX, int globalY) {
+    	int[] ans = toLocalCartesian(globalX, globalY);
+    	ans[1] *= -1;
+    	return ans;
+    }
+    private int[] toLocalCartesian(int globalX, int globalY) {
         int dx = globalX - (location.getX());
         int dy = globalY - location.getY();
         switch (direction) {
@@ -118,7 +175,7 @@ public class Conveyor extends Structure {
     }
 
     @Override
-    void onTake(GenericGameObject object) {
+    public void onTake(GenericGameObject object) {
         objects.add(object);
     }
 

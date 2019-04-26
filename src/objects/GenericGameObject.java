@@ -32,7 +32,7 @@ public abstract class GenericGameObject extends Viewable{
 		currentx = -1;
 		currenty = -1;
 	}
-	abstract BufferedImage getIcon();
+	public abstract BufferedImage getIcon();
 	
 	
 	public void updatePosition(int newx, int newy) {

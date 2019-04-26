@@ -1,10 +1,11 @@
 package structures;
 
 import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 
+import conveyorio.Point;
 import objects.GenericGameObject;
 import properties.Viewable;
-import conveyorio.*;
 
 public abstract class Structure extends Viewable{
 	/*
@@ -22,7 +23,7 @@ public abstract class Structure extends Viewable{
 		ylen = dimY;
 	}
 	
-	public abstract void onUpdate(Graphics g, int px, int py);
+	public abstract void onUpdate(Graphics g, int px, int py, ImageObserver ref);
 
 	
 	abstract void onDelete();

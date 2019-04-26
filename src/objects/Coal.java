@@ -10,7 +10,7 @@ public class Coal extends GenericGameObject {
         super(0);
     }
     @Override
-    BufferedImage getIcon() {
+    public BufferedImage getIcon() {
         return CoalAssets.coal[0];
     }
 }
