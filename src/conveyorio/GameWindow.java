@@ -69,9 +69,16 @@ class GameCavans extends JPanel implements KeyListener{
 			Conveyor c = new Conveyor(new Point(0, 50 * i), DIRECTIONS.NORTH);
 			if (i == 8) {
 				Coal coal = new Coal();
-				Conveyor c1 = new Conveyor(new Point(50, 50 * i), DIRECTIONS.WEST);
-				coal.updatePosition(75, 50 * i + 25);
-				c1.onTake(coal);
+				coal.updatePosition(0, 50 * i + 25);
+				c.onTake(coal);
+			}
+		}
+		for (int i = 0; i < 8; i++) {
+			Conveyor c = new Conveyor(new Point(50 * (i + 1), 50 * 8), DIRECTIONS.WEST);
+			if (i == 7) {
+				Coal coal = new Coal();
+				coal.updatePosition(50 * i + 25, 50 * 8);
+				c.onTake(coal);
 			}
 		}
 		xmax = maxX;

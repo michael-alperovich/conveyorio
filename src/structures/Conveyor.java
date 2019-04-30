@@ -194,8 +194,8 @@ public class Conveyor extends Structure {
         int[] coordinates = toLocal(object.getCurrentx(), object.getCurrenty());
         for (GenericGameObject storedObject : objects) {
             // check for objects intersection
-            if (!(toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[0] > coordinates[0] + object.dimx ||
-                    toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[0] + storedObject.dimx < coordinates[0])) {
+            if (!(toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] > coordinates[1] + object.dimx ||
+                    toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] + storedObject.dimx < coordinates[1])) {
                 return false;
             }
         }
