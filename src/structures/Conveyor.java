@@ -19,7 +19,7 @@ public class Conveyor extends Structure {
     private int[] updateVector;
     private int updateDelay;
     public long lastTime = System.currentTimeMillis();
-    public double pixPerSecond = 50; // TODO: pixels per second speed.
+    public double pixPerSecond = 100; // TODO: pixels per second speed.
     public final int LENGTH = 50;
 
     public Conveyor(Point loc, DIRECTIONS d) {
@@ -203,8 +203,8 @@ public class Conveyor extends Structure {
         double[] coordinates = toLocal(object.getCurrentx(), object.getCurrenty());
         for (GenericGameObject storedObject : objects) {
             // check for objects intersection
-            if (!(toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[0] > coordinates[0] + object.dimx ||
-                    toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[0] + storedObject.dimx < coordinates[0])) {
+            if (!(toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] > coordinates[1] + object.dimx ||
+                    toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] + storedObject.dimx < coordinates[1])) {
                 return false;
             }
         }
