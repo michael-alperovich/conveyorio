@@ -14,8 +14,8 @@ public abstract class GenericGameObject extends Viewable{
 	private int objectID; // object ID so we can query them,
 	private int objectTypeID; // objectTypeID so we can query loaded Graphics.
 	
-	private int currentx;
-	private int currenty; // location variables
+	private double currentx;
+	private double currenty; // location variables
 	
 	
 	public int getID() {
@@ -35,7 +35,7 @@ public abstract class GenericGameObject extends Viewable{
 	public abstract BufferedImage getIcon();
 	
 	
-	public void updatePosition(int newx, int newy) {
+	public void updatePosition(double newx, double newy) {
 		currentx = newx;
 		currenty = newy;
 	}
@@ -44,11 +44,11 @@ public abstract class GenericGameObject extends Viewable{
 		objectID = -1;
 	}
 
-	public int getCurrentx() {
+	public double getCurrentx() {
 		return currentx;
 	}
 
-	public int getCurrenty() {
+	public double getCurrenty() {
 		return currenty;
 	}
 }

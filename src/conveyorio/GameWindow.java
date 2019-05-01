@@ -2,6 +2,7 @@ package conveyorio;
 
 import assets.CoalAssets;
 import assets.ConveyorAssets;
+import javafx.scene.input.KeyCode;
 import objects.Coal;
 import structures.*;
 
@@ -19,8 +20,8 @@ public class GameWindow {
    public int x,y;
    
    public GameWindow() {
-	   x = 500;
-	   y = 500;
+	   x = 600;
+	   y = 600;
 	   prepareWindow();
    }
    public GameWindow(int xsize, int ysize) throws Exception{
@@ -35,7 +36,7 @@ public class GameWindow {
 
    private void prepareWindow(){
       mainFrame = new Frame("Conveyor(io)");
-      mainFrame.setSize(500,500);
+      mainFrame.setSize(x,y);
       mainFrame.setLayout(new GridLayout(1, 1));
       
       mainFrame.addWindowListener(new WindowAdapter() {
@@ -47,9 +48,10 @@ public class GameWindow {
    public void boot() {boot(false);}
    public void boot(boolean fpstracking) {
 	   System.out.println("loading");
-	   canv = new GameCavans('N',fpstracking,400,400);
+	   canv = new GameCavans('N',fpstracking,x,y);
 	   mainFrame.add(canv, BorderLayout.NORTH);
 	   mainFrame.setVisible(true);  
+	   mainFrame.addKeyListener(canv);
 	   canv.setVisible(true);
 
    }
@@ -61,6 +63,7 @@ class GameCavans extends JPanel implements KeyListener{
 	public int cFrames = 0;
 	public boolean debugfps;
 	public int xmax, ymax;
+	public int camerax, cameray;
 	public GameCavans(char dir,boolean trackFPS,int maxX, int maxY) {
 		World.setView(new Point(0,0));
 		direction = dir;
@@ -72,10 +75,26 @@ class GameCavans extends JPanel implements KeyListener{
 				Conveyor c1 = new Conveyor(new Point(50, 50 * i), DIRECTIONS.WEST);
 				coal.updatePosition(75, 50 * i + 25);
 				c1.onTake(coal);
+				
 			}
 		}
+		Conveyor lastreference = new Conveyor(new Point(50*(0+1),400),DIRECTIONS.WEST);
+		for(int i = 1; i < 9;i++) {
+			new Conveyor(new Point(50*i-50,-50),DIRECTIONS.EAST);
+			lastreference = new Conveyor(new Point(50*(i + 1),400),DIRECTIONS.WEST);
+		}
+		Coal nextcoal = new Coal();
+		nextcoal.updatePosition(490, 400);
+		Coal nextcoal2 = new Coal();
+		nextcoal2.updatePosition(440, 400);
+		lastreference.onTake(nextcoal2);
+		lastreference.onTake(nextcoal);
+		
 		xmax = maxX;
 		ymax = maxY;
+		camerax = 0;
+		cameray = 0;
+		World.setView(new Point(camerax,cameray));
 		//System.out.println("opened with "+xmax+" "+ymax);
         setSize(xmax, ymax);
 		//setBackground(Color.WHITE);
@@ -88,7 +107,7 @@ class GameCavans extends JPanel implements KeyListener{
 		if(debugfps) {
         	cFrames++;
         }
-		g.drawImage(ConveyorAssets.east[0], 200, 200, this);
+		
         World.UpdateObjects(g, this);
 		
         this.repaint();
@@ -96,7 +115,20 @@ class GameCavans extends JPanel implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		if (arg0.getKeyChar() == 'w') {
+			// go up!
+			this.cameray -= 1;
+		}
+		else if(arg0.getKeyChar() == 'a') {
+			this.camerax  -= 1;
+		}
+		else if (arg0.getKeyChar() == 's') {
+			this.cameray += 1;
+		}
+		else if (arg0.getKeyChar() == 'd') {
+			this.camerax += 1;
+		}
+		World.setView(new Point(camerax,cameray));
 	}
 
 	@Override
