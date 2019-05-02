@@ -3,6 +3,7 @@ package structures;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,28 +27,8 @@ public class Conveyor extends Structure {
         super(loc, 50, 50);
         direction = d;
         updateDelay = 5;
-        switch (direction) {
-            case NORTH:
-                updateVector = new int[]{0, -1};
-                break;
-            case EAST:
-                updateVector = new int[]{1, 0};
-                break;
-            case SOUTH:
-                updateVector = new int[]{0, 1};
-                break;
-            case WEST:
-                updateVector = new int[]{-1, 0};
-                break;
-            default:
-                System.out.println("[-] error bad direction: " + direction + " sleeping 10 seconds");
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-        }
+        updateVector = this.toVector(direction);
+        
         objects = new ArrayList<>();
         // TODO search for previous and next conveyor
         int targetx = location.getX() + 50 * updateVector[0];
@@ -102,6 +83,7 @@ public class Conveyor extends Structure {
         
         for (int i =  0; i < objects.size(); i++) {
             GenericGameObject object = objects.get(i);
+//            System.out.println(Arrays.toString(toLocal(object.getCurrentx(),object.getCurrenty())));
             // if object is about to be outside the current conveyor
             if (toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0) {
                 boolean canMove = true;
@@ -134,17 +116,21 @@ public class Conveyor extends Structure {
             // if object is still inside the conveyor
             else {
                 // if it does not interferer with another object on the same conveyor
+                boolean skipUpdate = false;
             	
                 for (GenericGameObject secondObject : objects) {
-                    if (secondObject != object && toLocal(object.getCurrentx(), object.getCurrenty())[1] >=
-                            toLocal(secondObject.getCurrentx(), secondObject.getCurrenty())[1] - (object.dimx)) {
-                    	continue;
+            		
+            		if (( secondObject != object && toLocal(object.getCurrentx(), object.getCurrenty())[1] >= toLocal(secondObject.getCurrentx(), secondObject.getCurrenty())[1] - (object.dimx) &&
+            				toLocal(object.getCurrentx(), object.getCurrenty())[1] < toLocal(secondObject.getCurrentx(), secondObject.getCurrenty())[1]) ) {
+                    	skipUpdate = true;
                     }
                 }
-            	long deltaTime = time-lastTime;
-                object.updatePosition(object.getCurrentx() + updateVector[0]*pixPerSecond*deltaTime/1000.0,
-                             object.getCurrenty() + updateVector[1]*pixPerSecond*deltaTime/1000.0);
                 
+            	long deltaTime = time-lastTime;
+            	if (!skipUpdate) {
+            		object.updatePosition(object.getCurrentx() + updateVector[0]*pixPerSecond*deltaTime/1000.0,
+                             object.getCurrenty() + updateVector[1]*pixPerSecond*deltaTime/1000.0);
+            	}
             }
             // TODO render object
             //System.out.println(toLocal(object.getCurrentx(), object.getCurrenty())[1]);

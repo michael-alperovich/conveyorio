@@ -1,5 +1,4 @@
 package structures;
-
 public enum DIRECTIONS {
     NORTH,
     EAST,
