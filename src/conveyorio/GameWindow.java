@@ -85,7 +85,7 @@ class GameCavans extends JPanel implements KeyListener{
 				c.onTake(coal);
 			}
 		}
-		
+		/*
 		for(int i = 8; i < 100;i++) {
 			Conveyor newC = new Conveyor(new Point(50*(i+1),50*8),  DIRECTIONS.WEST);
 			if (i == 99) {
@@ -96,9 +96,10 @@ class GameCavans extends JPanel implements KeyListener{
 				}
 			}
 		}
+		*/
 		Conveyor lastreference = new Conveyor(new Point(50*(0+1),400),DIRECTIONS.WEST);
 		for(int i = 1; i < 9;i++) {
-			new Conveyor(new Point(50*i-50,-50),DIRECTIONS.EAST);
+			new Conveyor(new Point(50*i-50,-50),DIRECTIONS.WEST);
 			lastreference = new Conveyor(new Point(50*(i + 1),400),DIRECTIONS.WEST);
 		}
 		Coal nextcoal = new Coal();
@@ -108,6 +109,7 @@ class GameCavans extends JPanel implements KeyListener{
 		nextcoal2.updatePosition(440, 400);
 		lastreference.onTake(nextcoal2);
 		lastreference.onTake(nextcoal);
+
 		
 		xmax = maxX;
 		ymax = maxY;

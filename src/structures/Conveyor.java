@@ -53,6 +53,27 @@ public class Conveyor extends Structure {
         }
 
         World.addTile(this);
+
+        // check left and right
+        targetx = location.getX() - 50 * updateVector[1];
+        targety = location.getY() - 50 * updateVector[0];
+        Conveyor sideConveyor = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        if (sideConveyor != null) {
+            sideConveyor.updateNext();
+        }
+
+        targetx = location.getX() + 50 * updateVector[1];
+        targety = location.getY() + 50 * updateVector[0];
+        sideConveyor = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        if (sideConveyor != null) {
+            sideConveyor.updateNext();
+        }
+    }
+
+    public void updateNext() {
+        int targetx = location.getX() + 50 * updateVector[0];
+        int targety = location.getY() + 50 * updateVector[1];
+        next = (Conveyor) World.getTileAt(new Point(targetx, targety));
     }
 
     @Override
@@ -95,6 +116,7 @@ public class Conveyor extends Structure {
                                                     object.getCurrenty() + updateVector[1]*25);
                         	}
                             next.onTake(object);
+                        	//objects.remove(object);
                         } else {
                             canMove = false;
                         }
@@ -110,6 +132,7 @@ public class Conveyor extends Structure {
                 }
                 // remove the object if the object is outside the conveyor
                 if (toLocal(object.getCurrentx(), object.getCurrenty())[1] - object.dimx >= 0) {
+
                     objects.remove(object);
                 }
             }
@@ -149,7 +172,7 @@ public class Conveyor extends Structure {
 
     }
 
-    private double[] toLocal(double d, double e) {
+    public double[] toLocal(double d, double e) {
         double[] ans = toLocalCartesian(d, e);
         ans[1] *= -1;
         return ans;
