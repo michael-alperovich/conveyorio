@@ -106,7 +106,12 @@ public class Conveyor extends Structure {
             GenericGameObject object = objects.get(i);
 //            System.out.println(Arrays.toString(toLocal(object.getCurrentx(),object.getCurrenty())));
             // if object is about to be outside the current conveyor
-            if (toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0) {
+            boolean northWestLogic = toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0;
+            boolean southEastLogic = toLocal(object.getCurrentx(), object.getCurrenty())[1] >= -25;
+            boolean northFree = (this.direction == DIRECTIONS.NORTH || this.direction == DIRECTIONS.WEST) && northWestLogic;
+            boolean southFree = (this.direction == DIRECTIONS.SOUTH || this.direction == DIRECTIONS.EAST) && southEastLogic;
+            
+            if (northFree || southFree) { // toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0
                 boolean canMove = true;
                 if (next != null) { // if next conveyor exists
                     if (!next.objects.contains(object)) {// if object is not on next yet
@@ -131,7 +136,12 @@ public class Conveyor extends Structure {
                     
                 }
                 // remove the object if the object is outside the conveyor
-                if (toLocal(object.getCurrentx(), object.getCurrenty())[1] - object.dimx >= 0) {
+                
+                int cutoff = 0;
+                if (southFree) {
+                	cutoff = -25;
+                }
+                if (toLocal(object.getCurrentx(), object.getCurrenty())[1] - object.dimx >= cutoff) {
 
                     objects.remove(object);
                 }
@@ -142,12 +152,14 @@ public class Conveyor extends Structure {
                 boolean skipUpdate = false;
             	
                 for (GenericGameObject secondObject : objects) {
-            		
+                	
             		if (( secondObject != object && toLocal(object.getCurrentx(), object.getCurrenty())[1] >= toLocal(secondObject.getCurrentx(), secondObject.getCurrenty())[1] - (object.dimx) &&
-            				toLocal(object.getCurrentx(), object.getCurrenty())[1] < toLocal(secondObject.getCurrentx(), secondObject.getCurrenty())[1]) ) {
-                    	skipUpdate = true;
-                    }
+        					toLocal(object.getCurrentx(), object.getCurrenty())[1] < toLocal(secondObject.getCurrentx(), secondObject.getCurrenty())[1]) ) {
+        				skipUpdate = true;
+                	}
+	                
                 }
+                
                 
             	long deltaTime = time-lastTime;
             	if (!skipUpdate) {
@@ -185,7 +197,7 @@ public class Conveyor extends Structure {
             case NORTH:
                 return new double[]{dx, dy};
             case EAST:
-                return new double[]{-dy, d - (location.getX() + xlen)};
+                return new double[]{-dy, -( d - (location.getX() + xlen) )};
             case SOUTH:
                 return new double[]{-(d - (location.getX() + xlen)), (e2 - (location.getY() + ylen))};
             case WEST:

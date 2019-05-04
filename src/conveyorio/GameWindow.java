@@ -70,6 +70,7 @@ class GameCavans extends JPanel implements KeyListener{
 		debugfps = trackFPS;
 		for (int i = 0; i < 9; i++) {
 			Conveyor c = new Conveyor(new Point(0, 50 * i), DIRECTIONS.NORTH);
+			new Conveyor(new Point(400,-50 + (50 * i)),DIRECTIONS.SOUTH);
 			if (i == 8) {
 				Coal coal = new Coal();
 
@@ -77,31 +78,13 @@ class GameCavans extends JPanel implements KeyListener{
 				c.onTake(coal);
 			}
 		}
-		for (int i = 0; i < 8; i++) {
-			Conveyor c = new Conveyor(new Point(50 * (i + 1), 50 * 8), DIRECTIONS.WEST);
-			if (i == 7) {
-				Coal coal = new Coal();
-				coal.updatePosition(50 * i + 25, 50 * 8);
-				c.onTake(coal);
-			}
-		}
-		/*
-		for(int i = 8; i < 100;i++) {
-			Conveyor newC = new Conveyor(new Point(50*(i+1),50*8),  DIRECTIONS.WEST);
-			if (i == 99) {
-				for(int coalix = 0;coalix < 500;coalix++) {
-					Coal p = new Coal();
-					p.updatePosition(50*(i+1)+25, 400);
-					newC.onTake(p);
-				}
-			}
-		}
-		*/
+		
 		Conveyor lastreference = new Conveyor(new Point(50*(0+1),400),DIRECTIONS.WEST);
 		for(int i = 1; i < 9;i++) {
-			new Conveyor(new Point(50*i-50,-50),DIRECTIONS.WEST);
+			new Conveyor(new Point(50*i-50,-50),DIRECTIONS.EAST);
 			lastreference = new Conveyor(new Point(50*(i + 1),400),DIRECTIONS.WEST);
 		}
+	
 		Coal nextcoal = new Coal();
 		nextcoal.updatePosition(490, 400);
 		
