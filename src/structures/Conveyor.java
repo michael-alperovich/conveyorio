@@ -83,8 +83,6 @@ public class Conveyor extends Structure {
     @Override
     public void onUpdate(Graphics g, int px, int py, ImageObserver ref) {
         // update object positions
-        //System.out.println("getting updated: "+direction);
-        //System.out.println(this.location.getX() + " "+this.location.getY() + " "+dimy + " "+dimx);
         long time = System.currentTimeMillis();
         int cSecondPeriod = (int) (time % 1000);
         cSecondPeriod /= 20;
@@ -108,14 +106,12 @@ public class Conveyor extends Structure {
         
         for (int i =  0; i < objects.size(); i++) {
             GenericGameObject object = objects.get(i);
-//            System.out.println(Arrays.toString(toLocal(object.getCurrentx(),object.getCurrenty())));
-            // if object is about to be outside the current conveyor
             boolean northWestLogic = toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0;
             boolean southEastLogic = toLocal(object.getCurrentx(), object.getCurrenty())[1] >= -25;
             boolean northFree = (this.direction == DIRECTIONS.NORTH || this.direction == DIRECTIONS.WEST  ) && northWestLogic;
             boolean southFree = (this.direction == DIRECTIONS.SOUTH || this.direction == DIRECTIONS.EAST) && southEastLogic;
             
-            if (northFree || southFree) { // toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0
+            if (northFree || southFree) { 
                 boolean canMove = true;
                 if (next != null) { // if next conveyor exists
                     if (!next.objects.contains(object)) {// if object is not on next yet
@@ -126,19 +122,12 @@ public class Conveyor extends Structure {
                                                     object.getCurrenty() + updateVector[1]*25);
                         	}
                             next.onTake(object);
-                        	//objects.remove(object);
                         } else {
                             canMove = false;
                         }
                     }
                 } else {
                     canMove = false;
-                }
-                if (canMove) {
-                	long deltaTime = time-lastTime;
-                    //object.updatePosition(object.getCurrentx() + updateVector[0]*pixPerSecond*deltaTime/1000.0,
-                    //            object.getCurrenty() + updateVector[1]*pixPerSecond*deltaTime/1000.0);
-                    
                 }
                 // remove the object if the object is outside the conveyor
                 
@@ -164,8 +153,6 @@ public class Conveyor extends Structure {
                 	}
 	                
                 }
-                
-                
             	long deltaTime = time-lastTime;
             	if (!skipUpdate) {
             		
@@ -173,9 +160,7 @@ public class Conveyor extends Structure {
                              object.getCurrenty() + updateVector[1]*pixPerSecond*deltaTime/1000.0);
             	}
             }
-            // TODO render object
-            //System.out.println(toLocal(object.getCurrentx(), object.getCurrenty())[1]);
-            //System.out.println(object.getCurrentx() + " " + object.getCurrenty());
+
             g.drawImage(object.getIcon(), (int) object.getCurrentx()-px, (int) object.getCurrenty()-py, ref);
         }
         lastTime = time;
