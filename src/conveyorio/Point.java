@@ -16,7 +16,9 @@ public class Point {
 	public int getY() {
 		return y;
 	}
-
+	public String toString() {
+		return String.format("(%s, %s)",x,y);
+	}
 	@Override
 	public int hashCode() {
 		return (x * 31 + y) % (int)(10E9 + 7);

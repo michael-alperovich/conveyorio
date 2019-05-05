@@ -31,10 +31,9 @@ public class Main {
 				openTrackFPS();
 				break;
 			case "test":
-				Conveyor c = new Conveyor(new Point(0,0), DIRECTIONS.WEST);
-				System.out.println(Arrays.toString(c.toLocal(0,0)));
-				Conveyor c2 = new Conveyor(new Point(0,0), DIRECTIONS.EAST);
-				System.out.println(Arrays.toString(c2.toLocal(0,0)));
+				Conveyor c = new Conveyor(new Point(0,0), DIRECTIONS.SOUTH);
+				System.out.println(Arrays.toString(c.toLocal(0,25)));
+				
 				break;
 			default:
 				System.out.println("defaulting to opengame");

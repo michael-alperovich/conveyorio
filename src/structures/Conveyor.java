@@ -27,7 +27,7 @@ public class Conveyor extends Structure {
         super(loc, 50, 50);
         direction = d;
         updateDelay = 5;
-        updateVector = this.toVector(direction);
+        updateVector = Conveyor.toVector(direction);
         
         objects = new ArrayList<>();
         // TODO search for previous and next conveyor
@@ -36,7 +36,11 @@ public class Conveyor extends Structure {
         next = (Conveyor) World.getTileAt(new Point(targetx, targety));
         targetx = location.getX() - 50 * updateVector[0];
         targety = location.getY() - 50 * updateVector[1];
+        
         previous = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        if (this.direction == DIRECTIONS.SOUTH) {
+        	System.out.println(String.format("%s %s w/ prev target of %s %s [%s]", location.getX(), location.getY(), targetx, targety,previous));
+        }
         if (next == null || next.direction != this.direction) {
             World.registerSink(this);
         }
@@ -108,7 +112,7 @@ public class Conveyor extends Structure {
             // if object is about to be outside the current conveyor
             boolean northWestLogic = toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0;
             boolean southEastLogic = toLocal(object.getCurrentx(), object.getCurrenty())[1] >= -25;
-            boolean northFree = (this.direction == DIRECTIONS.NORTH || this.direction == DIRECTIONS.WEST) && northWestLogic;
+            boolean northFree = (this.direction == DIRECTIONS.NORTH || this.direction == DIRECTIONS.WEST  ) && northWestLogic;
             boolean southFree = (this.direction == DIRECTIONS.SOUTH || this.direction == DIRECTIONS.EAST) && southEastLogic;
             
             if (northFree || southFree) { // toLocal(object.getCurrentx(), object.getCurrenty())[1]>= 0
@@ -117,6 +121,7 @@ public class Conveyor extends Structure {
                     if (!next.objects.contains(object)) {// if object is not on next yet
                         if (next.canReceive(object)) {
                         	if (next.direction != this.direction) {
+                        		
                         		object.updatePosition(object.getCurrentx() + updateVector[0]*25,
                                                     object.getCurrenty() + updateVector[1]*25);
                         	}
@@ -163,6 +168,7 @@ public class Conveyor extends Structure {
                 
             	long deltaTime = time-lastTime;
             	if (!skipUpdate) {
+            		
             		object.updatePosition(object.getCurrentx() + updateVector[0]*pixPerSecond*deltaTime/1000.0,
                              object.getCurrenty() + updateVector[1]*pixPerSecond*deltaTime/1000.0);
             	}
@@ -199,7 +205,7 @@ public class Conveyor extends Structure {
             case EAST:
                 return new double[]{-dy, -( d - (location.getX() + xlen) )};
             case SOUTH:
-                return new double[]{-(d - (location.getX() + xlen)), (e2 - (location.getY() + ylen))};
+                return new double[]{-(d - (location.getX() + xlen)), -(e2 - (location.getY() + ylen))};
             case WEST:
                 return new double[]{(e2 - (location.getY() - ylen)), dx};
             default:
