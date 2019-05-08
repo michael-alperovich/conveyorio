@@ -38,9 +38,7 @@ public class Conveyor extends Structure {
         targety = location.getY() - 50 * updateVector[1];
         
         previous = (Conveyor) World.getTileAt(new Point(targetx, targety));
-        if (this.direction == DIRECTIONS.SOUTH) {
-        	System.out.println(String.format("%s %s w/ prev target of %s %s [%s]", location.getX(), location.getY(), targetx, targety,previous));
-        }
+       
         if (next == null || next.direction != this.direction) {
             World.registerSink(this);
         }

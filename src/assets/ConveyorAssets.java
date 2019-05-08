@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public final class ConveyorAssets {
+public final class ConveyorAssets{
 	public static BufferedImage[] east = new BufferedImage[50];
 	public static BufferedImage[] north = new BufferedImage[50];
 	public static BufferedImage[] south = new BufferedImage[50];
