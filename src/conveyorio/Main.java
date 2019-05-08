@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import assets.CoalAssets;
 import assets.ConveyorAssets;
-import objects.Coal;
+import assets.SingleInserterAssets;
 import structures.Conveyor;
 import structures.DIRECTIONS;
 
@@ -16,33 +16,32 @@ public class Main {
 	public static final Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) throws Exception {
 		loadGraphics();
-		String action = sc.nextLine();
-		switch(action) {
-			case "testbuf":
-				System.out.println("Enter in a phase number");
-				System.out.println(ConveyorAssets.east[sc.nextInt() % 50]);
-				break;
-			case "animate":
-				System.out.println("running animation gui");
-				openAnimation();
-				break;
-			case "trackfps":
-
-				openTrackFPS();
-				break;
-			case "test":
-				Conveyor c = new Conveyor(new Point(0,0), DIRECTIONS.SOUTH);
-				System.out.println(Arrays.toString(c.toLocal(0,25)));
-				
-				break;
-			default:
-				System.out.println("defaulting to opengame");
-				openGame();
-				break;
-		}
-		
-		
-		
+		System.out.println("defaulting to opengame");
+		openGame();
+//		String action = sc.nextLine();
+//		switch(action) {
+//			case "testbuf":
+//				System.out.println("Enter in a phase number");
+//				System.out.println(ConveyorAssets.east[sc.nextInt() % 50]);
+//				break;
+//			case "animate":
+//				System.out.println("running animation gui");
+//				openAnimation();
+//				break;
+//			case "trackfps":
+//
+//				openTrackFPS();
+//				break;
+//			case "test":
+//				Conveyor c = new Conveyor(new Point(0,0), DIRECTIONS.SOUTH);
+//				System.out.println(Arrays.toString(c.toLocal(0,25)));
+//
+//				break;
+//			default:
+//				System.out.println("defaulting to opengame");
+//				openGame();
+//				break;
+//		}
 	}
 
 	private static void openGame() throws Exception {
@@ -117,6 +116,14 @@ public class Main {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("[-] Coal Assets Failed to Load Assets");
+			e.printStackTrace();
+
+		}
+		try {
+			SingleInserterAssets.loadAssets();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("[-] Single Inserter Assets Failed to Load Assets");
 			e.printStackTrace();
 
 		}

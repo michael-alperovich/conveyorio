@@ -1,8 +1,5 @@
 package conveyorio;
 
-import assets.CoalAssets;
-import assets.ConveyorAssets;
-import javafx.scene.input.KeyCode;
 import objects.Coal;
 import structures.*;
 
@@ -64,6 +61,7 @@ class GameCavans extends JPanel implements KeyListener{
 	public boolean debugfps;
 	public int xmax, ymax;
 	public int camerax, cameray;
+	public int cameraSpeedX, cameraSpeedY;
 	public GameCavans(char dir,boolean trackFPS,int maxX, int maxY) {
 		World.setView(new Point(0,0));
 		direction = dir;
@@ -93,7 +91,8 @@ class GameCavans extends JPanel implements KeyListener{
 		lastreference.onTake(nextcoal2);
 		lastreference.onTake(nextcoal);
 
-		
+		SingleInserter inserter = new SingleInserter(new Point(200,  200), DIRECTIONS.NORTH);
+		inserter.onTake(new Coal());
 		xmax = maxX;
 		ymax = maxY;
 		camerax = 0;
@@ -111,7 +110,9 @@ class GameCavans extends JPanel implements KeyListener{
 		if(debugfps) {
         	cFrames++;
         }
-		
+		this.camerax += cameraSpeedX;
+		this.cameray -= cameraSpeedY;
+		World.setView(new Point(camerax,cameray));
         World.UpdateObjects(g, this);
 		
         this.repaint();
@@ -120,24 +121,35 @@ class GameCavans extends JPanel implements KeyListener{
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		if (arg0.getKeyChar() == 'w') {
-			// go up!
-			this.cameray -= 10;
+			this.cameraSpeedY += 1;
 		}
 		else if(arg0.getKeyChar() == 'a') {
-			this.camerax  -= 10;
+			this.cameraSpeedX -= 1;
 		}
 		else if (arg0.getKeyChar() == 's') {
-			this.cameray += 10;
+			this.cameraSpeedY -= 1;
 		}
 		else if (arg0.getKeyChar() == 'd') {
-			this.camerax += 10;
+			this.cameraSpeedX += 1;
 		}
-		World.setView(new Point(camerax,cameray));
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		if (arg0.getKeyChar() == 'w') {
+			this.cameraSpeedY = Math.min(0, cameraSpeedY);
+		}
+		else if(arg0.getKeyChar() == 'a') {
+			this.cameraSpeedX = Math.max(0, cameraSpeedX);
+		}
+		else if (arg0.getKeyChar() == 's') {
+			this.cameraSpeedY = Math.max(0, cameraSpeedY);
+		}
+		else if (arg0.getKeyChar() == 'd') {
+			this.cameraSpeedX = Math.min(0, cameraSpeedX);
+		}
 		
 	}
 

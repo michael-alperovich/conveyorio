@@ -25,7 +25,7 @@ public class World {
 	public static void setView(Point newP) {
 		view = newP;
 	}
-	
+
 	public World() {
 	}
 	public static void UpdateObjects(Graphics g,ImageObserver ref) {
@@ -37,9 +37,7 @@ public class World {
 		Iterator<Entry<Point, Structure>> it = world.entrySet().iterator();
 		while(it.hasNext()) {
 			Structure s = it.next().getValue();
-			if ( ! (s instanceof  Conveyor) ) {
-				s.onUpdate(g,view.getX(),view.getY(),ref );
-			}
+			s.onUpdate(g,view.getX(),view.getY(),ref );
 		}
 		
 	}
