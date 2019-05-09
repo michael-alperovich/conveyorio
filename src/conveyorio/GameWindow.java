@@ -201,10 +201,8 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(arg0.getX()+ " "+arg0.getY());
 		int globalX = Camera.inverseX(arg0.getX());
 		int globalY = Camera.inverseY(arg0.getY());
-		System.out.println("result: "+globalX+ " "+globalY);
 		globalX = (int) (Math.floor(globalX/50.0)*50);
 		globalY = (int) (Math.floor(globalY/50.0)*50);
 		UIUX.targetinfo = World.getTileAt(new Point(globalX, globalY));

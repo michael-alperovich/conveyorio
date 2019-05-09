@@ -1,6 +1,8 @@
 package structures;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -221,4 +223,39 @@ public class Conveyor extends Structure {
         }
         return true;
     }
+    
+    public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {
+		Graphics2D g2 = (Graphics2D) g;
+		g.setColor(new Color(100, 100, 100));
+		g.fillRect(xWindowSize-200, 0, xWindowSize, 500);
+		g.setColor(new Color(255,255,100));
+		g2.drawString("Regular Conveyor Belt", xWindowSize-190, 50);
+		g.setColor(new Color(255,255,255));
+		g2.drawString("Direction: "+this.direction,xWindowSize-190, 70);
+		g2.drawString("Cordinates: "+location.toString(),xWindowSize-170,180);
+		if(this.previous == null) {
+			g.setColor(new Color(255,0,0));
+			g2.drawString("Previous Reference: nullref",xWindowSize-170 , 90);
+		}
+		else {
+			g.setColor(new Color(0,255,0));
+			g2.drawString("Previous Reference: ",xWindowSize-170 , 90);
+			g2.drawString(this.previous.toString(), xWindowSize-170, 120);
+		}
+		
+		if(this.next  == null) {
+			g.setColor(new Color(255,0,0));
+			g2.drawString("Next Reference: nullref",xWindowSize-170 , 140);
+		}
+		else {
+			g.setColor(new Color(0,255,0));
+			g2.drawString("Next Reference: ",xWindowSize-170 , 140);
+			g2.drawString(this.next.toString(), xWindowSize-170, 160);
+		}
+		
+		g.setColor(Color.WHITE);
+		g2.drawString("Objects: "+objects.size(), xWindowSize-170, 200);
+	}
+    
+    
 }
