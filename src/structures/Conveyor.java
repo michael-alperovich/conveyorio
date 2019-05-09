@@ -50,10 +50,10 @@ public class Conveyor extends Structure {
         } else {
             previous = null;
         }
-        if (next != null) {
+        if (next != null && next.direction == this.direction) {
             next.previous = this;
         }
-        if (previous != null) {
+        if (previous != null && previous.direction == this.direction) {
             previous.next = this;
         }
 
@@ -229,7 +229,8 @@ public class Conveyor extends Structure {
 		g.setColor(new Color(100, 100, 100));
 		g.fillRect(xWindowSize-200, 0, xWindowSize, 500);
 		g.setColor(new Color(255,255,100));
-		g2.drawString("Regular Conveyor Belt", xWindowSize-190, 50);
+		g2.drawString("Regular Conveyor Belt", xWindowSize-190, 20);
+		g2.drawString(this.toString(), xWindowSize-190, 40);
 		g.setColor(new Color(255,255,255));
 		g2.drawString("Direction: "+this.direction,xWindowSize-190, 70);
 		g2.drawString("Cordinates: "+location.toString(),xWindowSize-170,180);
@@ -240,7 +241,7 @@ public class Conveyor extends Structure {
 		else {
 			g.setColor(new Color(0,255,0));
 			g2.drawString("Previous Reference: ",xWindowSize-170 , 90);
-			g2.drawString(this.previous.toString(), xWindowSize-170, 120);
+			g2.drawString(this.previous.toString(), xWindowSize-190, 120);
 		}
 		
 		if(this.next  == null) {
@@ -250,7 +251,7 @@ public class Conveyor extends Structure {
 		else {
 			g.setColor(new Color(0,255,0));
 			g2.drawString("Next Reference: ",xWindowSize-170 , 140);
-			g2.drawString(this.next.toString(), xWindowSize-170, 160);
+			g2.drawString(this.next.toString(), xWindowSize-190, 160);
 		}
 		
 		g.setColor(Color.WHITE);
