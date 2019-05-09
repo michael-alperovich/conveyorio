@@ -43,7 +43,6 @@ public class Camera {
 	}
 	public static void updateZoomByWheel(double clicks) {
 		wheelClicks += clicks;
-		System.out.println("wheel Clicks is up to: "+wheelClicks);
 		// 10 wheel clicks should 1/2 the whole screen.
 		ZoomFactor = Math.pow(2, -wheelClicks/10.0);
 		
@@ -51,10 +50,10 @@ public class Camera {
 	public static int resizeX(double xi) {return resizedX(xi);}
 	public static int resizeY(double yi) {return resizedY(yi);}
 	public static int inverseX(int xi) { // invert from mouse cordinates to World Cordinates.
-		return (int) ((xi-windowX/2)/ZoomFactor  + cameraX - offsetX);
+		return (int) ((xi-windowX/2 - offsetX)/ZoomFactor  + cameraX );
 	}
 	public static int inverseY(int yi) {
-		return (int) ((yi-windowY/2)/ZoomFactor  + cameraY - offsetY);
+		return (int) ((yi-windowY/2 - offsetY)/ZoomFactor  + cameraY );
 	}
 	
 	

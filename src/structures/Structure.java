@@ -83,7 +83,7 @@ public abstract class Structure extends Viewable{
 		g2.drawString("Default Structure display", xWindowSize-190, 50);
 		g.setColor(new Color(255,255,255));
 		g2.drawString("this is an object: ",xWindowSize-190,150);
-		g2.drawString(location.toString(),xWindowSize-180,150);
+		g2.drawString(location.toString(),xWindowSize-170,170);
 		
 	}
 }

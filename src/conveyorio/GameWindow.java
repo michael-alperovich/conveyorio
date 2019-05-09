@@ -1,6 +1,7 @@
 package conveyorio;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -130,8 +131,10 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		World.UpdateObjects(g, this);
 		
 		UIUX.updateUi(g, this);
+		g.setColor(Color.WHITE);
 		
-		//g2.drawLine(0, 0-cameray, 1000, 0-cameray); keep this line for calibration.
+		//Graphics2D g2 = (Graphics2D)g;
+		//g2.drawLine(0, Camera.remapY(0), 1000, Camera.remapY(0));// keep this line for calibration.
 		
         this.repaint();
 	}
@@ -198,9 +201,10 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
-		
+		System.out.println(arg0.getX()+ " "+arg0.getY());
 		int globalX = Camera.inverseX(arg0.getX());
 		int globalY = Camera.inverseY(arg0.getY());
+		System.out.println("result: "+globalX+ " "+globalY);
 		globalX = (int) (Math.floor(globalX/50.0)*50);
 		globalY = (int) (Math.floor(globalY/50.0)*50);
 		UIUX.targetinfo = World.getTileAt(new Point(globalX, globalY));
