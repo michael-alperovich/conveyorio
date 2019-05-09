@@ -1,7 +1,7 @@
 package structures;
 
 import assets.SingleInserterAssets;
-
+import conveyorio.Camera;
 import conveyorio.Point;
 import conveyorio.World;
 import objects.GenericGameObject;
@@ -33,7 +33,7 @@ public class SingleInserter extends Structure {
 
 
     @Override
-    public void onUpdate(Graphics g, int px, int py, ImageObserver ref) {
+    public void onUpdate(Graphics g,  ImageObserver ref) {
         int displayAngle = angle;
         if (angle > 180) {
             displayAngle = (360 - angle) % 360;
@@ -55,12 +55,12 @@ public class SingleInserter extends Structure {
                 System.out.println("missed direction no render");
                 break;
         }
-        g.drawImage(SingleInserterAssets.phases[displayAngle], this.location.getX()-px, this.location.getY()-py, 75, 75, ref);
+        g.drawImage(SingleInserterAssets.phases[displayAngle], Camera.remapX(this.location.getX()), Camera.remapY(this.location.getY()), Camera.resizeX(75),Camera.resizeY(75), ref);
         if (object != null) {
             double newX = initialPoint[0] + RADIUS * Math.cos((360 - displayAngle) % 360 / 180.0 * Math.PI) - object.dimx / 2.0;
             double newY = initialPoint[1] + RADIUS * Math.sin((360 - displayAngle) % 360  / 180.0 * Math.PI) - object.dimy / 2.0;
             object.updatePosition(newX, newY);
-            g.drawImage(object.getIcon(), (int) object.getCurrentx()-px, (int) object.getCurrenty()-py, ref);
+            g.drawImage(object.getIcon(), Camera.remapX(object.getCurrentx()), Camera.remapY(object.getCurrenty()),Camera.resizeX(object.getIcon().getWidth()),Camera.resizeY(object.getIcon().getHeight()),ref);
         }
         long time = System.currentTimeMillis();
         if (time - lastTime > updateDelay) {

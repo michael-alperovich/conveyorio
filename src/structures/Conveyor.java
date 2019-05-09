@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import assets.ConveyorAssets;
+import conveyorio.Camera;
 import conveyorio.Point;
 import conveyorio.World;
 import objects.GenericGameObject;
@@ -79,23 +80,23 @@ public class Conveyor extends Structure {
     }
 
     @Override
-    public void onUpdate(Graphics g, int px, int py, ImageObserver ref) {
+    public void onUpdate(Graphics g, ImageObserver ref) {
         // update object positions
         long time = System.currentTimeMillis();
         int cSecondPeriod = (int) (time % 1000);
         cSecondPeriod /= 20;
         switch (direction) {
             case NORTH:
-                g.drawImage(ConveyorAssets.north[cSecondPeriod], this.location.getX()-px, this.location.getY()-py, 50, 50, ref);
+                g.drawImage(ConveyorAssets.north[cSecondPeriod], Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50), Camera.resizedY(50), ref);
                 break;
             case EAST:
-                g.drawImage(ConveyorAssets.east[cSecondPeriod], this.location.getX()-px, this.location.getY()-py, ref);
+                g.drawImage(ConveyorAssets.east[cSecondPeriod], Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50), Camera.resizedY(50), ref);
                 break;
             case WEST:
-                g.drawImage(ConveyorAssets.west[cSecondPeriod], this.location.getX()-px, this.location.getY()-py, ref);
+                g.drawImage(ConveyorAssets.west[cSecondPeriod], Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50), Camera.resizedY(50), ref);
                 break;
             case SOUTH:
-                g.drawImage(ConveyorAssets.south[cSecondPeriod], this.location.getX()-px, this.location.getY()-py, ref);
+                g.drawImage(ConveyorAssets.south[cSecondPeriod], Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50),  Camera.resizedY(50), ref);
                 break;
             default:
                 System.out.println("missed direction no render");
@@ -159,11 +160,11 @@ public class Conveyor extends Structure {
             	}
             }
 
-            g.drawImage(object.getIcon(), (int) object.getCurrentx()-px, (int) object.getCurrenty()-py, ref);
+            g.drawImage(object.getIcon(), Camera.remapX(object.getCurrentx()), Camera.remapY(object.getCurrenty()),Camera.resizedX(object.getIcon().getWidth()),Camera.resizedY(object.getIcon().getHeight()), ref);
         }
         lastTime = time;
         if (previous != null) {
-            previous.onUpdate(g, px, py, ref);
+            previous.onUpdate(g, ref);
         }
         
     }
