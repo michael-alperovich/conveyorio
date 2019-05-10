@@ -16,7 +16,9 @@ public class Main {
 	public static final Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) throws Exception {
 		loadGraphics();
-		String action = sc.nextLine();
+		openGame();
+		//String action = sc.nextLine();
+		/*
 		switch(action) {
 			case "testbuf":
 				System.out.println("Enter in a phase number");
@@ -40,6 +42,7 @@ public class Main {
 				openGame();
 				break;
 		}
+		*/
 	}
 
 	private static void openGame() throws Exception {
