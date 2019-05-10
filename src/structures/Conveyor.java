@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import assets.ConveyorAssets;
@@ -21,19 +19,17 @@ public class Conveyor extends Structure {
     public Conveyor previous, next;
     public List<GenericGameObject> objects;
     private int[] updateVector;
-    private int updateDelay;
     public long lastTime = System.currentTimeMillis();
-    public double pixPerSecond = 100; // TODO: pixels per second speed.
+    public double pixPerSecond = 100; 
     public final int LENGTH = 50;
 
     public Conveyor(Point loc, DIRECTIONS d) {
         super(loc, 50, 50);
         direction = d;
-        updateDelay = 5;
         updateVector = Conveyor.toVector(direction);
         
         objects = new ArrayList<>();
-        // TODO search for previous and next conveyor
+
         int targetx = location.getX() + 50 * updateVector[0];
         int targety = location.getY() + 50 * updateVector[1];
         next = (Conveyor) World.getTileAt(new Point(targetx, targety));
@@ -113,7 +109,6 @@ public class Conveyor extends Structure {
             boolean southFree = (this.direction == DIRECTIONS.SOUTH || this.direction == DIRECTIONS.EAST) && southEastLogic;
             
             if (northFree || southFree) { 
-                boolean canMove = true;
                 if (next != null) { // if next conveyor exists
                     if (!next.objects.contains(object)) {// if object is not on next yet
                         if (next.canReceive(object)) {
@@ -124,12 +119,9 @@ public class Conveyor extends Structure {
                         	}
                             next.onTake(object);
                         } else {
-                            canMove = false;
                         }
                     }
-                } else {
-                    canMove = false;
-                }
+                } 
                 // remove the object if the object is outside the conveyor
                 
                 int cutoff = 0;
@@ -199,7 +191,6 @@ public class Conveyor extends Structure {
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
         }
@@ -215,7 +206,6 @@ public class Conveyor extends Structure {
     public boolean canReceive(GenericGameObject object) {
         double[] coordinates = toLocal(object.getCurrentx(), object.getCurrenty());
         for (GenericGameObject storedObject : objects) {
-            // check for objects intersection
             if (!(toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] > coordinates[1] + object.dimx ||
                     toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] + storedObject.dimx < coordinates[1])) {
                 return false;

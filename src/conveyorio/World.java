@@ -22,7 +22,6 @@ public class World {
 	public World() {
 	}
 	public static void UpdateObjects(Graphics g,ImageObserver ref) {
-		long fixedTime = System.currentTimeMillis();
 		for (Point source : conveyorSources) {
 			Structure object = getTileAt(source);
 			object.onUpdate(g,ref);	

@@ -129,10 +129,12 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		
         
 		World.UpdateObjects(g, this);
-		
 		UIUX.updateUi(g, this);
 		g.setColor(Color.WHITE);
 		
+		if (UIUX.requestFocus) {
+			UIUX.openSelectionGui(g);
+		}
 		//Graphics2D g2 = (Graphics2D)g;
 		//g2.drawLine(0, Camera.remapY(0), 1000, Camera.remapY(0));// keep this line for calibration.
 		
@@ -171,7 +173,9 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		else if (arg0.getKeyChar() == 'd') {
 			this.cameraSpeedX = Math.min(0, cameraSpeedX);
 		}
-		
+		else if (arg0.getKeyChar() == 'e') {
+			UIUX.openSelection();
+		}
 	}
 
 	@Override
@@ -200,12 +204,14 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
-		int globalX = Camera.inverseX(arg0.getX());
-		int globalY = Camera.inverseY(arg0.getY());
-		globalX = (int) (Math.floor(globalX/50.0)*50);
-		globalY = (int) (Math.floor(globalY/50.0)*50);
-		UIUX.targetinfo = World.getTileAt(new Point(globalX, globalY));
+		if (UIUX.requestFocus) {
+			int globalX = Camera.inverseX(arg0.getX());
+			int globalY = Camera.inverseY(arg0.getY());
+			globalX = (int) (Math.floor(globalX/50.0)*50);
+			globalY = (int) (Math.floor(globalY/50.0)*50);
+			UIUX.targetinfo = World.getTileAt(new Point(globalX, globalY));
+			
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {

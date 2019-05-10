@@ -9,6 +9,7 @@ public class UIUX {
 	public static Structure targetinfo;
 	public static int xlen;
 	public static int ylen;
+	public static boolean requestFocus = false;
 	
 	public static void updateDimensions(int xi, int yi) {
 		xlen = xi;
@@ -20,8 +21,16 @@ public class UIUX {
 			targetinfo.displayGUI(g,ref,xlen,ylen);
 		}
 	}
-	
+	public static void openSelectionGui(Graphics g) {
+		
+	}
 	public static void keyPressed() {
 		
+	}
+	public static void openSelection() {
+		requestFocus = true;
+	}
+	public static void escape() {
+		requestFocus = false;
 	}
 }
