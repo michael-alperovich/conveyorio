@@ -112,11 +112,6 @@ public class SingleInserter extends Structure {
     }
 
     @Override
-    void onDelete() {
-
-    }
-
-    @Override
     public void onTake(GenericGameObject object) {
         this.object = object;
     }

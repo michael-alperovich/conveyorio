@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 
 import conveyorio.Point;
+import conveyorio.World;
 import objects.GenericGameObject;
 import properties.Viewable;
 
@@ -72,7 +73,9 @@ public abstract class Structure extends Viewable{
 	public abstract void onUpdate(Graphics g, ImageObserver ref);
 	
 	
-	abstract void onDelete();
+	public void onDelete() {
+		World.removeTile(this);
+	}
 	abstract boolean canReceive(GenericGameObject object);
 	abstract void onTake(GenericGameObject g);
 	public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {

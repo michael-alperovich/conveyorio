@@ -27,9 +27,15 @@ public class Conveyor extends Structure {
         super(loc, 50, 50);
         direction = d;
         updateVector = Conveyor.toVector(direction);
-        
+
         objects = new ArrayList<>();
 
+
+
+        World.addTile(this);
+    }
+
+    private void updateReference() {
         int targetx = location.getX() + 50 * updateVector[0];
         int targety = location.getY() + 50 * updateVector[1];
         if (World.getTileAt(new Point(targetx, targety)) instanceof Conveyor) {
@@ -41,7 +47,7 @@ public class Conveyor extends Structure {
         if (World.getTileAt(new Point(targetx, targety)) instanceof Conveyor) {
             previous = (Conveyor) World.getTileAt(new Point(targetx, targety));
         }
-       
+
         if (next == null || next.direction != this.direction) {
             World.registerSink(this);
         }
@@ -56,36 +62,12 @@ public class Conveyor extends Structure {
         if (previous != null && previous.direction == this.direction) {
             previous.next = this;
         }
-
-        World.addTile(this);
-
-        // check left and right
-        targetx = location.getX() - 50 * updateVector[1];
-        targety = location.getY() - 50 * updateVector[0];
-        Structure sideConveyor = World.getTileAt(new Point(targetx, targety));
-        if (sideConveyor instanceof Conveyor) {
-            Conveyor c = (Conveyor) sideConveyor;
-            c.updateNext();
-        }
-
-        targetx = location.getX() + 50 * updateVector[1];
-        targety = location.getY() + 50 * updateVector[0];
-        sideConveyor = World.getTileAt(new Point(targetx, targety));
-        if (sideConveyor instanceof Conveyor) {
-            Conveyor c = (Conveyor) sideConveyor;
-            c.updateNext();
-        }
-    }
-
-    public void updateNext() {
-        int targetx = location.getX() + 50 * updateVector[0];
-        int targety = location.getY() + 50 * updateVector[1];
-        next = (Conveyor) World.getTileAt(new Point(targetx, targety));
     }
 
     @Override
     public void onUpdate(Graphics g, ImageObserver ref) {
         // update object positions
+        updateReference();
         long time = System.currentTimeMillis();
         int cSecondPeriod = (int) (time % 1000);
         cSecondPeriod /= 20;
@@ -167,11 +149,6 @@ public class Conveyor extends Structure {
             previous.onUpdate(g, ref);
         }
         
-    }
-
-    @Override
-    void onDelete() {
-
     }
 
     public double[] toLocal(double d, double e) {
