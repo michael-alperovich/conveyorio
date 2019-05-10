@@ -205,7 +205,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		if (UIUX.requestFocus) {
+		if (!UIUX.requestFocus) {
 			int globalX = Camera.inverseX(arg0.getX());
 			int globalY = Camera.inverseY(arg0.getY());
 			globalX = (int) (Math.floor(globalX/50.0)*50);
