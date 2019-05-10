@@ -52,14 +52,16 @@ public class World {
 	}
 
 	public static void registerSink(Conveyor previous) {
-		// TODO Auto-generated method stub
 		conveyorSources.add(previous.location);
 		
 	}
 	
 	public static void deregisterSink(Conveyor previous) {
-		// TODO Auto-generated method stub
 		conveyorSources.remove(previous.location);
+	}
+
+	public static void removeTile(Structure s) {
+		world.remove(s.location);
 	}
 	
 }
