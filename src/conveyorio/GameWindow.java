@@ -93,6 +93,7 @@ class GameCavans extends JPanel implements KeyListener{
 
 		SingleInserter inserter = new SingleInserter(new Point(200,  200), DIRECTIONS.NORTH);
 		inserter.onTake(new Coal());
+		new Conveyor(new Point(200, 250),DIRECTIONS.WEST);
 		xmax = maxX;
 		ymax = maxY;
 		camerax = 0;

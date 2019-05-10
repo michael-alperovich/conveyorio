@@ -13,12 +13,12 @@ import java.awt.image.ImageObserver;
 public class SingleInserter extends Structure {
 
     private DIRECTIONS direction;
-    public Structure previous, next;
     public GenericGameObject object;
     private int updateDelay;
     public long lastTime = System.currentTimeMillis();
     public int angle;
     private int[] initialPoint;
+    private Conveyor source, sink;
     private final int RADIUS = 37;
 
     public SingleInserter(Point loc, DIRECTIONS d) {
@@ -31,6 +31,15 @@ public class SingleInserter extends Structure {
         World.addTile(this);
     }
 
+    private void checkConveyors() {
+        int targetx = location.getX() - 50 * Conveyor.toVector(direction)[0];
+        int targety = location.getY() - 50 * Conveyor.toVector(direction)[1];
+        source = (Conveyor) World.getTileAt(new Point(targetx, targety));
+
+        targetx = location.getX() + 50 * Conveyor.toVector(direction)[0];
+        targety = location.getY() + 50 * Conveyor.toVector(direction)[1];
+        sink = (Conveyor) World.getTileAt(new Point(targetx, targety));
+    }
 
     @Override
     public void onUpdate(Graphics g, int px, int py, ImageObserver ref) {
@@ -55,17 +64,50 @@ public class SingleInserter extends Structure {
                 System.out.println("missed direction no render");
                 break;
         }
-        g.drawImage(SingleInserterAssets.phases[displayAngle], this.location.getX()-px, this.location.getY()-py, 75, 75, ref);
+        g.drawImage(SingleInserterAssets.phases[displayAngle], this.location.getX()-px, this.location.getY()-py, RADIUS * 2, RADIUS * 2, ref);
         if (object != null) {
             double newX = initialPoint[0] + RADIUS * Math.cos((360 - displayAngle) % 360 / 180.0 * Math.PI) - object.dimx / 2.0;
             double newY = initialPoint[1] + RADIUS * Math.sin((360 - displayAngle) % 360  / 180.0 * Math.PI) - object.dimy / 2.0;
             object.updatePosition(newX, newY);
             g.drawImage(object.getIcon(), (int) object.getCurrentx()-px, (int) object.getCurrenty()-py, ref);
         }
-        long time = System.currentTimeMillis();
-        if (time - lastTime > updateDelay) {
-            angle = (angle + 1) % 360;
-            lastTime = time;
+
+
+        boolean canMove = true;
+        if (angle == 0) {
+            if (source != null && source.objects.size() != 0) {
+                double minDist = Double.MAX_VALUE;
+                GenericGameObject closestObj = null;
+                for (int i = 0; i < source.objects.size(); i++) {
+                    GenericGameObject o = source.objects.get(i);
+                    double dist = Math.hypot(this.location.getX() - o.getCurrentx(), this.location.getY() - o.getCurrenty());
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closestObj = o;
+                    }
+                }
+                object = closestObj;
+                source.onRemove(closestObj);
+            }
+            else {
+                canMove = object != null;
+            }
+        }
+        else if (angle == 180) {
+            if (sink != null && object != null && sink.canReceive(object)) {
+                sink.onTake(object);
+                object = null;
+            }
+            else {
+                canMove = object == null;
+            }
+        }
+        if (canMove) {
+            long time = System.currentTimeMillis();
+            if (time - lastTime > updateDelay) {
+                angle = (angle + 1) % 360;
+                lastTime = time;
+            }
         }
     }
 

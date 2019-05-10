@@ -11,6 +11,7 @@ import java.util.Map.Entry;
  * Rendering Chunk, Can Render noGraphic or Graphics.
  */
 import structures.Conveyor;
+import structures.SingleInserter;
 import structures.Structure;
 
 
@@ -37,7 +38,16 @@ public class World {
 		Iterator<Entry<Point, Structure>> it = world.entrySet().iterator();
 		while(it.hasNext()) {
 			Structure s = it.next().getValue();
-			s.onUpdate(g,view.getX(),view.getY(),ref );
+			if (s instanceof Conveyor) {
+				s.onUpdate(g, view.getX(), view.getY(), ref);
+			}
+		}
+		it = world.entrySet().iterator();
+		while(it.hasNext()) {
+			Structure s = it.next().getValue();
+			if (! (s instanceof Conveyor)) {
+				s.onUpdate(g, view.getX(), view.getY(), ref);
+			}
 		}
 		
 	}
