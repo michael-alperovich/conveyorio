@@ -32,11 +32,15 @@ public class Conveyor extends Structure {
 
         int targetx = location.getX() + 50 * updateVector[0];
         int targety = location.getY() + 50 * updateVector[1];
-        next = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        if (World.getTileAt(new Point(targetx, targety)) instanceof Conveyor) {
+            next = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        }
         targetx = location.getX() - 50 * updateVector[0];
         targety = location.getY() - 50 * updateVector[1];
-        
-        previous = (Conveyor) World.getTileAt(new Point(targetx, targety));
+
+        if (World.getTileAt(new Point(targetx, targety)) instanceof Conveyor) {
+            previous = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        }
        
         if (next == null || next.direction != this.direction) {
             World.registerSink(this);
@@ -58,16 +62,18 @@ public class Conveyor extends Structure {
         // check left and right
         targetx = location.getX() - 50 * updateVector[1];
         targety = location.getY() - 50 * updateVector[0];
-        Conveyor sideConveyor = (Conveyor) World.getTileAt(new Point(targetx, targety));
-        if (sideConveyor != null) {
-            sideConveyor.updateNext();
+        Structure sideConveyor = World.getTileAt(new Point(targetx, targety));
+        if (sideConveyor instanceof Conveyor) {
+            Conveyor c = (Conveyor) sideConveyor;
+            c.updateNext();
         }
 
         targetx = location.getX() + 50 * updateVector[1];
         targety = location.getY() + 50 * updateVector[0];
-        sideConveyor = (Conveyor) World.getTileAt(new Point(targetx, targety));
-        if (sideConveyor != null) {
-            sideConveyor.updateNext();
+        sideConveyor = World.getTileAt(new Point(targetx, targety));
+        if (sideConveyor instanceof Conveyor) {
+            Conveyor c = (Conveyor) sideConveyor;
+            c.updateNext();
         }
     }
 
@@ -130,7 +136,7 @@ public class Conveyor extends Structure {
                 }
                 if (toLocal(object.getCurrentx(), object.getCurrenty())[1] - object.dimx >= cutoff) {
 
-                    objects.remove(object);
+                    this.onRemove(object);
                 }
             }
             // if object is still inside the conveyor
@@ -200,6 +206,10 @@ public class Conveyor extends Structure {
     @Override
     public void onTake(GenericGameObject object) {
         objects.add(object);
+    }
+
+    public void onRemove (GenericGameObject object) {
+        objects.remove(object);
     }
 
     @Override

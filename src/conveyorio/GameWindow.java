@@ -112,6 +112,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		UIUX.targetinfo = lastreference;
 		SingleInserter inserter = new SingleInserter(new Point(200,  200), DIRECTIONS.NORTH);
 		inserter.onTake(new Coal());
+
 		Camera.setView(new Point(0,0), 1);
 		//System.out.println("opened with "+xmax+" "+ymax);
         setSize(windowX, windowY);
