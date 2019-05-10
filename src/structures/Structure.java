@@ -1,6 +1,8 @@
 package structures;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 
 import conveyorio.Point;
@@ -67,10 +69,21 @@ public abstract class Structure extends Viewable{
 			return new int[] {0,0};
 		}
 	}
-	public abstract void onUpdate(Graphics g, int px, int py, ImageObserver ref);
+	public abstract void onUpdate(Graphics g, ImageObserver ref);
 	
 	
 	abstract void onDelete();
 	abstract boolean canReceive(GenericGameObject object);
 	abstract void onTake(GenericGameObject g);
+	public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {
+		Graphics2D g2 = (Graphics2D) g;
+		g.setColor(new Color(100, 100, 100));
+		g.fillRect(xWindowSize-200, 0, xWindowSize, 500);
+		g.setColor(new Color(255,255,100));
+		g2.drawString("Default Structure display", xWindowSize-190, 50);
+		g.setColor(new Color(255,255,255));
+		g2.drawString("this is an object: ",xWindowSize-190,150);
+		g2.drawString(location.toString(),xWindowSize-170,170);
+		
+	}
 }

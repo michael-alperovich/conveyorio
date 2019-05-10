@@ -19,13 +19,6 @@ public class World {
 	public static HashMap<Point, Structure> world = new HashMap<Point,Structure>();
 	
 	public static HashSet<Point> conveyorSources  = new HashSet<Point>();
-	public static Point view;
-	public Point getView() {
-		return view;
-	}
-	public static void setView(Point newP) {
-		view = newP;
-	}
 
 	public World() {
 	}
@@ -33,20 +26,20 @@ public class World {
 		long fixedTime = System.currentTimeMillis();
 		for (Point source : conveyorSources) {
 			Structure object = getTileAt(source);
-			object.onUpdate(g,view.getX(),view.getY(),ref);	
+			object.onUpdate(g,ref);	
 		}
 		Iterator<Entry<Point, Structure>> it = world.entrySet().iterator();
 		while(it.hasNext()) {
 			Structure s = it.next().getValue();
 			if (s instanceof Conveyor) {
-				s.onUpdate(g, view.getX(), view.getY(), ref);
+				s.onUpdate(g, ref);
 			}
 		}
 		it = world.entrySet().iterator();
 		while(it.hasNext()) {
 			Structure s = it.next().getValue();
 			if (! (s instanceof Conveyor)) {
-				s.onUpdate(g, view.getX(), view.getY(), ref);
+				s.onUpdate(g, ref);
 			}
 		}
 		

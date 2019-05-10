@@ -14,10 +14,10 @@ public final class ConveyorAssets{
 	public static BufferedImage[] west = new BufferedImage[50];
 	public static void loadAssets() throws IOException {
 		for(int i = 0; i < 50;i++) {
-			east[i] = ImageIO.read(new File("assets/tiles/conveyor/east/conveyor-small_phase"+i+".png"));
-			north[i] = ImageIO.read(new File("assets/tiles/conveyor/north/conveyor-small_phase"+i+".png"));
-			south[i] = ImageIO.read(new File("assets/tiles/conveyor/south/conveyor-small_phase"+i+".png"));
-			west[i] = ImageIO.read(new File("assets/tiles/conveyor/west/conveyor-small_phase"+i+".png"));
+			east[i] = ImageIO.read(ConveyorAssets.class.getResource("assets/tiles/conveyor/east/conveyor-small_phase"+i+".png"));
+			north[i] = ImageIO.read(ConveyorAssets.class.getResource("assets/tiles/conveyor/north/conveyor-small_phase"+i+".png"));
+			south[i] = ImageIO.read(ConveyorAssets.class.getResource("assets/tiles/conveyor/south/conveyor-small_phase"+i+".png"));
+			west[i] = ImageIO.read(ConveyorAssets.class.getResource("assets/tiles/conveyor/west/conveyor-small_phase"+i+".png"));
 		}
 	}
 }

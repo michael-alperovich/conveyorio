@@ -16,32 +16,33 @@ public class Main {
 	public static final Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) throws Exception {
 		loadGraphics();
-		System.out.println("defaulting to opengame");
 		openGame();
-//		String action = sc.nextLine();
-//		switch(action) {
-//			case "testbuf":
-//				System.out.println("Enter in a phase number");
-//				System.out.println(ConveyorAssets.east[sc.nextInt() % 50]);
-//				break;
-//			case "animate":
-//				System.out.println("running animation gui");
-//				openAnimation();
-//				break;
-//			case "trackfps":
-//
-//				openTrackFPS();
-//				break;
-//			case "test":
-//				Conveyor c = new Conveyor(new Point(0,0), DIRECTIONS.SOUTH);
-//				System.out.println(Arrays.toString(c.toLocal(0,25)));
-//
-//				break;
-//			default:
-//				System.out.println("defaulting to opengame");
-//				openGame();
-//				break;
-//		}
+		//String action = sc.nextLine();
+		/*
+		switch(action) {
+			case "testbuf":
+				System.out.println("Enter in a phase number");
+				System.out.println(ConveyorAssets.east[sc.nextInt() % 50]);	
+				break;
+			case "animate":
+				System.out.println("running animation gui");
+				openAnimation();
+				break;
+			case "trackfps":
+
+				openTrackFPS();
+				break;
+			case "test":
+				Conveyor c = new Conveyor(new Point(0,0), DIRECTIONS.SOUTH);
+				System.out.println(Arrays.toString(c.toLocal(0,25)));
+				System.out.println(Math.floor(-1.0/2));
+				break;
+			default:
+				System.out.println("defaulting to opengame");
+				openGame();
+				break;
+		}
+		*/
 	}
 
 	private static void openGame() throws Exception {

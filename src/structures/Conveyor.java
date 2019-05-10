@@ -1,6 +1,8 @@
 package structures;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import assets.ConveyorAssets;
+import conveyorio.Camera;
 import conveyorio.Point;
 import conveyorio.World;
 import objects.GenericGameObject;
@@ -51,10 +54,10 @@ public class Conveyor extends Structure {
         } else {
             previous = null;
         }
-        if (next != null) {
+        if (next != null && next.direction == this.direction) {
             next.previous = this;
         }
-        if (previous != null) {
+        if (previous != null && previous.direction == this.direction) {
             previous.next = this;
         }
 
@@ -85,23 +88,23 @@ public class Conveyor extends Structure {
     }
 
     @Override
-    public void onUpdate(Graphics g, int px, int py, ImageObserver ref) {
+    public void onUpdate(Graphics g, ImageObserver ref) {
         // update object positions
         long time = System.currentTimeMillis();
         int cSecondPeriod = (int) (time % 1000);
         cSecondPeriod /= 20;
         switch (direction) {
             case NORTH:
-                g.drawImage(ConveyorAssets.north[cSecondPeriod], this.location.getX()-px, this.location.getY()-py, 50, 50, ref);
+                g.drawImage(ConveyorAssets.north[cSecondPeriod], Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50), Camera.resizedY(50), ref);
                 break;
             case EAST:
-                g.drawImage(ConveyorAssets.east[cSecondPeriod], this.location.getX()-px, this.location.getY()-py, ref);
+                g.drawImage(ConveyorAssets.east[cSecondPeriod], Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50), Camera.resizedY(50), ref);
                 break;
             case WEST:
-                g.drawImage(ConveyorAssets.west[cSecondPeriod], this.location.getX()-px, this.location.getY()-py, ref);
+                g.drawImage(ConveyorAssets.west[cSecondPeriod], Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50), Camera.resizedY(50), ref);
                 break;
             case SOUTH:
-                g.drawImage(ConveyorAssets.south[cSecondPeriod], this.location.getX()-px, this.location.getY()-py, ref);
+                g.drawImage(ConveyorAssets.south[cSecondPeriod], Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50),  Camera.resizedY(50), ref);
                 break;
             default:
                 System.out.println("missed direction no render");
@@ -165,11 +168,11 @@ public class Conveyor extends Structure {
             	}
             }
 
-            g.drawImage(object.getIcon(), (int) object.getCurrentx()-px, (int) object.getCurrenty()-py, ref);
+            g.drawImage(object.getIcon(), Camera.remapX(object.getCurrentx()), Camera.remapY(object.getCurrenty()),Camera.resizedX(object.getIcon().getWidth()),Camera.resizedY(object.getIcon().getHeight()), ref);
         }
         lastTime = time;
         if (previous != null) {
-            previous.onUpdate(g, px, py, ref);
+            previous.onUpdate(g, ref);
         }
         
     }
@@ -230,4 +233,40 @@ public class Conveyor extends Structure {
         }
         return true;
     }
+    
+    public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {
+		Graphics2D g2 = (Graphics2D) g;
+		g.setColor(new Color(100, 100, 100));
+		g.fillRect(xWindowSize-200, 0, xWindowSize, 500);
+		g.setColor(new Color(255,255,100));
+		g2.drawString("Regular Conveyor Belt", xWindowSize-190, 20);
+		g2.drawString(this.toString(), xWindowSize-190, 40);
+		g.setColor(new Color(255,255,255));
+		g2.drawString("Direction: "+this.direction,xWindowSize-190, 70);
+		g2.drawString("Cordinates: "+location.toString(),xWindowSize-170,180);
+		if(this.previous == null) {
+			g.setColor(new Color(255,0,0));
+			g2.drawString("Previous Reference: nullref",xWindowSize-170 , 90);
+		}
+		else {
+			g.setColor(new Color(0,255,0));
+			g2.drawString("Previous Reference: ",xWindowSize-170 , 90);
+			g2.drawString(this.previous.toString(), xWindowSize-190, 120);
+		}
+		
+		if(this.next  == null) {
+			g.setColor(new Color(255,0,0));
+			g2.drawString("Next Reference: nullref",xWindowSize-170 , 140);
+		}
+		else {
+			g.setColor(new Color(0,255,0));
+			g2.drawString("Next Reference: ",xWindowSize-170 , 140);
+			g2.drawString(this.next.toString(), xWindowSize-190, 160);
+		}
+		
+		g.setColor(Color.WHITE);
+		g2.drawString("Objects: "+objects.size(), xWindowSize-170, 200);
+	}
+    
+    
 }

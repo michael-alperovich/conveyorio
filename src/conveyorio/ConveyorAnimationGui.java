@@ -3,10 +3,7 @@ package conveyorio;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Label;
-import java.awt.Panel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -14,7 +11,8 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 
-import assets.*;
+import assets.CoalAssets;
+import assets.ConveyorAssets;
 
 public class ConveyorAnimationGui {
 
@@ -74,15 +72,12 @@ class AnimatedCanvas extends JPanel implements KeyListener{
 	}
 	@Override
     public void paintComponent (Graphics g) {
-		Graphics2D g2;
-        if(debugfps) {
+		if(debugfps) {
         	cFrames++;
         }
 
         super.paintComponent(g);
-   		g2 = (Graphics2D) g;
-   		
-		long time = System.currentTimeMillis();
+   		long time = System.currentTimeMillis();
 		int cSecondPeriod = (int) (time % 1000);
 		cSecondPeriod /= 20;
 		for(int x = 0; x < xmax;x+= 50) {
