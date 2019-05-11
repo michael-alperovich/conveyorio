@@ -21,31 +21,33 @@ public class SingleInserter extends Structure {
     private int[] initialPoint;
     private Conveyor source, sink;
     private final int RADIUS = 37;
+    public Point trueLocation;
 
     public SingleInserter(Point loc, DIRECTIONS d) {
         super(loc, 50, 50);
         direction = d;
         updateDelay = 2;
         initialPoint = Conveyor.toVector(direction);
-        initialPoint[0] = location.getX() - RADIUS * initialPoint[0] + RADIUS;
-        initialPoint[1] = location.getY() - RADIUS * initialPoint[1];
+        trueLocation = location.add(new Point(-12, -12));
+        initialPoint[0] = trueLocation.getX() - RADIUS * initialPoint[0] + RADIUS;
+        initialPoint[1] = trueLocation.getY() - RADIUS * initialPoint[1];
         World.addTile(this);
     }
 
     private void checkConveyors() {
-        int targetx = location.getX() - 50 * Conveyor.toVector(direction)[0];
-        int targety = location.getY() - 50 * Conveyor.toVector(direction)[1];
+        int targetx = location.getX() + 50 * Conveyor.toVector(direction)[0];
+        int targety = location.getY() + 50 * Conveyor.toVector(direction)[1];
         source = (Conveyor) World.getTileAt(new Point(targetx, targety));
 
-        targetx = location.getX() + 50 * Conveyor.toVector(direction)[0];
-        targety = location.getY() + 50 * Conveyor.toVector(direction)[1];
+        targetx = location.getX() - 50 * Conveyor.toVector(direction)[0];
+        targety = location.getY() - 50 * Conveyor.toVector(direction)[1];
         sink = (Conveyor) World.getTileAt(new Point(targetx, targety));
     }
 
     @Override
     public void onUpdate(Graphics g,  ImageObserver ref) {
-    	this.checkConveyors(); // TODO: verify this should be called here
-    	
+    	this.checkConveyors();
+
         int displayAngle = angle;
         if (angle > 180) {
             displayAngle = (360 - angle) % 360;
@@ -67,7 +69,7 @@ public class SingleInserter extends Structure {
                 System.out.println("missed direction no render");
                 break;
         }
-        g.drawImage(SingleInserterAssets.phases[displayAngle], Camera.remapX(this.location.getX()), Camera.remapY(this.location.getY()), Camera.resizeX(75),Camera.resizeY(75), ref);
+        g.drawImage(SingleInserterAssets.phases[displayAngle], Camera.remapX(this.trueLocation.getX()), Camera.remapY(this.trueLocation.getY()), Camera.resizeX(75),Camera.resizeY(75), ref);
         if (object != null) {
             double newX = initialPoint[0] + RADIUS * Math.cos((360 - displayAngle) % 360 / 180.0 * Math.PI) - object.dimx / 2.0;
             double newY = initialPoint[1] + RADIUS * Math.sin((360 - displayAngle) % 360  / 180.0 * Math.PI) - object.dimy / 2.0;
@@ -83,7 +85,7 @@ public class SingleInserter extends Structure {
                 GenericGameObject closestObj = null;
                 for (int i = 0; i < source.objects.size(); i++) {
                     GenericGameObject o = source.objects.get(i);
-                    double dist = Math.hypot(this.location.getX() - o.getCurrentx(), this.location.getY() - o.getCurrenty());
+                    double dist = Math.hypot(this.trueLocation.getX() - o.getCurrentx(), this.trueLocation.getY() - o.getCurrenty());
                     if (dist < minDist) {
                         minDist = dist;
                         closestObj = o;
