@@ -1,5 +1,6 @@
 package conveyorio;
 
+
 public class Camera {
 	/*
 	 * Strictly Math based cordinate tracking system that allows us to zoom and translate the screen while allowing for items to render correctly.
@@ -41,8 +42,13 @@ public class Camera {
 		// also need to set clicks, but not sure about type.
 		wheelClicks = -10 * Math.log(zoom)/Math.log(2);
 	}
+	public static double clip(double inp, double li, double ri) {
+		return Math.min(Math.max(inp, li), ri);
+	}
 	public static void updateZoomByWheel(double clicks) {
 		wheelClicks += clicks;
+		wheelClicks = clip(wheelClicks,-50,50);
+		
 		// 10 wheel clicks should 1/2 the whole screen.
 		ZoomFactor = Math.pow(2, -wheelClicks/10.0);
 		

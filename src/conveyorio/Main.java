@@ -45,7 +45,7 @@ public class Main {
 
 	private static void openGame() throws Exception {
 		System.out.println("<---------------opening game animation---------->");
-		GameWindow g = new GameWindow(500,500);
+		GameWindow g = new GameWindow(1000,700);
 		g.boot();
 	}
 

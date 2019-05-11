@@ -18,6 +18,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 
+import javafx.scene.input.KeyCode;
 import objects.Coal;
 import structures.Conveyor;
 import structures.DIRECTIONS;
@@ -78,7 +79,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	public int cFrames = 0;
 	public boolean debugfps;	
 	public int cameraSpeedX, cameraSpeedY;
-	
+	public boolean sufficentScreenSize;
 	
 	public GameCavans(int windowX, int windowY) {
 		Camera.setView(new Point(0,0), 1);
@@ -133,8 +134,8 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		UIUX.updateUi(g, this);
 		g.setColor(Color.WHITE);
 		
-		if (UIUX.requestFocus) {
-			UIUX.openSelectionGui(g);
+		if (UIUX.requestFocus && sufficentScreenSize) {
+			UIUX.renderSelectionGui(g, this);
 		}
 		//Graphics2D g2 = (Graphics2D)g;
 		//g2.drawLine(0, Camera.remapY(0), 1000, Camera.remapY(0));// keep this line for calibration.
@@ -177,6 +178,9 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		else if (arg0.getKeyChar() == 'e') {
 			UIUX.openSelection();
 		}
+		else if (arg0.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			UIUX.escape();
+		}
 	}
 
 	@Override
@@ -196,6 +200,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	public void componentResized(ComponentEvent arg0) {
 		UIUX.updateDimensions(this.getWidth(), this.getHeight());
 		Camera.updateDimensions(this.getWidth(), this.getHeight());
+		sufficentScreenSize = this.getWidth() >= 900 && this.getHeight() >= 600;
 	}
 	@Override
 	public void componentShown(ComponentEvent arg0) {
@@ -205,7 +210,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		if (!UIUX.requestFocus) {
+		if (!(UIUX.requestFocus && sufficentScreenSize)) {
 			int globalX = Camera.inverseX(arg0.getX());
 			int globalY = Camera.inverseY(arg0.getY());
 			globalX = (int) (Math.floor(globalX/50.0)*50);
@@ -236,7 +241,12 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		// TODO Auto-generated method stub
-		Camera.updateZoomByWheel(arg0.getWheelRotation());
+		if (UIUX.requestFocus && sufficentScreenSize) {
+			UIUX.scrollSelect(arg0.getWheelRotation());
+		}
+		else {
+			Camera.updateZoomByWheel(arg0.getWheelRotation());
+		}
 	}
 	
 	
