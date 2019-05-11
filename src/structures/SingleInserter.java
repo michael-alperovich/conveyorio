@@ -17,6 +17,7 @@ public class SingleInserter extends Structure {
     private int updateDelay;
     public long lastTime = System.currentTimeMillis();
     public int angle;
+    public boolean canMove;
     private int[] initialPoint;
     private Conveyor source, sink;
     private final int RADIUS = 37;
@@ -75,7 +76,7 @@ public class SingleInserter extends Structure {
         }
 
 
-        boolean canMove = true;
+        canMove = true;
         if (angle == 0) {
             if (source != null && source.objects.size() != 0) {
                 double minDist = Double.MAX_VALUE;
@@ -121,5 +122,40 @@ public class SingleInserter extends Structure {
     @Override
     public boolean canReceive(GenericGameObject object) {
         return (angle == 0 && object == null);
+    }
+    public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {
+    	Graphics2D g2 = (Graphics2D) g;
+		g.setColor(new Color(100, 100, 100));
+		g.fillRect(xWindowSize-200, 0, xWindowSize, 500);
+		g.setColor(new Color(255,255,100));
+		g2.drawString("Regular Inserter Belt", xWindowSize-190, 20);
+		g2.drawString(this.toString(), xWindowSize-190, 40);
+		g.setColor(new Color(255,255,255));
+		g2.drawString("Direction: "+this.direction,xWindowSize-190, 70);
+		g2.drawString("Cordinates: "+location.toString(),xWindowSize-170,180);
+		if(source == null) {
+			g.setColor(new Color(255,0,0));
+			g2.drawString("Source Reference: nullref",xWindowSize-170 , 90);
+		}
+		else {
+			g.setColor(new Color(0,255,0));
+			g2.drawString("Source Reference: ",xWindowSize-170 , 90);
+			g2.drawString(source.toString(), xWindowSize-190, 120);
+		}
+		
+		if(sink  == null) {
+			g.setColor(new Color(255,0,0));
+			g2.drawString("Sink Reference: nullref",xWindowSize-170 , 140);
+		}
+		else {
+			g.setColor(new Color(0,255,0));
+			g2.drawString("Sink Reference: ",xWindowSize-170 , 140);
+			g2.drawString(sink.toString(), xWindowSize-190, 160);
+		}
+		
+		g.setColor(Color.BLUE);
+		g2.drawString("Can Move: "+canMove, xWindowSize-170,200);
+		g.setColor(new Color(255,255,0));
+		g2.drawString("Contains: "+object, xWindowSize-190,220);
     }
 }
