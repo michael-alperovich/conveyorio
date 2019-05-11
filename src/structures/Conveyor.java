@@ -186,7 +186,15 @@ public class Conveyor extends Structure {
     }
 
     public void onRemove (GenericGameObject object) {
-        objects.remove(object);
+        int i = 0;
+        while (i < objects.size()) {
+            if (objects.get(i) == object) {
+                objects.remove(i);
+            }
+            else {
+                i++;
+            }
+        }
     }
 
     @Override
