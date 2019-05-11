@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
+import java.util.LinkedList;
 
 import conveyorio.Point;
 import conveyorio.World;
@@ -19,11 +20,61 @@ public abstract class Structure extends Viewable{
 	 */
 	public int xlen,ylen;
 	public Point location;
+	public LinkedList<String> logBuffer;
+	
 	public Structure(Point loc,int dimX, int dimY) {
 		super(dimX,dimY);
 		location = loc;
 		xlen = dimX;
 		ylen = dimY;
+		logBuffer = new LinkedList<String>();
+	}
+	public void debug(String info) {
+		logBuffer.addFirst(info);
+		while(logBuffer.size() > 30) {
+			logBuffer.removeLast();
+		}
+	}
+	public void displayLog(Graphics g, int charsPerLine, int maxLines) {
+		Graphics2D g2 = (Graphics2D) g;
+		g.setColor(new Color(122, 122, 122));
+		
+		g.fillRect(0,0,200, 500);
+		g.setColor(Color.GREEN);
+		g2.drawString("Object Logcat", 50, 20);
+		if (logBuffer.size() == 0) {
+			return;
+		}
+		int cLine = 1;
+		int currentix = 0;
+		String currentBuf = logBuffer.get(0); 
+		while(cLine <= maxLines && currentix < logBuffer.size() ) {
+			boolean newLine = currentBuf.length() == 0;
+			if (currentBuf.length() == 0) {
+				currentix++;
+				if (currentix >= logBuffer.size()) {
+					return;
+				}
+				currentBuf = logBuffer.get(currentix);
+			}
+			String toRender = "";
+			if(charsPerLine < currentBuf.length()) {
+				toRender  = currentBuf.substring(0, charsPerLine);
+				currentBuf = currentBuf.substring(charsPerLine);
+			}
+			else {
+				toRender = currentBuf;
+				currentBuf = "";
+			}
+			
+			if (newLine) {
+				g2.drawString("> "+toRender, 10, (cLine + 1)*20);
+			}
+			else {
+				g2.drawString(toRender, 10, (cLine + 1)*20);
+			}
+			cLine += 1;
+		}
 	}
 	public static DIRECTIONS rotateClockwise(DIRECTIONS dir) {
 		switch(dir) {

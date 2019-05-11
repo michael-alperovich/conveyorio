@@ -80,7 +80,7 @@ public class SingleInserter extends Structure {
 
         canMove = true;
         if (angle == 0) {
-            if (source != null && source.objects.size() != 0) {
+            if (source != null && source.objects.size() != 0 && object == null) {
                 double minDist = Double.MAX_VALUE;
                 GenericGameObject closestObj = null;
                 for (int i = 0; i < source.objects.size(); i++) {
@@ -93,6 +93,7 @@ public class SingleInserter extends Structure {
                 }
                 object = closestObj;
                 source.onRemove(closestObj);
+                canMove = object == null;
             }
             else {
                 canMove = object != null;

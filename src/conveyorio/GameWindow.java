@@ -184,6 +184,9 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		else if (arg0.getKeyChar() == 'r') {
 			UIUX.toPlace.onRotate();
 		}
+		else if(arg0.getKeyChar() == 'o') {
+			UIUX.toggleLog();
+		}
 		else if (arg0.getKeyChar() == 'q') {
 			UIUX.toPlace = new NullTile();
 		}

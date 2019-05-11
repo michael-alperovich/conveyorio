@@ -16,6 +16,8 @@ public class UIUX {
 	public static Structure targetinfo;
 	public static int xWindowSize;
 	public static int yWindowSize;
+	public static boolean showLog;
+	
 	public static boolean requestFocus = false;
 	public static Placeable toPlace = new NullTile();
 	public static Point targetloc = new Point(-1,-1);
@@ -40,10 +42,16 @@ public class UIUX {
 			World.getTileAt(targetloc).onDelete();
 		}
 	}
+	public static void toggleLog() {
+		showLog = !showLog;
+	}
 	public static void updateUi(Graphics g, ImageObserver ref) {
 		
 		if (targetinfo != null) {
 			targetinfo.displayGUI(g,ref,xWindowSize,yWindowSize);
+			if(showLog) {
+				targetinfo.displayLog(g,30, 25);
+			}
 		}
 		
 		BufferedImage demoIcon = toPlace.onRender();

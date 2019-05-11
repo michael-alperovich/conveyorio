@@ -186,7 +186,12 @@ public class Conveyor extends Structure {
     }
 
     public void onRemove (GenericGameObject object) {
-        objects.remove(object);
+    	
+    	objects.remove(object);
+        if (objects.contains(object)) {
+        	System.out.println("onRemove failed.");
+        }
+        debug("removed object:  "+object+" new size is: "+objects.size());
     }
 
     @Override
@@ -233,7 +238,13 @@ public class Conveyor extends Structure {
 		
 		g.setColor(Color.WHITE);
 		g2.drawString("Objects: "+objects.size(), xWindowSize-170, 200);
-	}
+		g.setColor(new Color(135,206,250));
+		int cy = 220;
+		for (GenericGameObject o : objects) {
+			g2.drawString(o.toString(), xWindowSize-190, cy);
+			cy += 20;
+		}
+    }
     
     
 }
