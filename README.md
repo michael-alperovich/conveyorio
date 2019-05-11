@@ -4,11 +4,11 @@ conveyor belt simulatior
 how to run
 `cd releases`  
 
-`java -jar Conveyorio_001.jar`  
+`java -jar Conveyorio_002.jar`  
 
 enjoy
 
-Controls (new release not 001) 
+Controls (new release in 002) 
 
 wasd controlling
 scroll to zoom 

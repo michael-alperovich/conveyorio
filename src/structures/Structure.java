@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import conveyorio.Point;
@@ -21,13 +22,14 @@ public abstract class Structure extends Viewable{
 	public int xlen,ylen;
 	public Point location;
 	public LinkedList<String> logBuffer;
-	
+	public HashSet<GenericGameObject> voided;
 	public Structure(Point loc,int dimX, int dimY) {
 		super(dimX,dimY);
 		location = loc;
 		xlen = dimX;
 		ylen = dimY;
 		logBuffer = new LinkedList<String>();
+		voided = new HashSet<GenericGameObject>();
 	}
 	public void debug(String info) {
 		logBuffer.addFirst(info);
@@ -128,7 +130,7 @@ public abstract class Structure extends Viewable{
 		World.removeTile(this);
 	}
 	abstract boolean canReceive(GenericGameObject object);
-	abstract void onTake(GenericGameObject g);
+	abstract void onTake(GenericGameObject g, Structure source);
 	public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(new Color(100, 100, 100));

@@ -1,13 +1,16 @@
 package structures;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.ImageObserver;
+import java.util.LinkedList;
+
 import assets.SingleInserterAssets;
 import conveyorio.Camera;
 import conveyorio.Point;
 import conveyorio.World;
 import objects.GenericGameObject;
-
-import java.awt.*;
-import java.awt.image.ImageObserver;
 
 
 public class SingleInserter extends Structure {
@@ -46,8 +49,8 @@ public class SingleInserter extends Structure {
 
     @Override
     public void onUpdate(Graphics g,  ImageObserver ref) {
-    	this.checkConveyors();
 
+    	this.checkConveyors();
         int displayAngle = angle;
         if (angle > 180) {
             displayAngle = (360 - angle) % 360;
@@ -86,14 +89,20 @@ public class SingleInserter extends Structure {
                 for (int i = 0; i < source.objects.size(); i++) {
                     GenericGameObject o = source.objects.get(i);
                     double dist = Math.hypot(this.trueLocation.getX() - o.getCurrentx(), this.trueLocation.getY() - o.getCurrenty());
-                    if (dist < minDist) {
+                    if (dist < minDist && !source.voided.contains(o)) { // source.canRemove(object)
                         minDist = dist;
                         closestObj = o;
                     }
                 }
-                object = closestObj;
+                LinkedList<String> f = new LinkedList<String>();
+                for (GenericGameObject x : source.objects) {
+                	f.add(x.toString() +"/"+source.voided.contains(x));
+                }
+                debug(String.join(", ", f));
+                debug("sending an onRemove command to: "+source+" for "+closestObj);
                 source.onRemove(closestObj);
-                canMove = object == null;
+                object = closestObj;
+                canMove = object != null;
             }
             else {
                 canMove = object != null;
@@ -101,7 +110,8 @@ public class SingleInserter extends Structure {
         }
         else if (angle == 180) {
             if (sink != null && object != null && sink.canReceive(object)) {
-                sink.onTake(object);
+                sink.onTake(object, this);
+                debug("Dumping object @ 180");
                 object = null;
             }
             else {
@@ -118,7 +128,8 @@ public class SingleInserter extends Structure {
     }
 
     @Override
-    public void onTake(GenericGameObject object) {
+    public void onTake(GenericGameObject object, Structure source) {
+    	debug("onTake from "+source);
         this.object = object;
     }
 

@@ -50,7 +50,7 @@ public class UIUX {
 		if (targetinfo != null) {
 			targetinfo.displayGUI(g,ref,xWindowSize,yWindowSize);
 			if(showLog) {
-				targetinfo.displayLog(g,30, 25);
+				targetinfo.displayLog(g,30, 23);
 			}
 		}
 		

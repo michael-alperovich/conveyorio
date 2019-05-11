@@ -10,6 +10,7 @@ import java.util.List;
 import assets.ConveyorAssets;
 import conveyorio.Camera;
 import conveyorio.Point;
+import conveyorio.UIUX;
 import conveyorio.World;
 import objects.GenericGameObject;
 
@@ -41,11 +42,17 @@ public class Conveyor extends Structure {
         if (World.getTileAt(new Point(targetx, targety)) instanceof Conveyor) {
             next = (Conveyor) World.getTileAt(new Point(targetx, targety));
         }
+        else {
+        	next =null;
+        }
         targetx = location.getX() - 50 * updateVector[0];
         targety = location.getY() - 50 * updateVector[1];
 
         if (World.getTileAt(new Point(targetx, targety)) instanceof Conveyor) {
             previous = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        }
+        else {
+        	previous = null;
         }
 
         if (next == null || next.direction != this.direction) {
@@ -98,14 +105,15 @@ public class Conveyor extends Structure {
             
             if (northFree || southFree) { 
                 if (next != null) { // if next conveyor exists
-                    if (!next.objects.contains(object)) {// if object is not on next yet
+                    if (!next.objects.contains(object) && !voided.contains(object)) {// if object is not on next yet
                         if (next.canReceive(object)) {
                         	if (next.direction != this.direction) {
                         		
                         		object.updatePosition(object.getCurrentx() + updateVector[0]*25,
                                                     object.getCurrenty() + updateVector[1]*25);
                         	}
-                            next.onTake(object);
+                            next.onTake(object, this);
+                            voided.add(object);
                         } else {
                         }
                     }
@@ -127,12 +135,12 @@ public class Conveyor extends Structure {
                 boolean skipUpdate = false;
             	
                 for (GenericGameObject secondObject : objects) {
-                	
+                
             		if (( secondObject != object && toLocal(object.getCurrentx(), object.getCurrenty())[1] >= toLocal(secondObject.getCurrentx(), secondObject.getCurrenty())[1] - (object.dimx) &&
         					toLocal(object.getCurrentx(), object.getCurrenty())[1] < toLocal(secondObject.getCurrentx(), secondObject.getCurrenty())[1]) ) {
         				skipUpdate = true;
-                	}
-	                
+            		}
+            		
                 }
             	long deltaTime = time-lastTime;
             	if (!skipUpdate) {
@@ -181,16 +189,26 @@ public class Conveyor extends Structure {
     }
 
     @Override
-    public void onTake(GenericGameObject object) {
+    public void onTake(GenericGameObject object, Structure source) {
+    	if (UIUX.targetinfo == this && UIUX.showLog ) {
+    		System.out.println("");
+    	}
+    	debug("adding: "+object+ " from "+source);
         objects.add(object);
     }
 
     public void onRemove (GenericGameObject object) {
-    	
-    	objects.remove(object);
-        if (objects.contains(object)) {
-        	System.out.println("onRemove failed.");
+    	debug("removing: "+object+" from "+objects.size()+" objects.");
+        int i = 0;
+        while (i < objects.size()) {
+            if (objects.get(i) == object) {
+                objects.remove(i);
+            }
+            else {
+                i++;
+            }
         }
+        voided.remove(object);
         debug("removed object:  "+object+" new size is: "+objects.size());
     }
 
@@ -241,7 +259,9 @@ public class Conveyor extends Structure {
 		g.setColor(new Color(135,206,250));
 		int cy = 220;
 		for (GenericGameObject o : objects) {
-			g2.drawString(o.toString(), xWindowSize-190, cy);
+			g2.drawString(o.toString() , xWindowSize-190, cy);
+			cy += 20;
+			g2.drawString(o.getCurrentx()+" "+o.getCurrenty(), xWindowSize-190,cy);
 			cy += 20;
 		}
     }
