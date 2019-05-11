@@ -2,6 +2,7 @@ package properties;
 
 import java.awt.image.BufferedImage;
 
+import conveyorio.Point;
 import structures.Structure;
 
 public abstract class Placeable extends Viewable{
@@ -12,5 +13,8 @@ public abstract class Placeable extends Viewable{
 	public abstract BufferedImage onRender(); // animated placables?
 	public abstract Structure onPlace(int xloc, int yloc);
 	public abstract void onRotate();
+	public Structure onPlace(Point inputPoint) {
+		return onPlace(inputPoint.getX(), inputPoint.getY());		
+	}
 	
 }

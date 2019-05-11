@@ -10,11 +10,7 @@ public class NullTile extends Placeable{
 	 * NullTile - has -1 functionality
 	 */
 	
-	public NullTile(int xsize, int ysize) {
-		super(xsize, ysize);
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	public NullTile() {
 		super(0,0);
 	}

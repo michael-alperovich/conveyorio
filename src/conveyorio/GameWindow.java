@@ -11,15 +11,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
-import javafx.scene.input.KeyCode;
 import objects.Coal;
+import objects.NullTile;
 import structures.Conveyor;
 import structures.DIRECTIONS;
 import structures.SingleInserter;
@@ -66,13 +68,14 @@ public class GameWindow {
 	   mainFrame.addKeyListener(canv);
 	   mainFrame.addMouseListener(canv);
 	   mainFrame.addMouseWheelListener(canv);
+	   mainFrame.addMouseMotionListener(canv);
 	   mainFrame.addComponentListener(canv);
 	   canv.setVisible(true);
 
    }
 }
 
-class GameCavans extends JPanel implements KeyListener, ComponentListener, MouseListener, MouseWheelListener{
+class GameCavans extends JPanel implements KeyListener, ComponentListener, MouseListener, MouseWheelListener, MouseMotionListener {
 	private static final long serialVersionUID = 1L;
 	final int offsetX = 6; // offset X for mouse handler due to borders.
 	final int offsetY = 31; // offset Y due to borders.
@@ -134,7 +137,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		UIUX.updateUi(g, this);
 		g.setColor(Color.WHITE);
 		
-		if (UIUX.requestFocus && sufficentScreenSize) {
+		if (isSelectionOpen()) {
 			UIUX.renderSelectionGui(g, this);
 		}
 		//Graphics2D g2 = (Graphics2D)g;
@@ -178,11 +181,19 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		else if (arg0.getKeyChar() == 'e') {
 			UIUX.openSelection();
 		}
+		else if (arg0.getKeyChar() == 'r') {
+			UIUX.toPlace.onRotate();
+		}
+		else if (arg0.getKeyChar() == 'q') {
+			UIUX.toPlace = new NullTile();
+		}
 		else if (arg0.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			UIUX.escape();
 		}
 	}
-
+	public boolean isSelectionOpen() {
+		return UIUX.requestFocus && sufficentScreenSize;
+	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -210,7 +221,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		if (!(UIUX.requestFocus && sufficentScreenSize)) {
+		if (!isSelectionOpen()) {
 			int globalX = Camera.inverseX(arg0.getX());
 			int globalY = Camera.inverseY(arg0.getY());
 			globalX = (int) (Math.floor(globalX/50.0)*50);
@@ -218,34 +229,76 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 			UIUX.targetinfo = World.getTileAt(new Point(globalX, globalY));
 			
 		}
+		else {
+			UIUX.mouseClicked(arg0.getX(), arg0.getY());
+			
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 	}
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// only gets called once so it wont handle the mouseDragged events.
+		if ((SwingUtilities.isLeftMouseButton(arg0))) {
+			if (!(UIUX.toPlace instanceof NullTile) && !isSelectionOpen()) {
+				updatePlacement(arg0);
+				UIUX.tryPlace();
+			}
+		}
+		else if(SwingUtilities.isRightMouseButton(arg0)) {
+			updatePlacement(arg0);
+			UIUX.tryRemove();
+		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		// TODO Auto-generated method stub
-		if (UIUX.requestFocus && sufficentScreenSize) {
+		if (isSelectionOpen()) {
 			UIUX.scrollSelect(arg0.getWheelRotation());
 		}
 		else {
 			Camera.updateZoomByWheel(arg0.getWheelRotation());
+		}
+	}
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		if(isSelectionOpen()) {return;}
+		if ((SwingUtilities.isLeftMouseButton(arg0))) {
+			if (!(UIUX.toPlace instanceof NullTile) && !isSelectionOpen()) {
+				updatePlacement(arg0);
+				UIUX.tryPlace();
+			}
+		}
+		else if(SwingUtilities.isRightMouseButton(arg0)) {
+			updatePlacement(arg0);
+			
+			UIUX.tryRemove();
+		}
+		
+	}
+	public void updatePlacement(MouseEvent arg0) {
+		int globalX = Camera.inverseX(arg0.getX());
+		int globalY = Camera.inverseY(arg0.getY());
+		globalX = (int) (Math.floor(globalX/50.0)*50);
+		globalY = (int) (Math.floor(globalY/50.0)*50);
+		UIUX.setTargetPlacement(new Point(globalX, globalY));
+	}
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		if (! (UIUX.toPlace instanceof NullTile)) {
+			// valid tile that we are controlling.
+			updatePlacement(arg0);
+			
+			
 		}
 	}
 	

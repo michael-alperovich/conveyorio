@@ -11,16 +11,11 @@ import structures.Structure;
 
 public class ConveyorTile extends Placeable{
 	public DIRECTIONS dir = DIRECTIONS.EAST;
-	public ConveyorTile(int xsize, int ysize) {
-		super(xsize, ysize);
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	
 
 	public ConveyorTile() {
-		// TODO Auto-generated constructor stub
-		super(0,0);
+		super(50,50);
 	}
 
 
@@ -32,16 +27,18 @@ public class ConveyorTile extends Placeable{
 
 	@Override
 	public BufferedImage onRender() {
-		// TODO Auto-generated method stub
+		long time = System.currentTimeMillis();
+	    int cSecondPeriod = (int) (time % 1000);
+	    cSecondPeriod /= 20; // standard animated tile (conveyor)
 		switch(dir) {
 			case NORTH:
-				return ConveyorAssets.north[0];
+				return ConveyorAssets.north[cSecondPeriod];
 			case EAST:
-				return ConveyorAssets.east[0];
+				return ConveyorAssets.east[cSecondPeriod];
 			case SOUTH:
-				return ConveyorAssets.south[0];
+				return ConveyorAssets.south[cSecondPeriod];
 			case WEST:
-				return ConveyorAssets.west[0];
+				return ConveyorAssets.west[cSecondPeriod];
   			default:
 				return null;
 		}
@@ -49,7 +46,6 @@ public class ConveyorTile extends Placeable{
 
 	@Override
 	public void onRotate() {
-		// TODO Auto-generated method stub
 		dir = Structure.rotateClockwise(dir);
 	}
 

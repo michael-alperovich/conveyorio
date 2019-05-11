@@ -17,18 +17,42 @@ public class UIUX {
 	public static int xWindowSize;
 	public static int yWindowSize;
 	public static boolean requestFocus = false;
-	public static Placeable toPlace = new NullTile(0, 0);
+	public static Placeable toPlace = new NullTile();
+	public static Point targetloc = new Point(-1,-1);
+	
 	public static LinkedList<Placeable> options;
-	public static int localizedCameraY = -109;
+	public static int localizedCameraY = -50;
+	
+	
 	public static void updateDimensions(int xi, int yi) {
 		xWindowSize = xi;
 		yWindowSize = yi;
+	}
+	public static void tryPlace() {
+		if (!World.world.containsKey(targetloc) && !(toPlace instanceof NullTile)) {
+			Structure x = toPlace.onPlace(targetloc);
+			
+		}
+	}
+	public static void tryRemove() {
+		
+		if(World.world.containsKey(targetloc)) {
+			World.getTileAt(targetloc).onDelete();
+		}
 	}
 	public static void updateUi(Graphics g, ImageObserver ref) {
 		
 		if (targetinfo != null) {
 			targetinfo.displayGUI(g,ref,xWindowSize,yWindowSize);
 		}
+		
+		BufferedImage demoIcon = toPlace.onRender();
+		if (!World.world.containsKey(targetloc) && !(toPlace instanceof NullTile)) {
+			Graphics2D g2  = (Graphics2D) g;
+			g2.drawImage(demoIcon,Camera.remapX(targetloc.getX()),Camera.remapY(targetloc.getY()), Camera.resizedX(UIUX.toPlace.dimx), Camera.resizedY(UIUX.toPlace.dimy) ,ref);
+		}
+				
+		
 		renderSelected(g,ref);
 	}
 	
@@ -40,10 +64,8 @@ public class UIUX {
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(new Color(122, 122, 122));
 		g.fillRect(200, yWindowSize-500, xWindowSize-500, 300);
-		
 		int currentY = 0;
 		
-		int maxSize = 300;
 		g.setColor(new Color(255,255,255));
 		g2.drawString("New Tile Selection", 250, yWindowSize-480);
 		for (Placeable option : options) {
@@ -53,7 +75,7 @@ public class UIUX {
 			
 			
 			int pivotY = currentY-localizedCameraY;
-			if (pivotY > 50 && pivotY+iconH < 300) {
+			if (pivotY >= 50 && pivotY+iconH <= 300) {
 				// within bounds.
 				g.setColor(new Color(255,255,0));
 				g2.drawString(name,220,pivotY + yWindowSize-500);
@@ -79,9 +101,17 @@ public class UIUX {
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(new Color(255,255,0));
 		g2.drawString("In hand: ", xWindowSize/2-195, yWindowSize-50);
+		BufferedImage icon = toPlace.onRender();
+		String name = toPlace.getName();
+		if (icon != null) {
+			g2.drawImage(icon,xWindowSize/2-195 + 50, yWindowSize - 70, 50, 50, ref);
+			g2.drawString(name, xWindowSize/2-195 + 50, yWindowSize-10);
+		}
+		
 	}
 	public static void scrollSelect(double ticks) {
 		localizedCameraY += ticks * 30;
+		localizedCameraY = (int) Camera.clip(localizedCameraY,-50,-50);
 	}
 	public static void keyPressed() {
 		
@@ -94,5 +124,28 @@ public class UIUX {
 	}
 	public static void escape() {
 		requestFocus = false;
+	}
+	public static void mouseClicked(int x, int y) {
+		x -= Camera.offsetX;
+		y -= Camera.offsetY;
+		
+		if ((y <= yWindowSize -500 + 40) || y >= yWindowSize-500+300) {return;} // too high.
+		
+		y -= yWindowSize - 500;
+		if (x >= 200 && x <= xWindowSize-300) {
+			// x value is inbounds.
+			int delocalizedY = y + localizedCameraY;
+			//System.out.println(delocalizedY);
+			int index = (delocalizedY + 10)/50;
+			if (index >= 0 && index < options.size()) {
+				toPlace = options.get(index);
+				
+			}
+		}
+		
+	}
+	public static void setTargetPlacement(Point point) {
+		targetloc = point;
+		
 	}
 }

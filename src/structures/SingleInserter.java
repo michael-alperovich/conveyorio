@@ -43,6 +43,8 @@ public class SingleInserter extends Structure {
 
     @Override
     public void onUpdate(Graphics g,  ImageObserver ref) {
+    	this.checkConveyors(); // TODO: verify this should be called here
+    	
         int displayAngle = angle;
         if (angle > 180) {
             displayAngle = (360 - angle) % 360;

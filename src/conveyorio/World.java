@@ -11,7 +11,6 @@ import java.util.Map.Entry;
  * Rendering Chunk, Can Render noGraphic or Graphics.
  */
 import structures.Conveyor;
-import structures.SingleInserter;
 import structures.Structure;
 
 
@@ -23,9 +22,18 @@ public class World {
 	public World() {
 	}
 	public static void UpdateObjects(Graphics g,ImageObserver ref) {
-		for (Point source : conveyorSources) {
-			Structure object = getTileAt(source);
-			object.onUpdate(g,ref);	
+		/*
+		 * Current Problem
+		 * Async register of a conveyorbelt may deregister a source while conveyorSources is being accessed from the line below.
+		 * Causes a concurrentmodification exception, so we cant use a iterable.
+		 */
+
+		for (Object source : conveyorSources.toArray()) {
+			Structure object = getTileAt((Point)source);
+			if (object != null) {
+
+				object.onUpdate(g,ref);	
+			}
 		}
 		Iterator<Entry<Point, Structure>> it = world.entrySet().iterator();
 		while(it.hasNext()) {
@@ -51,6 +59,9 @@ public class World {
 	}
 
 	public static void registerSink(Conveyor previous) {
+		if(previous == null) {
+			return;
+		}
 		conveyorSources.add(previous.location);
 		
 	}
@@ -61,6 +72,10 @@ public class World {
 
 	public static void removeTile(Structure s) {
 		world.remove(s.location);
+		if(conveyorSources.contains(s.location)) {
+			conveyorSources.remove(s.location);
+			registerSink(((Conveyor)s).previous);
+		}
 	}
 	
 }

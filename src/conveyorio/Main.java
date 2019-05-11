@@ -62,7 +62,6 @@ public class Main {
 		try {
 			ConveyorAssets.loadAssets();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("[-] Conveyor Assets Failed to Load Assets");
 			e.printStackTrace();
 			
@@ -70,7 +69,6 @@ public class Main {
 		try {
 			CoalAssets.loadAssets();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("[-] Coal Assets Failed to Load Assets");
 			e.printStackTrace();
 
@@ -78,7 +76,6 @@ public class Main {
 		try {
 			SingleInserterAssets.loadAssets();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("[-] Single Inserter Assets Failed to Load Assets");
 			e.printStackTrace();
 

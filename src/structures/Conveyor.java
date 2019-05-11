@@ -51,7 +51,7 @@ public class Conveyor extends Structure {
         if (next == null || next.direction != this.direction) {
             World.registerSink(this);
         }
-        if (previous != null && previous.direction == this.direction) {
+        if (previous != null && previous.direction == this.direction && World.conveyorSources.contains(previous.location)) {
             World.deregisterSink(previous);
         } else {
             previous = null;
