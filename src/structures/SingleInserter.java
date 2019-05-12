@@ -22,7 +22,7 @@ public class SingleInserter extends Structure {
     public int angle;
     public boolean canMove;
     private int[] initialPoint;
-    private Conveyor source, sink;
+    private Structure source, sink;
     private final int RADIUS = 37;
     public Point trueLocation;
 
@@ -40,11 +40,11 @@ public class SingleInserter extends Structure {
     private void checkConveyors() {
         int targetx = location.getX() + 50 * Conveyor.toVector(direction)[0];
         int targety = location.getY() + 50 * Conveyor.toVector(direction)[1];
-        source = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        source =  World.getTileAt(new Point(targetx, targety));
 
         targetx = location.getX() - 50 * Conveyor.toVector(direction)[0];
         targety = location.getY() - 50 * Conveyor.toVector(direction)[1];
-        sink = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        sink =  World.getTileAt(new Point(targetx, targety));
     }
 
     @Override
@@ -94,14 +94,19 @@ public class SingleInserter extends Structure {
                         closestObj = o;
                     }
                 }
+                
                 LinkedList<String> f = new LinkedList<String>();
                 for (GenericGameObject x : source.objects) {
                 	f.add(x.toString() +"/"+source.voided.contains(x));
                 }
                 debug(String.join(", ", f));
-                debug("sending an onRemove command to: "+source+" for "+closestObj);
+                if (closestObj == null) {
+                	return;
+                }
                 source.onRemove(closestObj);
                 object = closestObj;
+                objects.add(object);
+                voided.add(object);
                 canMove = object != null;
             }
             else {
@@ -112,6 +117,8 @@ public class SingleInserter extends Structure {
             if (sink != null && object != null && sink.canReceive(object)) {
                 sink.onTake(object, this);
                 debug("Dumping object @ 180");
+                voided.remove(object);
+                objects.remove(object);
                 object = null;
             }
             else {
@@ -131,11 +138,13 @@ public class SingleInserter extends Structure {
     public void onTake(GenericGameObject object, Structure source) {
     	debug("onTake from "+source);
         this.object = object;
+        objects.add(object);
+        voided.add(object);
     }
 
     @Override
     public boolean canReceive(GenericGameObject object) {
-        return (angle == 0 && object == null);
+        return (angle == 0 && this.object == null);
     }
     public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {
     	Graphics2D g2 = (Graphics2D) g;
@@ -171,5 +180,16 @@ public class SingleInserter extends Structure {
 		g2.drawString("Can Move: "+canMove, xWindowSize-170,200);
 		g.setColor(new Color(255,255,0));
 		g2.drawString("Contains: "+object, xWindowSize-190,220);
+		boolean canRec =(angle == 0 && this.object == null);
+		g2.drawString("Can Recieve: "+canRec,xWindowSize-190,240);
     }
+
+	@Override
+	void onRemove(GenericGameObject g) {
+		// TODO Auto-generated method stub
+		voided.remove(g);
+		objects.remove(g);
+		object = null;
+		
+	}
 }

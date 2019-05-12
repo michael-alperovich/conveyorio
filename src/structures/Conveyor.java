@@ -18,7 +18,7 @@ public class Conveyor extends Structure {
 
     private DIRECTIONS direction;
     public Conveyor previous, next;
-    public List<GenericGameObject> objects;
+    
     private int[] updateVector;
     public long lastTime = System.currentTimeMillis();
     public double pixPerSecond = 100; 
@@ -29,7 +29,6 @@ public class Conveyor extends Structure {
         direction = d;
         updateVector = Conveyor.toVector(direction);
 
-        objects = new ArrayList<>();
 
 
 

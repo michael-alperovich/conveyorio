@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 
 import conveyorio.Point;
 import conveyorio.World;
@@ -23,8 +25,10 @@ public abstract class Structure extends Viewable{
 	public Point location;
 	public LinkedList<String> logBuffer;
 	public HashSet<GenericGameObject> voided;
+	public List<GenericGameObject> objects;
 	public Structure(Point loc,int dimX, int dimY) {
 		super(dimX,dimY);
+        objects = new ArrayList<>();
 		location = loc;
 		xlen = dimX;
 		ylen = dimY;
@@ -131,6 +135,7 @@ public abstract class Structure extends Viewable{
 	}
 	abstract boolean canReceive(GenericGameObject object);
 	abstract void onTake(GenericGameObject g, Structure source);
+	abstract void onRemove(GenericGameObject g);
 	public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(new Color(100, 100, 100));

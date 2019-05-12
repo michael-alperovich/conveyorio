@@ -8,6 +8,7 @@ import java.awt.image.ImageObserver;
 import java.util.LinkedList;
 
 import objects.ConveyorTile;
+import objects.InserterTile;
 import objects.NullTile;
 import properties.Placeable;
 import structures.Structure;
@@ -32,7 +33,7 @@ public class UIUX {
 	}
 	public static void tryPlace() {
 		if (!World.world.containsKey(targetloc) && !(toPlace instanceof NullTile)) {
-			Structure x = toPlace.onPlace(targetloc);
+			toPlace.onPlace(targetloc);
 			
 		}
 	}
@@ -129,6 +130,7 @@ public class UIUX {
 		options = new LinkedList<Placeable>();
 		options.add(new NullTile());
 		options.add(new ConveyorTile());
+		options.add(new InserterTile());
 	}
 	public static void escape() {
 		requestFocus = false;
