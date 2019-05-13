@@ -21,19 +21,16 @@ public class SingleInserter extends Structure {
     public long lastTime = System.currentTimeMillis();
     public int angle;
     public boolean canMove;
-    private int[] initialPoint;
     private Structure source, sink;
     private final int RADIUS = 37;
-    public Point trueLocation;
+    public Point center;
 
     public SingleInserter(Point loc, DIRECTIONS d) {
         super(loc, 50, 50);
         direction = d;
         updateDelay = 2;
-        initialPoint = Conveyor.toVector(direction);
-        trueLocation = location.add(new Point(-12, -12));
-        initialPoint[0] = trueLocation.getX() - RADIUS * initialPoint[0] + RADIUS;
-        initialPoint[1] = trueLocation.getY() - RADIUS * initialPoint[1];
+        center = location.add(new Point(12, 12));
+        System.out.println(center);
         World.addTile(this);
     }
 
@@ -72,10 +69,10 @@ public class SingleInserter extends Structure {
                 System.out.println("missed direction no render");
                 break;
         }
-        g.drawImage(SingleInserterAssets.phases[displayAngle], Camera.remapX(this.trueLocation.getX()), Camera.remapY(this.trueLocation.getY()), Camera.resizeX(75),Camera.resizeY(75), ref);
+        g.drawImage(SingleInserterAssets.phases[displayAngle], Camera.remapX(this.center.getX()), Camera.remapY(this.center.getY()), Camera.resizeX(75),Camera.resizeY(75), ref);
         if (object != null) {
-            double newX = initialPoint[0] + RADIUS * Math.cos((360 - displayAngle) % 360 / 180.0 * Math.PI) - object.dimx / 2.0;
-            double newY = initialPoint[1] + RADIUS * Math.sin((360 - displayAngle) % 360  / 180.0 * Math.PI) - object.dimy / 2.0;
+            double newX = center.getX() + RADIUS * Math.cos((360 - displayAngle) % 360 / 180.0 * Math.PI) - object.dimx / 2.0 + RADIUS;
+            double newY = center.getY() + RADIUS * Math.sin((360 - displayAngle) % 360 / 180.0 * Math.PI) - object.dimy / 2.0 + RADIUS;
             object.updatePosition(newX, newY);
             g.drawImage(object.getIcon(), Camera.remapX(object.getCurrentx()), Camera.remapY(object.getCurrenty()),Camera.resizeX(object.getIcon().getWidth()),Camera.resizeY(object.getIcon().getHeight()),ref);
         }
@@ -88,7 +85,7 @@ public class SingleInserter extends Structure {
                 GenericGameObject closestObj = null;
                 for (int i = 0; i < source.objects.size(); i++) {
                     GenericGameObject o = source.objects.get(i);
-                    double dist = Math.hypot(this.trueLocation.getX() - o.getCurrentx(), this.trueLocation.getY() - o.getCurrenty());
+                    double dist = Math.hypot(this.center.getX() - o.getCurrentx(), this.center.getY() - o.getCurrenty());
                     if (dist < minDist && !source.voided.contains(o)) { // source.canRemove(object)
                         minDist = dist;
                         closestObj = o;
