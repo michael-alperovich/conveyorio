@@ -30,7 +30,7 @@ public class SingleInserter extends Structure {
         direction = d;
         updateDelay = 2;
 
-        center = location.add(new Point(12, 12));
+        center = location.add(new Point(-12, -12));
         System.out.println(center);
         World.addTile(this);
     }
