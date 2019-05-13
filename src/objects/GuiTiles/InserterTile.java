@@ -1,12 +1,10 @@
-package objects;
+package objects.GuiTiles;
 
 import java.awt.image.BufferedImage;
 
-import assets.CoalAssets;
 import assets.SingleInserterAssets;
 import conveyorio.Point;
 import properties.Placeable;
-import structures.Conveyor;
 import structures.DIRECTIONS;
 import structures.SingleInserter;
 import structures.Structure;
@@ -51,7 +49,7 @@ public class InserterTile extends Placeable{
 
 	@Override
 	public void onRotate() {
-		dir = Conveyor.rotateClockwise(dir);
+		dir = Structure.rotateClockwise(dir);
 		
 	}
 

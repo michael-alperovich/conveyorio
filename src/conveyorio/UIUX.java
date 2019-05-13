@@ -7,9 +7,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.LinkedList;
 
-import objects.ConveyorTile;
-import objects.InserterTile;
-import objects.NullTile;
+import objects.GuiTiles.ConveyorTile;
+import objects.GuiTiles.InserterTile;
+import objects.GuiTiles.NullTile;
 import properties.Placeable;
 import structures.Structure;
 

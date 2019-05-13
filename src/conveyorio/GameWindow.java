@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import objects.Coal;
-import objects.NullTile;
+import objects.GuiTiles.NullTile;
 import structures.Conveyor;
 import structures.DIRECTIONS;
 import structures.SingleInserter;

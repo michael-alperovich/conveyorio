@@ -1,4 +1,4 @@
-package objects;
+package objects.GuiTiles;
 
 import java.awt.image.BufferedImage;
 
