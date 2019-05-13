@@ -21,7 +21,6 @@ public class SingleInserter extends Structure {
     public long lastTime = System.currentTimeMillis();
     public int angle;
     public boolean canMove;
-    private int[] initialPoint;
     private Structure source, sink;
     private final int RADIUS = 37;
     public Point center;
@@ -30,10 +29,9 @@ public class SingleInserter extends Structure {
         super(loc, 50, 50);
         direction = d;
         updateDelay = 2;
-        initialPoint = Conveyor.toVector(direction);
-        center = location.add(new Point(+12, +12));
-        initialPoint[0] = center.getX() - RADIUS * initialPoint[0];
-        initialPoint[1] = center.getY() - RADIUS * initialPoint[1];
+
+        center = location.add(new Point(12, 12));
+        System.out.println(center);
         World.addTile(this);
     }
 
@@ -74,9 +72,9 @@ public class SingleInserter extends Structure {
         }
         g.drawImage(SingleInserterAssets.phases[displayAngle], Camera.remapX(this.center.getX()), Camera.remapY(this.center.getY()), Camera.resizeX(75),Camera.resizeY(75), ref);
         if (object != null) {
-        	g.drawRect(center.getX(), center.getY(), 10	, 10);
-            double newX = center.getX() + RADIUS * Math.cos( (360 - displayAngle) % 360 / 180.0 * Math.PI ) - object.dimx / 2.0;
-            double newY = center.getY() + RADIUS * Math.sin((360 - displayAngle) % 360  / 180.0 * Math.PI) - object.dimy / 2.0;
+
+            double newX = center.getX() + RADIUS * Math.cos((360 - displayAngle) % 360 / 180.0 * Math.PI) - object.dimx / 2.0 + RADIUS;
+            double newY = center.getY() + RADIUS * Math.sin((360 - displayAngle) % 360 / 180.0 * Math.PI) - object.dimy / 2.0 + RADIUS;
             object.updatePosition(newX, newY);
             g.drawImage(object.getIcon(), Camera.remapX(object.getCurrentx()), Camera.remapY(object.getCurrenty()),Camera.resizeX(object.getIcon().getWidth()),Camera.resizeY(object.getIcon().getHeight()),ref);
         }
@@ -91,6 +89,7 @@ public class SingleInserter extends Structure {
                     GenericGameObject o = source.objects.get(i);
                     double dist = Math.hypot(this.center.getX() - o.getCurrentx(), this.center.getY() - o.getCurrenty());
                     if (dist < minDist && !source.voided.contains(o) && accepts(o)) { // source.canRemove(object)
+
                         minDist = dist;
                         closestObj = o;
                     }
