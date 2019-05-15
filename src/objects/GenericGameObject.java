@@ -12,8 +12,7 @@ public abstract class GenericGameObject extends Viewable{
 	 */
 	
 	private int objectID; // object ID so we can query them,
-	private int objectTypeID; // objectTypeID so we can query loaded Graphics.
-	
+
 	private double currentx;
 	private double currenty; // location variables
 	
@@ -21,13 +20,10 @@ public abstract class GenericGameObject extends Viewable{
 	public int getID() {
 		return objectID;
 	}
-	public int getType() {
-		return objectTypeID;
-	}
 	public  void setID(int newiD) {
 		objectID = newiD;
 	}
-	public GenericGameObject(int objectTypeID) { // default constructor
+	public GenericGameObject() { // default constructor
 		super(25,25); // they are 1 icon so we pass in a viewable dimension of 1,1.
 		currentx = -1;
 		currenty = -1;
