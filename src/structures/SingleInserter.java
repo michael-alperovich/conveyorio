@@ -94,11 +94,7 @@ public class SingleInserter extends Structure {
                     }
                 }
                 
-                LinkedList<String> f = new LinkedList<String>();
-                for (GenericGameObject x : source.objects) {
-                	f.add(x.toString() +"/"+source.voided.contains(x));
-                }
-                debug(String.join(", ", f));
+                
                 if (closestObj == null) {
                 	return;
                 }
@@ -115,7 +111,6 @@ public class SingleInserter extends Structure {
         else if (angle == 180) {
             if (sink != null && object != null && sink.canReceive(object)) {
                 sink.onTake(object, this);
-                debug("Dumping object @ 180");
                 voided.remove(object);
                 objects.remove(object);
                 object = null;
