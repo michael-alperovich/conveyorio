@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import objects.GuiTiles.ConveyorTile;
 import objects.GuiTiles.InserterTile;
 import objects.GuiTiles.NullTile;
+import objects.GuiTiles.RegularChestTile;
 import properties.Placeable;
 import structures.Structure;
 
@@ -131,6 +132,7 @@ public class UIUX {
 		options.add(new NullTile());
 		options.add(new ConveyorTile());
 		options.add(new InserterTile());
+		options.add(new RegularChestTile());
 	}
 	public static void escape() {
 		requestFocus = false;

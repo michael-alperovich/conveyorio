@@ -30,9 +30,6 @@ public class Conveyor extends Structure {
         updateVector = Conveyor.toVector(direction);
 
 
-
-
-        World.addTile(this);
     }
 
     private void updateReference() {

@@ -3,9 +3,11 @@ package conveyorio;
 import java.io.IOException;
 import java.util.Scanner;
 
+import assets.ChestAssets;
 import assets.CoalAssets;
 import assets.ConveyorAssets;
 import assets.SingleInserterAssets;
+import structures.RegularChest;
 
 public class Main {
 	/*
@@ -61,22 +63,29 @@ public class Main {
 		System.out.println("<-----------------Loading Assets---------------->");
 		try {
 			ConveyorAssets.loadAssets();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("[-] Conveyor Assets Failed to Load Assets");
 			e.printStackTrace();
 			
 		}
 		try {
 			CoalAssets.loadAssets();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("[-] Coal Assets Failed to Load Assets");
 			e.printStackTrace();
 
 		}
 		try {
 			SingleInserterAssets.loadAssets();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("[-] Single Inserter Assets Failed to Load Assets");
+			e.printStackTrace();
+
+		}
+		try {
+			ChestAssets.loadAssets();
+		} catch (Exception e) {
+			System.out.println("[-] Chest Assets Failed to Load Assets");
 			e.printStackTrace();
 
 		}

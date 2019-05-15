@@ -34,6 +34,7 @@ public abstract class Structure extends Viewable{
 		ylen = dimY;
 		logBuffer = new LinkedList<String>();
 		voided = new HashSet<GenericGameObject>();
+        World.addTile(this);
 	}
 	public void debug(String info) {
 		logBuffer.addFirst(info);
