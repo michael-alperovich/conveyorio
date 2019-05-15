@@ -2,6 +2,7 @@ package objects.GuiTiles;
 
 import java.awt.image.BufferedImage;
 
+import assets.MiscAssets;
 import properties.Placeable;
 import structures.Structure;
 
@@ -29,8 +30,7 @@ public class NullTile extends Placeable{
 
 	@Override
 	public BufferedImage onRender() {
-		// TODO Auto-generated method stub
-		return null;
+		return MiscAssets.nullTile;
 	}
 
 

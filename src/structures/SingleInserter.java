@@ -39,9 +39,21 @@ public class SingleInserter extends Structure {
         int targety = location.getY() + 50 * Conveyor.toVector(direction)[1];
         source =  World.getTileAt(new Point(targetx, targety));
 
+        if (source instanceof SingleInserter) {
+            if (((SingleInserter) source).direction != this.direction) {
+                    source = null;
+            }
+        }
         targetx = location.getX() - 50 * Conveyor.toVector(direction)[0];
         targety = location.getY() - 50 * Conveyor.toVector(direction)[1];
+
         sink =  World.getTileAt(new Point(targetx, targety));
+
+        if (sink instanceof SingleInserter) {
+            if (((SingleInserter) sink).direction != this.direction) {
+                sink = null;
+            }
+        }
     }
 
     @Override

@@ -1,11 +1,10 @@
 package objects;
 
 import assets.ItemsAssets;
-import structures.MINERAL_TYPES;
 
 import java.awt.image.BufferedImage;
 
-public class Mineral extends GenericGameObject implements properties.Mineral {
+public class Mineral extends GenericGameObject {
 
 	private MINERAL_TYPES type;
 	private boolean isOre;

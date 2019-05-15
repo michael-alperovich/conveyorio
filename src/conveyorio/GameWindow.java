@@ -26,7 +26,7 @@ import objects.GuiTiles.NullTile;
 import objects.Mineral;
 import structures.Conveyor;
 import structures.DIRECTIONS;
-import structures.MINERAL_TYPES;
+import objects.MINERAL_TYPES;
 import structures.SingleInserter;
 
 public class GameWindow {
@@ -112,7 +112,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		Coal nextcoal = new Coal();
 		nextcoal.updatePosition(490, 400);
 
-		Coal nextcoal2 = new Coal();
+		Mineral nextcoal2 = new Mineral(MINERAL_TYPES.DIAMOND);
 		nextcoal2.updatePosition(440, 400);
 		lastreference.onTake(nextcoal2, null);
 		lastreference.onTake(nextcoal, null);

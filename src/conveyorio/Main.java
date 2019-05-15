@@ -3,11 +3,7 @@ package conveyorio;
 import java.io.IOException;
 import java.util.Scanner;
 
-import assets.ChestAssets;
-import assets.ConveyorAssets;
-import assets.ItemsAssets;
-import assets.SingleInserterAssets;
-
+import assets.*;
 
 
 public class Main {
@@ -56,6 +52,12 @@ public class Main {
 			ChestAssets.loadAssets();
 		} catch (Exception e) {
 			System.out.println("[-] Chest Assets Failed to Load Assets");
+			e.printStackTrace();
+		}
+		try {
+			MiscAssets.loadAssets();
+		} catch (Exception e) {
+			System.out.println("[-] Misc Assets Failed to Load Assets");
 			e.printStackTrace();
 
 		}
