@@ -3,7 +3,7 @@ package conveyorio;
 import java.io.IOException;
 import java.util.Scanner;
 
-import assets.CoalAssets;
+import assets.ItemsAssets;
 import assets.ConveyorAssets;
 import assets.SingleInserterAssets;
 
@@ -15,32 +15,6 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		loadGraphics();
 		openGame();
-		//String action = sc.nextLine();
-		/*
-		switch(action) {
-			case "testbuf":
-				System.out.println("Enter in a phase number");
-				System.out.println(ConveyorAssets.east[sc.nextInt() % 50]);	
-				break;
-			case "animate":
-				System.out.println("running animation gui");
-				openAnimation();
-				break;
-			case "trackfps":
-
-				openTrackFPS();
-				break;
-			case "test":
-				Conveyor c = new Conveyor(new Point(0,0), DIRECTIONS.SOUTH);
-				System.out.println(Arrays.toString(c.toLocal(0,25)));
-				System.out.println(Math.floor(-1.0/2));
-				break;
-			default:
-				System.out.println("defaulting to opengame");
-				openGame();
-				break;
-		}
-		*/
 	}
 
 	private static void openGame() throws Exception {
@@ -49,12 +23,6 @@ public class Main {
 		g.boot();
 	}
 
-
-	public static void openAnimation() throws Exception {
-		System.out.println("<---------------opening conveyor animation---------->");
-		ConveyorAnimationGui g = new ConveyorAnimationGui(500,500);
-		g.boot();
-	}
 	
 	public static Responses loadGraphics() {
 		
@@ -67,7 +35,7 @@ public class Main {
 			
 		}
 		try {
-			CoalAssets.loadAssets();
+			ItemsAssets.loadAssets();
 		} catch (IOException e) {
 			System.out.println("[-] Coal Assets Failed to Load Assets");
 			e.printStackTrace();

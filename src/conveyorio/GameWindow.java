@@ -23,8 +23,10 @@ import javax.swing.SwingUtilities;
 
 import objects.Coal;
 import objects.GuiTiles.NullTile;
+import objects.Mineral;
 import structures.Conveyor;
 import structures.DIRECTIONS;
+import structures.MINERAL_TYPES;
 import structures.SingleInserter;
 
 public class GameWindow {
@@ -116,7 +118,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		lastreference.onTake(nextcoal, null);
 		UIUX.targetinfo = lastreference;
 		SingleInserter inserter = new SingleInserter(new Point(200,  200), DIRECTIONS.NORTH);
-		inserter.onTake(new Coal(), null);
+		inserter.onTake(new Mineral(MINERAL_TYPES.IRON), null);
 
 		Camera.setView(new Point(0,0), 1);
 		//System.out.println("opened with "+xmax+" "+ymax);

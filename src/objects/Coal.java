@@ -2,17 +2,17 @@ package objects;
 
 import java.awt.image.BufferedImage;
 
-import assets.CoalAssets;
+import assets.ItemsAssets;
 import properties.Fuel;
 
 public class Coal extends GenericGameObject implements Fuel {
 	public int fuelValue = 10;
     public Coal() {
-        super(0);
+        super();
     }
     @Override
     public BufferedImage getIcon() {
-        return CoalAssets.coal[0];
+        return ItemsAssets.coal;
     }
 	@Override
 	public int getFuelValue() {
