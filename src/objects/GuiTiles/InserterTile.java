@@ -42,9 +42,9 @@ public class InserterTile extends Placeable{
 	}
 
 	@Override
-	public Structure onPlace(int xloc, int yloc) {
+	public void onPlace(int xloc, int yloc) {
 		// TODO Auto-generated method stub
-		return new SingleInserter(new Point(xloc,yloc), dir);
+		 new SingleInserter(new Point(xloc,yloc), dir);
 	}
 
 	@Override

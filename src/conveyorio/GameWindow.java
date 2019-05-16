@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 
 import objects.Coal;
 import objects.GuiTiles.NullTile;
+import properties.PlaceableItem;
 import objects.Mineral;
 import structures.Conveyor;
 import structures.DIRECTIONS;
@@ -112,13 +113,13 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		Coal nextcoal = new Coal();
 		nextcoal.updatePosition(490, 400);
 
-		Mineral nextcoal2 = new Mineral(MINERAL_TYPES.DIAMOND);
+		Mineral nextcoal2 = new Mineral(MINERAL_TYPES.DIAMOND_ORE);
 		nextcoal2.updatePosition(440, 400);
 		lastreference.onTake(nextcoal2, null);
 		lastreference.onTake(nextcoal, null);
 		UIUX.targetinfo = lastreference;
 		SingleInserter inserter = new SingleInserter(new Point(200,  200), DIRECTIONS.NORTH);
-		inserter.onTake(new Mineral(MINERAL_TYPES.IRON), null);
+		inserter.onTake(new Mineral(MINERAL_TYPES.IRON_ORE), null);
 
 		Camera.setView(new Point(0,0), 1);
 		//System.out.println("opened with "+xmax+" "+ymax);
@@ -285,7 +286,7 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		// TODO Auto-generated method stub
 		if (isSelectionOpen()) {
-			UIUX.scrollSelect(arg0.getWheelRotation());
+			UIUX.scrollSelect(arg0.getWheelRotation(), arg0.getX());
 		}
 		else {
 			Camera.updateZoomByWheel(arg0.getWheelRotation());
@@ -310,6 +311,10 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 	public void updatePlacement(MouseEvent arg0) {
 		int globalX = Camera.inverseX(arg0.getX());
 		int globalY = Camera.inverseY(arg0.getY());
+		if (UIUX.toPlace instanceof PlaceableItem) {
+			UIUX.setTargetPlacement(new Point(globalX,globalY));
+			return;
+		}
 		globalX = (int) (Math.floor(globalX/50.0)*50);
 		globalY = (int) (Math.floor(globalY/50.0)*50);
 		UIUX.setTargetPlacement(new Point(globalX, globalY));

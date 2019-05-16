@@ -42,7 +42,8 @@ public class Mineral extends GenericGameObject {
 		}
     }
 
-    public void makeNotOre0() {
+    public void makeNotOre() {
+    	isOre = false;
 		switch (type) {
 			case IRON_ORE:
 				type = MINERAL_TYPES.IRON;

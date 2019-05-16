@@ -27,8 +27,8 @@ public class RegularChestTile extends Placeable {
 	}
 
 	@Override
-	public Structure onPlace(int xloc, int yloc) {
-		return new RegularChest(new Point(xloc, yloc), cdir);
+	public void onPlace(int xloc, int yloc) {
+		new RegularChest(new Point(xloc, yloc), cdir);
 	}
 
 	@Override

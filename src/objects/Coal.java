@@ -6,7 +6,7 @@ import assets.ItemsAssets;
 import properties.Fuel;
 
 public class Coal extends GenericGameObject implements Fuel {
-	public int fuelValue = 10;
+	public int fuelValue = 20*1000;
     public Coal() {
         super();
     }

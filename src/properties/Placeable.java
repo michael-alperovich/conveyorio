@@ -11,10 +11,10 @@ public abstract class Placeable extends Viewable{
 	}
 	public abstract String getName();
 	public abstract BufferedImage onRender(); // animated placables?
-	public abstract Structure onPlace(int xloc, int yloc);
+	public abstract void onPlace(int xloc, int yloc);
 	public abstract void onRotate();
-	public Structure onPlace(Point inputPoint) {
-		return onPlace(inputPoint.getX(), inputPoint.getY());		
+	public void onPlace(Point inputPoint) {
+		onPlace(inputPoint.getX(), inputPoint.getY());		
 	}
 	
 }

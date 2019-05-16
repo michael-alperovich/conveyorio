@@ -21,8 +21,8 @@ public class ConveyorTile extends Placeable{
 
 
 	@Override
-	public Structure onPlace(int xloc, int yloc) {
-		return new Conveyor(new Point(xloc,yloc) ,dir);
+	public void onPlace(int xloc, int yloc) {
+		new Conveyor(new Point(xloc,yloc) ,dir);
 	}
 
 	@Override

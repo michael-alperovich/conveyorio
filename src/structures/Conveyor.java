@@ -71,6 +71,9 @@ public class Conveyor extends Structure {
     public void onUpdate(Graphics g, ImageObserver ref) {
         // update object positions
         updateReference();
+        if (next == null) {
+        	voided.clear();
+        }
         long time = System.currentTimeMillis();
         int cSecondPeriod = (int) (time % 1000);
         cSecondPeriod /= 20;

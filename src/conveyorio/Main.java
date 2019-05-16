@@ -61,6 +61,13 @@ public class Main {
 			e.printStackTrace();
 
 		}
+		try {
+			FurnaceAssets.loadAssets();
+		} catch (Exception e) {
+			System.out.println("[-] Furnace Assets Failed to Load Assets");
+			e.printStackTrace();
+
+		}
 		return Responses.OK;
 	}
 }

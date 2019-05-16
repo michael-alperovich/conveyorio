@@ -21,7 +21,7 @@ public class SingleInserter extends Structure {
     public long lastTime = System.currentTimeMillis();
     public int angle;
     public boolean canMove;
-    private Structure source, sink;
+    public Structure source, sink;
     private final int RADIUS = 37;
     public Point center;
 
@@ -193,7 +193,7 @@ public class SingleInserter extends Structure {
     }
 
 	@Override
-	void onRemove(GenericGameObject g) {
+	public void onRemove(GenericGameObject g) {
 		voided.remove(g);
 		objects.remove(g);
 		object = null;

@@ -17,15 +17,11 @@ public class NullTile extends Placeable{
 	}
 
 	@Override
-	public Structure onPlace(int xloc, int yloc) {
-		// TODO Auto-generated method stub
-		return null;
+	public void onPlace(int xloc, int yloc) {
 	}
 
 	@Override
-	public void onRotate() {
-		// TODO Auto-generated method stub
-		
+	public void onRotate() {		
 	}
 
 	@Override

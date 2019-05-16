@@ -21,16 +21,16 @@ public class RegularChest extends Structure {
 		g2.drawImage(ChestAssets.getOrientation(direction), Camera.remapX(location.getX()), Camera.remapY(location.getY()), Camera.resizedX(50), Camera.resizedY(50), ref);
 	}
 	@Override
-	boolean canReceive(GenericGameObject object) {
+	public boolean canReceive(GenericGameObject object) {
 		return true;
 	}
 	@Override
-	void onTake(GenericGameObject g, Structure source) {
+	public void onTake(GenericGameObject g, Structure source) {
 		// TODO Auto-generated method stub
 		objects.add(g);
 	}
 	@Override
-	void onRemove(GenericGameObject g) {
+	public void onRemove(GenericGameObject g) {
 		// TODO Auto-generated method stub
 		objects.remove(g);
 	}
