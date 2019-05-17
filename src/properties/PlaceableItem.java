@@ -25,7 +25,7 @@ public abstract class PlaceableItem extends Placeable {
 		if (target == null) {return;}
 		GenericGameObject object = getObject();
 		object.updatePosition(xloc, yloc);
-		if (target.canReceive(object)) {
+		if (target.canReceive(object, null)) {
 			target.onTake(object, null);
 		}
 	}
