@@ -84,7 +84,6 @@ public class Furnace extends Structure{
 
 	@Override
 	public void onRemove(GenericGameObject g) {
-		// TODO Auto-generated method stub
 		objects.remove(g);
 		
 	}

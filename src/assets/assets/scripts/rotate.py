@@ -20,3 +20,16 @@ def fixBackground(im):
                 pixdata[x, y] = (255, 255, 255, 0)
 
     img.save(im, "PNG")
+
+def fillImage(im,originalrgb,newrgba):
+    img = Image.open(im)
+    img = img.convert('RGBA')
+    pixdata = img.load()
+    width,height = img.size
+    width, height = img.size
+    for y in xrange(height):
+        for x in xrange(width):
+            if list(pixdata[x, y][:3]) == list(originalrgb[:3]):
+                pixdata[x, y] = tuple(newrgba)
+    img.save(im,"PNG")
+    
