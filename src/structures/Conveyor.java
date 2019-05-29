@@ -162,8 +162,7 @@ public class Conveyor extends Structure {
             double targetX2;
             if (object.getCurrentx() >= 0) {
                 targetX2 = (int) (object.getCurrentx() / 25) * 25 + 25;
-            }
-            else {
+            } else {
                 targetX2 = (int) (object.getCurrentx() / 25) * 25 - 25;
             }
             if (Math.abs(targetX1 - object.getCurrentx()) < Math.abs(targetX2 - object.getCurrentx())) {
@@ -177,8 +176,7 @@ public class Conveyor extends Structure {
             double targetY2;
             if (object.getCurrentx() >= 0) {
                 targetY2 = (int) (object.getCurrenty() / 25) * 25 - 25;
-            }
-            else {
+            } else {
                 targetY2 = (int) (object.getCurrenty() / 25) * 25 - 25;
             }
 
@@ -196,8 +194,7 @@ public class Conveyor extends Structure {
             double targetX2;
             if (object.getCurrentx() >= 0) {
                 targetX2 = (int) (object.getCurrentx() / 25) * 25 + 25;
-            }
-            else {
+            } else {
                 targetX2 = (int) (object.getCurrentx() / 25) * 25 - 25;
             }
             if (Math.abs(targetX1 - object.getCurrentx()) < Math.abs(targetX2 - object.getCurrentx())) {
@@ -211,8 +208,7 @@ public class Conveyor extends Structure {
             double targetY2;
             if (object.getCurrentx() >= 0) {
                 targetY2 = (int) (object.getCurrenty() / 25) * 25 - 25;
-            }
-            else {
+            } else {
                 targetY2 = (int) (object.getCurrenty() / 25) * 25 - 25;
             }
 
@@ -280,17 +276,19 @@ public class Conveyor extends Structure {
     public boolean canReceive(GenericGameObject object, Structure source) {
         double[] coordinates = toLocal(object.getCurrentx(), object.getCurrenty());
         double fixedPosition = toLocalFixed(object);
+        if ((source instanceof Conveyor) && (((Conveyor) source).direction != this.direction)) {
+            fixedPosition = Math.max(Math.min(25, toLocalFixed(object)), 0);
+        }
         if (!(source instanceof Conveyor)) {
             if (Math.abs(fixedPosition) < 0 || Math.abs(fixedPosition) > 25) {
                 return false;
             }
             fixObjectPosition(object);
-
         }
         for (GenericGameObject storedObject : objects) {
-            if (!(toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] > coordinates[1] + object.dimx ||
-                    toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] + storedObject.dimx < coordinates[1])) {
-                if (Math.abs(toLocalFixed(storedObject) - toLocalFixed(object)) < 10E-5) { //TODO broken
+            if (!(toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] >= coordinates[1] + object.dimx ||
+                    toLocal(storedObject.getCurrentx(), storedObject.getCurrenty())[1] + storedObject.dimx <= coordinates[1])) {
+                if (Math.abs(fixedPosition - toLocalFixed(storedObject)) < 10E-5) {
                     return false;
                 }
             }
