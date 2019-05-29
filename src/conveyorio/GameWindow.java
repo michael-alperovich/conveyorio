@@ -93,33 +93,33 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 		debugfps = false;
 
 
-		for (int i = 0; i < 9; i++) {
-			Conveyor c = new Conveyor(new Point(0, 50 * i), DIRECTIONS.NORTH);
-			new Conveyor(new Point(400,-50 + (50 * i)),DIRECTIONS.SOUTH);
-			if (i == 8) {
-				Coal coal = new Coal();
-
-				coal.updatePosition(0, 50 * i + 25);
-				c.onTake(coal, null);
-			}
-		}
-
-		Conveyor lastreference = new Conveyor(new Point(50*(0+1),400),DIRECTIONS.WEST);
-		for(int i = 1; i < 9;i++) {
-			new Conveyor(new Point(50*i-50,-50),DIRECTIONS.EAST);
-			lastreference = new Conveyor(new Point(50*(i + 1),400),DIRECTIONS.WEST);
-		}
-
-		Coal nextcoal = new Coal();
-		nextcoal.updatePosition(490, 400);
-
-		Mineral nextcoal2 = new Mineral(MINERAL_TYPES.DIAMOND_ORE);
-		nextcoal2.updatePosition(440, 400);
-		lastreference.onTake(nextcoal2, null);
-		lastreference.onTake(nextcoal, null);
-		UIUX.targetinfo = lastreference;
-		SingleInserter inserter = new SingleInserter(new Point(200,  200), DIRECTIONS.NORTH);
-		inserter.onTake(new Mineral(MINERAL_TYPES.IRON_ORE), null);
+//		for (int i = 0; i < 9; i++) {
+//			Conveyor c = new Conveyor(new Point(0, 50 * i), DIRECTIONS.NORTH);
+//			new Conveyor(new Point(400,-50 + (50 * i)),DIRECTIONS.SOUTH);
+//			if (i == 8) {
+//				Coal coal = new Coal();
+//
+//				coal.updatePosition(0, 50 * i + 25);
+//				c.onTake(coal, null);
+//			}
+//		}
+//
+//		Conveyor lastreference = new Conveyor(new Point(50*(0+1),400),DIRECTIONS.WEST);
+//		for(int i = 1; i < 9;i++) {
+//			new Conveyor(new Point(50*i-50,-50),DIRECTIONS.EAST);
+//			lastreference = new Conveyor(new Point(50*(i + 1),400),DIRECTIONS.WEST);
+//		}
+//
+//		Coal nextcoal = new Coal();
+//		nextcoal.updatePosition(490, 400);
+//
+//		Mineral nextcoal2 = new Mineral(MINERAL_TYPES.DIAMOND_ORE);
+//		nextcoal2.updatePosition(440, 400);
+//		lastreference.onTake(nextcoal2, null);
+//		lastreference.onTake(nextcoal, null);
+//		UIUX.targetinfo = lastreference;
+//		SingleInserter inserter = new SingleInserter(new Point(200,  200), DIRECTIONS.NORTH);
+//		inserter.onTake(new Mineral(MINERAL_TYPES.IRON_ORE), null);
 
 		Camera.setView(new Point(0,0), 1);
 		//System.out.println("opened with "+xmax+" "+ymax);
