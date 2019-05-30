@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import objects.GuiTiles.CoalTile;
 import objects.GuiTiles.ConveyorTile;
+import objects.GuiTiles.CurvedConveyorTile;
 import objects.GuiTiles.DiamondOreTile;
 import objects.GuiTiles.DiamondTile;
 import objects.GuiTiles.FuranceTile;
@@ -171,10 +172,12 @@ public class UIUX {
 		
 		options.add(new NullTile());
 		options.add(new ConveyorTile());
+		options.add(new CurvedConveyorTile());
 		options.add(new InserterTile());
 		options.add(new RegularChestTile());
 		options.add(new FuranceTile());
 		options.add(new FurnaceInserterTile());
+		
 		itemplaceable.add(new IronOreTile());
 		itemplaceable.add(new DiamondOreTile());
 		itemplaceable.add(new CoalTile());

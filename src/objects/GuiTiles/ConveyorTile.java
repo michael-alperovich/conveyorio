@@ -11,9 +11,6 @@ import structures.Structure;
 
 public class ConveyorTile extends Placeable{
 	public DIRECTIONS dir = DIRECTIONS.EAST;
-	
-	
-
 	public ConveyorTile() {
 		super(50,50);
 	}

@@ -32,6 +32,6 @@ public abstract class PlaceableItem extends Placeable {
 	public abstract void onSwitch();
 	public abstract GenericGameObject getObject();
 	
-	public void onRotate() {onRotate();};
+	public void onRotate() {onSwitch();};
 
 }
