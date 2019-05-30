@@ -121,7 +121,7 @@ public class SingleInserter extends Structure {
             }
         }
         else if (angle == 180) {
-            if (sink != null && object != null && sink.canReceive(object)) {
+            if (sink != null && object != null && sink.canReceive(object, this)) {
                 sink.onTake(object, this);
                 voided.remove(object);
                 objects.remove(object);
@@ -151,7 +151,7 @@ public class SingleInserter extends Structure {
     	return true;
     }
     @Override
-    public boolean canReceive(GenericGameObject object) {
+    public boolean canReceive(GenericGameObject object, Structure s) {
         return (angle == 0 && this.object == null);
     }
     public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {

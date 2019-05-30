@@ -134,7 +134,7 @@ public abstract class Structure extends Viewable{
 	public void onDelete() {
 		World.removeTile(this);
 	}
-	public abstract boolean canReceive(GenericGameObject object);
+	public abstract boolean canReceive(GenericGameObject object, Structure source);
 	public abstract void onTake(GenericGameObject g, Structure source);
 	public abstract void onRemove(GenericGameObject g);
 	public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {

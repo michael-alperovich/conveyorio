@@ -58,7 +58,7 @@ public class Furnace extends Structure{
 	}
 
 	@Override
-	public boolean canReceive(GenericGameObject object) {
+	public boolean canReceive(GenericGameObject object, Structure s) {
 		// TODO Auto-generated method stub
 		return (object instanceof Mineral &&  orelist.size() < 4 ) || (object instanceof Fuel && fuel < 5* smeltingTime) ;
 	}
