@@ -12,10 +12,10 @@ import conveyorio.UIUX;
 import conveyorio.World;
 import objects.GenericGameObject;
 
-public class Conveyor extends Structure {
+public class Conveyor extends ConveyorLike {
 
     private DIRECTIONS direction;
-    public Conveyor previous, next;
+    public ConveyorLike previous, next;
 
     private int[] updateVector;
     public long lastTime = System.currentTimeMillis();
@@ -33,32 +33,35 @@ public class Conveyor extends Structure {
     private void updateReference() {
         int targetx = location.getX() + 50 * updateVector[0];
         int targety = location.getY() + 50 * updateVector[1];
-        if (World.getTileAt(new Point(targetx, targety)) instanceof Conveyor) {
-            next = (Conveyor) World.getTileAt(new Point(targetx, targety));
-        } else {
+        if (World.getTileAt(new Point(targetx, targety)) instanceof ConveyorLike) {
+            next = (ConveyorLike) World.getTileAt(new Point(targetx, targety));
+        }
+        else {
             next = null;
         }
         targetx = location.getX() - 50 * updateVector[0];
         targety = location.getY() - 50 * updateVector[1];
 
-        if (World.getTileAt(new Point(targetx, targety)) instanceof Conveyor) {
-            previous = (Conveyor) World.getTileAt(new Point(targetx, targety));
+        if (World.getTileAt(new Point(targetx, targety)) instanceof ConveyorLike) {
+            previous = (ConveyorLike) World.getTileAt(new Point(targetx, targety));
         } else {
             previous = null;
         }
 
-        if (next == null || next.direction != this.direction) {
+        if (next == null || next.getDirection(false) != this.direction) {
             World.registerSink(this);
         }
-        if (previous != null && previous.direction == this.direction && World.conveyorSources.contains(previous.location)) {
-            World.deregisterSink(previous);
+        if (previous != null && previous.getDirection(true) == this.direction) {
+            if (World.conveyorSources.contains(previous.location)) {
+                World.deregisterSink(previous);
+            }
         } else {
             previous = null;
         }
-        if (next != null && next.direction == this.direction) {
+        if (next != null && next.getDirection(false) == this.direction) {
             next.previous = this;
         }
-        if (previous != null && previous.direction == this.direction) {
+        if (previous != null && previous.getDirection(true) == this.direction) {
             previous.next = this;
         }
     }
@@ -103,7 +106,7 @@ public class Conveyor extends Structure {
                 if (next != null) { // if next conveyor exists
                     if (!next.objects.contains(object) && !voided.contains(object)) {// if object is not on next yet
                         if (next.canReceive(object, this)) {
-                            if (next.direction != this.direction) {
+                            if (next.getDirection(false) != this.direction) {
 
                                 object.updatePosition(object.getCurrentx() + updateVector[0] * 25,
                                         object.getCurrenty() + updateVector[1] * 25);
@@ -205,8 +208,8 @@ public class Conveyor extends Structure {
 
             double targetY1 = (int) (object.getCurrenty() / 25) * 25;
             double targetY2;
-            if (object.getCurrentx() >= 0) {
-                targetY2 = (int) (object.getCurrenty() / 25) * 25 - 25;
+            if (object.getCurrenty() >= 0) {
+                targetY2 = (int) (object.getCurrenty() / 25) * 25 + 25;
             } else {
                 targetY2 = (int) (object.getCurrenty() / 25) * 25 - 25;
             }
@@ -274,7 +277,7 @@ public class Conveyor extends Structure {
     @Override
     public boolean canReceive(GenericGameObject object, Structure source) {
         double[] coordinates = toLocal(object.getCurrentx(), object.getCurrenty());
-        if (!(source instanceof Conveyor)) {
+        if (!(source instanceof ConveyorLike)) {
             double fixedPosition = toLocalFixed(object);
             if (fixedPosition < 0 || fixedPosition > 25) {
                 return false;
@@ -334,4 +337,8 @@ public class Conveyor extends Structure {
     }
 
 
+    @Override
+    public DIRECTIONS getDirection(boolean asNext) {
+        return this.direction;
+    }
 }
