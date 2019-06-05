@@ -11,6 +11,7 @@ import java.util.Map.Entry;
  * Rendering Chunk, Can Render noGraphic or Graphics.
  */
 import structures.Conveyor;
+import structures.ConveyorLike;
 import structures.Structure;
 
 
@@ -58,7 +59,7 @@ public class World {
 		return  world.getOrDefault(targetPoint,null);
 	}
 
-	public static void registerSink(Conveyor previous) {
+	public static void registerSink(ConveyorLike previous) {
 		if(previous == null) {
 			return;
 		}
@@ -66,7 +67,7 @@ public class World {
 		
 	}
 	
-	public static void deregisterSink(Conveyor previous) {
+	public static void deregisterSink(ConveyorLike previous) {
 		conveyorSources.remove(previous.location);
 	}
 
