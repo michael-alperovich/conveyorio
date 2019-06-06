@@ -118,6 +118,7 @@ public class SingleInserter extends Structure {
             }
             else {
                 canMove = object != null;
+                lastTime = System.currentTimeMillis();
             }
         }
         else if (angle == 180) {
@@ -129,14 +130,19 @@ public class SingleInserter extends Structure {
             }
             else {
                 canMove = object == null;
+                lastTime = System.currentTimeMillis();
             }
         }
         if (canMove) {
             long time = System.currentTimeMillis();
-            if (time - lastTime > updateDelay) {
-                angle = (angle + 1) % 360;
-                lastTime = time;
+            if (angle < 180) {
+                angle = ((int)Math.min(angle + (time - lastTime) / updateDelay, 180)) % 360;
             }
+            else {
+                angle = ((int)Math.min(angle + (time - lastTime) / updateDelay, 360)) % 360;
+
+            }
+            lastTime = time;
         }
     }
 
