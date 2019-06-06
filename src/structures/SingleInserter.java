@@ -118,7 +118,6 @@ public class SingleInserter extends Structure {
             }
             else {
                 canMove = object != null;
-                lastTime = System.currentTimeMillis();
             }
         }
         else if (angle == 180) {
@@ -130,7 +129,6 @@ public class SingleInserter extends Structure {
             }
             else {
                 canMove = object == null;
-                lastTime = System.currentTimeMillis();
             }
         }
         if (canMove) {
@@ -143,6 +141,9 @@ public class SingleInserter extends Structure {
 
             }
             lastTime = time;
+        }
+        else {
+            lastTime = System.currentTimeMillis();
         }
     }
 
