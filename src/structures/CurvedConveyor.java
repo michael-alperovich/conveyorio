@@ -110,7 +110,7 @@ public class CurvedConveyor extends ConveyorLike {
 		for(int idx = 0; idx < outerSection.size();idx+= 0) {
 			PairAngle thetaProgress = outerSection.get(idx);
 			if (thetaProgress.angl == 90) {
-				if (next.canReceive(thetaProgress.ggo, this)) {
+				if (next != null && next.canReceive(thetaProgress.ggo, this)) {
 					next.onTake(outerSection.get(idx).ggo, this);
 					outerSection.remove(idx);
 				}
@@ -123,7 +123,7 @@ public class CurvedConveyor extends ConveyorLike {
 					thetaProgress.angl = (int) Math.min(90, thetaProgress.angl + (cTime/1000.0)*(45));
 				}
 				else {
-					thetaProgress.angl = (int) Math.min(outerSection.get(idx-1).angl + outerTheta, thetaProgress.angl + (cTime/1000.0)*(45));
+					thetaProgress.angl = (int) Math.min(outerSection.get(idx-1).angl - outerTheta, thetaProgress.angl + (cTime/1000.0)*(45));
 					updateNewCords(thetaProgress);
 				}
 				
@@ -133,8 +133,9 @@ public class CurvedConveyor extends ConveyorLike {
 				case NORTH:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 50, location.getY() + 50,35,180-thetaProgress.angl);
-						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(gcords[0]), Camera.remapY(gcords[1]),Camera.resizedX(25),Camera.resizedY(25),ref);
+						int[] gcords = rotate(location.getX() + 50, location.getY() + 50,50,180-thetaProgress.angl);
+						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
+						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
 					else {
 						
@@ -143,8 +144,9 @@ public class CurvedConveyor extends ConveyorLike {
 				case EAST:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 0, location.getY() + 50,35,90-thetaProgress.angl);
-						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(gcords[0]), Camera.remapY(gcords[1]),Camera.resizedX(25),Camera.resizedY(25),ref);
+						int[] gcords = rotate(location.getX() + 0, location.getY() + 50,50,90-thetaProgress.angl);
+						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
+						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
 					else {
 						
@@ -153,8 +155,9 @@ public class CurvedConveyor extends ConveyorLike {
 				case WEST:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 50, location.getY() + 0,35,270-thetaProgress.angl);
-						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(gcords[0]), Camera.remapY(gcords[1]),Camera.resizedX(25),Camera.resizedY(25),ref);
+						int[] gcords = rotate(location.getX() + 50, location.getY() + 0,50,270-thetaProgress.angl);
+						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
+						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
 					else {
 						
@@ -163,8 +166,9 @@ public class CurvedConveyor extends ConveyorLike {
 				case SOUTH:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 0, location.getY() + 0,35,-thetaProgress.angl);
-						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(gcords[0]), Camera.remapY(gcords[1]),Camera.resizedX(25),Camera.resizedY(25),ref);
+						int[] gcords = rotate(location.getX() + 0, location.getY() + 0,50,-thetaProgress.angl);
+						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
+						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
 					else {
 						
@@ -221,7 +225,7 @@ public class CurvedConveyor extends ConveyorLike {
     }
 	
 	public int[] rotate(int ox, int oy, int r,  int theta) {
-		return new int[] {(int) (ox + r*Math.cos(Math.toRadians(theta))), (int) (oy + r * Math.sin(Math.toRadians(theta))) };
+		return new int[] {(int) (ox - 25 + r*Math.cos(Math.toRadians(theta))), (int) (oy - 25 - r * Math.sin(Math.toRadians(theta))) };
 	}
 	
 	@Override
@@ -230,7 +234,7 @@ public class CurvedConveyor extends ConveyorLike {
 		System.out.println(dir +"  "+ clockwise +"  "+ outerSection.size());
 		if (clockwise) {
 			if (dir == 0) {
-				return outerSection.size() == 0 || (outerSection.get(outerSection.size()-1).angl - 0) > outerTheta;
+				return outerSection.size() == 0 || (outerSection.get(outerSection.size() - 1).angl) > outerTheta;
 			}
 			else {
 				// assuem 25
