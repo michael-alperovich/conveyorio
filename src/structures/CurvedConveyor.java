@@ -1,5 +1,6 @@
 package structures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
@@ -77,6 +78,7 @@ public class CurvedConveyor extends ConveyorLike {
 		}
 		updateVector = Conveyor.toVector(trueDirection);
 		backUpdateVector = Conveyor.toVector(backDirection);
+		System.out.println(trueDirection + " "+backDirection);
 	}
 
 	private void updateReference() {
@@ -100,7 +102,9 @@ public class CurvedConveyor extends ConveyorLike {
 	@Override
 	public void onUpdate(Graphics g, ImageObserver ref) {
 		updateReference();
-		long cTime = System.currentTimeMillis();
+		int maxAngle = 70;
+		long cTime = System.currentTimeMillis()-lastTime;
+		lastTime = System.currentTimeMillis();
 		Graphics2D g2 = (Graphics2D)g;
 		long time = System.currentTimeMillis() % 500;
 		time /= 5;
@@ -109,7 +113,7 @@ public class CurvedConveyor extends ConveyorLike {
 		//for(int obj =0; obj < )
 		for(int idx = 0; idx < outerSection.size();idx+= 0) {
 			PairAngle thetaProgress = outerSection.get(idx);
-			if (thetaProgress.angl == 90) {
+			if (thetaProgress.angl == maxAngle) {
 				if (next != null && next.canReceive(thetaProgress.ggo, this)) {
 					next.onTake(outerSection.get(idx).ggo, this);
 					outerSection.remove(idx);
@@ -120,11 +124,10 @@ public class CurvedConveyor extends ConveyorLike {
 			}
 			else {
 				if (idx == 0) {
-					thetaProgress.angl = (int) Math.min(90, thetaProgress.angl + (cTime/1000.0)*(45));
+					thetaProgress.angl = (double) Math.min(maxAngle, thetaProgress.angl + (cTime/1000.0)*(135));
 				}
 				else {
-					thetaProgress.angl = (int) Math.min(outerSection.get(idx-1).angl - outerTheta, thetaProgress.angl + (cTime/1000.0)*(45));
-					updateNewCords(thetaProgress);
+					thetaProgress.angl = (double) Math.min(outerSection.get(idx-1).angl - outerTheta, thetaProgress.angl + (cTime/1000.0)*(135));
 				}
 				
 				idx ++;
@@ -133,45 +136,57 @@ public class CurvedConveyor extends ConveyorLike {
 				case NORTH:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 50, location.getY() + 50,50,180-thetaProgress.angl);
+						int[] gcords = rotate(location.getX() + 0, location.getY() + 0,40,-thetaProgress.angl);
 						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
 						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
 					else {
-						
+						int[] gcords = rotate(location.getX() + 50, location.getY() + 0,30,180 + thetaProgress.angl);
+						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
+						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
+					
 					}
 					break;
 				case EAST:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 0, location.getY() + 50,50,90-thetaProgress.angl);
+						int[] gcords = rotate(location.getX() + 0, location.getY() + 50,40,90-thetaProgress.angl);
 						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
 						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
 					else {
-						
+						int[] gcords = rotate(location.getX() + 0, location.getY() + 0,30,270 + thetaProgress.angl);
+						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
+						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
+					
 					}
 					break;
 				case WEST:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 50, location.getY() + 0,50,270-thetaProgress.angl);
+						int[] gcords = rotate(location.getX() + 50, location.getY() + 0,40,270-thetaProgress.angl);
 						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
 						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
 					else {
-						
+						int[] gcords = rotate(location.getX() + 50, location.getY() + 50,30,90 + thetaProgress.angl);
+						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
+						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
+					
 					}
 					break;
 				case SOUTH:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 0, location.getY() + 0,50,-thetaProgress.angl);
+						int[] gcords = rotate(location.getX() + 50, location.getY() + 50,40,180-thetaProgress.angl);
 						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
 						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
 					else {
-						
+						int[] gcords = rotate(location.getX() + 0, location.getY() + 50,30, thetaProgress.angl);
+						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
+						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
+					
 					}
 					break;
 
@@ -187,10 +202,7 @@ public class CurvedConveyor extends ConveyorLike {
 		
 	}
 	
-	private void updateNewCords(PairAngle thetaProgress) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	private double toLocalFixed(GenericGameObject object) {
         if (this.backDirection == DIRECTIONS.NORTH || this.backDirection == DIRECTIONS.SOUTH) {
@@ -224,31 +236,20 @@ public class CurvedConveyor extends ConveyorLike {
         }
     }
 	
-	public int[] rotate(int ox, int oy, int r,  int theta) {
-		return new int[] {(int) (ox - 25 + r*Math.cos(Math.toRadians(theta))), (int) (oy - 25 - r * Math.sin(Math.toRadians(theta))) };
+	public int[] rotate(int ox, int oy, int r,  double d) {
+		return new int[] {(int) (ox - 25 + r*Math.cos(Math.toRadians(d))), (int) (oy - 25 - r * Math.sin(Math.toRadians(d))) };
 	}
 	
 	@Override
 	public boolean canReceive(GenericGameObject object, Structure source) {
 		double dir = toLocalFixed(object);
-		System.out.println(dir +"  "+ clockwise +"  "+ outerSection.size());
 		if (clockwise) {
-			if (dir == 0) {
-				return outerSection.size() == 0 || (outerSection.get(outerSection.size() - 1).angl) > outerTheta;
-			}
-			else {
-				// assuem 25
-				return false;
-			}
+			return outerSection.size() == 0 || (outerSection.get(outerSection.size() - 1).angl) > outerTheta;
+			
 		}
 		else {
-			if (dir == 25) {
-				return outerSection.size() == 0 || (outerSection.get(outerSection.size()-1).angl - 0) > outerTheta;
-			}
-			else {
-				// assuem 25
-				return false;
-			}
+			return outerSection.size() == 0 || (outerSection.get(outerSection.size()-1).angl - 0) > outerTheta;
+			
 		}
 		
 	}
@@ -258,22 +259,14 @@ public class CurvedConveyor extends ConveyorLike {
 		
 		
 		double dir = toLocalFixed(object);
-		System.out.println("onTake: "+dir);
 		if (clockwise) {
-			if (dir == 0) {
 				outerSection.add(new PairAngle(object, 0));
-			}
-			else {
-				// assuem 25
-			}
+			
 		}
 		else {
-			if (dir == 25) {
+			
 				outerSection.add(new PairAngle(object, 0));
-			}
-			else {
-				// assuem 25
-			}
+			
 		}
 		System.out.println(outerSection.size());
 	}
@@ -295,11 +288,46 @@ public class CurvedConveyor extends ConveyorLike {
 		// TODO Auto-generated method stub
 		
 	}
+	public void displayGUI(Graphics g, ImageObserver ref, int xWindowSize, int yWindowSize) {
+        Graphics2D g2 = (Graphics2D) g;
+        g.setColor(new Color(100, 100, 100));
+        g.fillRect(xWindowSize - 200, 0, xWindowSize, 500);
+        g.setColor(new Color(255, 255, 100));
+        g2.drawString("Curved Conveyor Belt", xWindowSize - 190, 20);
+        g2.drawString(this.toString(), xWindowSize - 190, 40);
+        g.setColor(new Color(255, 255, 255));
+        g2.drawString("Direction: " + this.direction, xWindowSize - 190, 70);
+        g2.drawString("Cordinates: " + location.toString(), xWindowSize - 170, 180);
+        if (this.previous == null) {
+            g.setColor(new Color(255, 0, 0));
+            g2.drawString("Previous Reference: nullref", xWindowSize - 170, 90);
+        } else {
+            g.setColor(new Color(0, 255, 0));
+            g2.drawString("Previous Reference: ", xWindowSize - 170, 90);
+            g2.drawString(this.previous.toString(), xWindowSize - 190, 120);
+        }
+
+        if (this.next == null) {
+            g.setColor(new Color(255, 0, 0));
+            g2.drawString("Next Reference: nullref", xWindowSize - 170, 140);
+        } else {
+            g.setColor(new Color(0, 255, 0));
+            g2.drawString("Next Reference: ", xWindowSize - 170, 140);
+            g2.drawString(this.next.toString(), xWindowSize - 190, 160);
+        }
+        g.setColor(new Color(255, 255, 0));
+        g2.drawString("BackDirection: " + this.backDirection, xWindowSize - 190, 200);
+        g.setColor(new Color(255, 255, 0));
+        g2.drawString("FrontDirection: " + this.trueDirection, xWindowSize - 190, 240);
+        g2.drawString("Clockwise: "+clockwise, xWindowSize-190, 260);
+        
+    }
+	
 }
 class PairAngle{
 	public GenericGameObject ggo;
-	public int angl;
-	public PairAngle( GenericGameObject a, int b) {
+	public double angl;
+	public PairAngle( GenericGameObject a, double b) {
 		angl = b;
 		ggo = a;
 	}
