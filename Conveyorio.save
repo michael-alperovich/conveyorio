@@ -1,0 +1,80 @@
+Furnace 0 0
+Conveyor 100 100 SOUTH
+Furnace -200 50
+Conveyor -300 -50 SOUTH
+CurvedConveyor -300 200 WEST n
+Conveyor 200 -300 WEST
+Conveyor -350 -300 EAST
+FuranceInserter -50 0 WEST
+FuranceInserter -150 -100 EAST
+Inserter 50 0 WEST
+Inserter -250 50 EAST
+Conveyor -100 -250 SOUTH
+Conveyor 250 -300 WEST
+Conveyor -400 -300 EAST
+Conveyor -100 0 SOUTH
+Furnace -200 -100
+Conveyor 100 0 SOUTH
+Conveyor -300 50 SOUTH
+Conveyor 300 -300 WEST
+Conveyor -450 -300 EAST
+FuranceInserter -50 100 WEST
+FuranceInserter -150 0 EAST
+Inserter -250 -100 EAST
+Inserter 50 -100 WEST
+Conveyor -100 -400 SOUTH
+Conveyor 0 -300 WEST
+Conveyor -100 -150 SOUTH
+Furnace 0 -50
+Furnace 0 50
+Conveyor 100 150 SOUTH
+Conveyor 350 -300 WEST
+Conveyor -500 -300 EAST
+Conveyor -100 100 SOUTH
+Furnace -200 0
+Conveyor -300 -100 SOUTH
+Conveyor 100 -100 SOUTH
+Conveyor -50 -300 WEST
+Conveyor -300 150 SOUTH
+FuranceInserter -50 -50 WEST
+Inserter 50 50 WEST
+Conveyor 400 -300 WEST
+FuranceInserter -150 100 EAST
+Inserter -250 0 EAST
+Inserter -50 200 EAST
+Conveyor -100 -300 SOUTH
+Conveyor 0 200 WEST
+Conveyor -100 -50 SOUTH
+Conveyor 100 50 SOUTH
+Furnace -200 100
+Conveyor -300 0 SOUTH
+Chest -100 200 EAST
+Conveyor -150 -300 EAST
+Conveyor 50 200 WEST
+FuranceInserter -50 50 WEST
+FuranceInserter -150 -50 EAST
+Inserter 50 -50 WEST
+Inserter -250 100 EAST
+Inserter -150 200 WEST
+Conveyor 50 -300 WEST
+Conveyor -200 -300 EAST
+Conveyor -100 -200 SOUTH
+Furnace 0 -100
+Furnace 0 100
+CurvedConveyor 100 200 EAST y
+Conveyor -100 50 SOUTH
+Furnace -200 -50
+Conveyor 100 -50 SOUTH
+Conveyor -300 100 SOUTH
+Conveyor -200 200 EAST
+Conveyor 100 -300 WEST
+Conveyor -250 -300 EAST
+FuranceInserter -50 -100 WEST
+Inserter 50 100 WEST
+FuranceInserter -150 50 EAST
+Inserter -250 -50 EAST
+Conveyor -100 -350 SOUTH
+Conveyor -250 200 EAST
+Conveyor 150 -300 WEST
+Conveyor -300 -300 EAST
+Conveyor -100 -100 SOUTH

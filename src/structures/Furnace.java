@@ -24,7 +24,9 @@ public class Furnace extends Structure{
 		super(loc, 50,50);
 		// TODO Auto-generated constructor stub
 	}
-
+	public String getCode() {
+    	return String.format("Furnace %s %s", location.getX(),location.getY());
+    }
 	@Override
 	public void onUpdate(Graphics g, ImageObserver ref) {
 		// TODO Auto-generated method stub

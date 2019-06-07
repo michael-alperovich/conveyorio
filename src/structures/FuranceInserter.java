@@ -21,5 +21,8 @@ public class FuranceInserter extends SingleInserter{
 		
 		return false;
 	}
-
+	@Override
+	public String getCode() {
+		return String.format("FuranceInserter %s %s %s", super.location.getX(),super.location.getY(), super.direction);
+	}
 }

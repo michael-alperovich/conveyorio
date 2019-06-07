@@ -78,9 +78,10 @@ public class CurvedConveyor extends ConveyorLike {
 		}
 		updateVector = Conveyor.toVector(trueDirection);
 		backUpdateVector = Conveyor.toVector(backDirection);
-		System.out.println(trueDirection + " "+backDirection);
 	}
-
+	public String getCode() {
+    	return String.format("CurvedConveyor %s %s %s %s", location.getX(),location.getY(),direction, clockwise ? "y": "n");
+    }
 	private void updateReference() {
 		int targetx = location.getX() + 50 * updateVector[0];
 		int targety = location.getY() + 50 * updateVector[1];
@@ -164,7 +165,7 @@ public class CurvedConveyor extends ConveyorLike {
 				case WEST:
 					
 					if (clockwise) {
-						int[] gcords = rotate(location.getX() + 50, location.getY() + 0,40,270-thetaProgress.angl);
+						int[] gcords = rotate(location.getX() + 50, location.getY() + 0,20,270-thetaProgress.angl);
 						thetaProgress.ggo.updatePosition(gcords[0], gcords[1]);
 						g2.drawImage(thetaProgress.ggo.getIcon(), Camera.remapX(thetaProgress.ggo.getCurrentx()), Camera.remapY(thetaProgress.ggo.getCurrenty()),Camera.resizedX(25),Camera.resizedY(25),ref);
 					}
@@ -268,7 +269,6 @@ public class CurvedConveyor extends ConveyorLike {
 				outerSection.add(new PairAngle(object, 0));
 			
 		}
-		System.out.println(outerSection.size());
 	}
 
 

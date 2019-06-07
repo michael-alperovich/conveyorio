@@ -1,5 +1,7 @@
 package conveyorio;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -18,7 +20,13 @@ public class Main {
 
 	private static void openGame() throws Exception {
 		System.out.println("<---------------opening game animation---------->");
-		GameWindow g = new GameWindow(1000,700);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int targetWidth = screenSize.width-200;
+		targetWidth -= targetWidth % 50;
+		int targetHeight = screenSize.height-100;
+		targetHeight -= targetHeight % 50;
+		
+		GameWindow g = new GameWindow(targetWidth,targetHeight);
 		g.boot();
 	}
 

@@ -29,6 +29,9 @@ public class Conveyor extends ConveyorLike {
 
 
     }
+    public String getCode() {
+    	return String.format("Conveyor %s %s %s", location.getX(),location.getY(),direction);
+    }
 
     private void updateReference() {
         int targetx = location.getX() + 50 * updateVector[0];

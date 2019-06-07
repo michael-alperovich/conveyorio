@@ -15,7 +15,7 @@ import objects.GenericGameObject;
 
 public class SingleInserter extends Structure {
 
-    private DIRECTIONS direction;
+    public DIRECTIONS direction;
     public GenericGameObject object;
     private int updateDelay;
     public long lastTime = System.currentTimeMillis();
@@ -33,7 +33,9 @@ public class SingleInserter extends Structure {
         center = location.add(new Point(-12, -12));
         System.out.println(center);
     }
-
+    public String getCode() {
+		return String.format("Inserter %s %s %s", super.location.getX(),super.location.getY(), direction);
+	}
     private void checkConveyors() {
         int targetx = location.getX() + 50 * Conveyor.toVector(direction)[0];
         int targety = location.getY() + 50 * Conveyor.toVector(direction)[1];

@@ -146,6 +146,6 @@ public abstract class Structure extends Viewable{
 		g.setColor(new Color(255,255,255));
 		g2.drawString("this is an object: ",xWindowSize-190,150);
 		g2.drawString(location.toString(),xWindowSize-170,170);
-		
 	}
+	public abstract String getCode();
 }

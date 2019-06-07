@@ -15,6 +15,9 @@ public class RegularChest extends Structure {
 		super(loc, 50,50);
 		direction = d;
 	}
+	public String getCode() {
+		return String.format("Chest %s %s %s", super.location.getX(),super.location.getY(), direction);
+	}
 	@Override
 	public void onUpdate(Graphics g, ImageObserver ref) {
 		Graphics2D g2 = (Graphics2D) g;

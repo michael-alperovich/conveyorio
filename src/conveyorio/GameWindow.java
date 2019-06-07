@@ -65,7 +65,7 @@ public class GameWindow {
 	public void boot() {boot(false);}
 	public void boot(boolean fpstracking) {
 
-
+		World.readSave();
 		canv = new GameCavans(x,y);
 		mainFrame.add(canv, BorderLayout.NORTH);
 		mainFrame.setVisible(true);
@@ -117,15 +117,12 @@ class GameCavans extends JPanel implements KeyListener, ComponentListener, Mouse
 //		nextcoal2.updatePosition(440, 400);
 //		lastreference.onTake(nextcoal2, null);
 //		lastreference.onTake(nextcoal, null);
-//		UIUX.targetinfo = lastreference;
-//		SingleInserter inserter = new SingleInserter(new Point(200,  200), DIRECTIONS.NORTH);
-//		inserter.onTake(new Mineral(MINERAL_TYPES.IRON_ORE), null);
 
 		Camera.setView(new Point(0,0), 1);
-		//System.out.println("opened with "+xmax+" "+ymax);
 		setSize(windowX, windowY);
-		//setBackground(Color.WHITE);
+
 	}
+	
 	@Override
 	public void paintComponent (Graphics g) {
 		super.paintComponent(g);
