@@ -26,3 +26,5 @@ left click to place right click to remove ( supports dragging)
 
 
 All Save files are stored in WorldBackups in the same directory as the jar file.  Most current save is also duplicated into `Conveyorio.save`
+
+![alt text](https://raw.githubusercontent.com/michael-alperovich/conveyorio/master/ConveyorioScreenshot.png)
